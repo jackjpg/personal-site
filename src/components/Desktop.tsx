@@ -32,8 +32,8 @@ export default function Desktop() {
     const iconWidth = 132; // fixed tile width
     const iconHeight = 132; // align to 8px grid; label pill sits below but spacing drives layout
     
-    // Consistent spacing between icons (40px)
-    const spacing = 40; // 40px padding between icons
+    // Consistent spacing between icons (16px)
+    const spacing = 16; // 16px padding between icons
     const marginTop = 40;
     const marginRight = 40;
     
