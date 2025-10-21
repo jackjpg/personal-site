@@ -3,49 +3,66 @@ export interface Icon {
   label: string;
   kind: "route" | "link" | "mailto";
   href: string;
-  size: "L" | "S";
+  ratio: "square" | "portrait" | "landscape";
   img: string;
+  focal?: { x: number; y: number }; // 0–100 percentages, default {50,50}
 }
 
 export const icons: Icon[] = [
   {
-    id: "linkedin",
-    label: "LinkedIn",
-    kind: "link",
-    href: "https://www.linkedin.com/in/jack-parrish/",
-    size: "S",
-    img: "/Icons/LinkedIn.jpg"
-  },
-  {
-    id: "twitter",
-    label: "Twitter/X",
-    kind: "link",
-    href: "https://x.com/",
-    size: "S",
-    img: "/Icons/X.jpg"
-  },
-  {
-    id: "img1",
-    label: ".img",
+    id: "forest",
+    label: "FOREST.JPG",
     kind: "link",
     href: "https://example.com",
-    size: "S",
-    img: "/Icons/img1.jpg"
+    ratio: "landscape",
+    img: "/Icons/forest.jpg"
   },
   {
-    id: "img2",
-    label: ".img",
+    id: "sweden",
+    label: "SWEDEN.JPG",
     kind: "link",
     href: "https://example.com",
-    size: "S",
-    img: "/Icons/img2.jpg"
+    ratio: "landscape",
+    img: "/Icons/sweden.jpg"
   },
   {
-    id: "img3",
-    label: ".img",
+    id: "seenit-image",
+    label: "SEENIT.JPG",
     kind: "link",
     href: "https://example.com",
-    size: "S",
-    img: "/Icons/img3.jpeg"
+    ratio: "portrait",
+    img: "/Icons/seenit.jpg"
+  },
+  {
+    id: "cornfields",
+    label: "CORNFIELDS.JPG",
+    kind: "link",
+    href: "https://example.com",
+    ratio: "portrait",
+    img: "/Icons/cornfields.jpg"
+  },
+  {
+    id: "clouds",
+    label: "CLOUDS.JPG",
+    kind: "link",
+    href: "https://example.com",
+    ratio: "portrait",
+    img: "/Icons/clouds.jpg"
+  },
+  {
+    id: "post-sale",
+    label: "POST-SALE.JPG",
+    kind: "link",
+    href: "https://example.com",
+    ratio: "portrait",
+    img: "/Icons/post-sale@3x.jpg"
+  },
+  {
+    id: "verification",
+    label: "VERIFICATION.JPG",
+    kind: "link",
+    href: "https://example.com",
+    ratio: "portrait",
+    img: "/Icons/Verification@3x.jpg"
   }
 ];

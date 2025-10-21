@@ -1,5 +1,17 @@
 import type { Metadata } from "next";
+import { IBM_Plex_Mono, Inter } from "next/font/google";
+import Header from "@/components/Header";
 import "./globals.css";
+
+const ibmPlexMono = IBM_Plex_Mono({ 
+  subsets: ["latin"],
+  weight: ["400", "600"]
+});
+
+const inter = Inter({ 
+  subsets: ["latin"],
+  weight: ["500"]
+});
 
 export const metadata: Metadata = {
   title: "Jack's Desktop",
@@ -13,7 +25,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className={`${ibmPlexMono.className} antialiased`}>
+        <Header interClassName={inter.className} />
         {children}
       </body>
     </html>
