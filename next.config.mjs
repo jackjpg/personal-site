@@ -13,7 +13,6 @@ const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   images: {
     formats: ['image/webp', 'image/avif'],
-    minimumCacheTTL: 60,
   },
 }
 
