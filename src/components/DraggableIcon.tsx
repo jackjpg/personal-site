@@ -32,7 +32,6 @@ export default function DraggableIcon({
   const router = useRouter();
   const [isDragging, setIsDragging] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const [needsScroll, setNeedsScroll] = useState(false);
   const textContentRef = useRef<HTMLDivElement>(null);
   const textContainerRef = useRef<HTMLDivElement>(null);

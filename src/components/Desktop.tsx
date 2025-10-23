@@ -41,7 +41,6 @@ export default function Desktop() {
               const getRandomPosition = (icon: Icon, index: number) => {
                 const { width, height } = getSizeForRatio(icon.ratio);
                 const seed = index + 12345;
-                const randomValue = seededRandom(seed);
                 
                 const viewportWidth = window.innerWidth;
                 const viewportHeight = window.innerHeight;
