@@ -22,11 +22,6 @@ export default function Desktop() {
   const chipPos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const chipTarget = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
-  // Seeded random function for consistent positioning
-  const seededRandom = (seed: number) => {
-    const x = Math.sin(seed) * 10000;
-    return x - Math.floor(x);
-  };
 
   const getSizeForRatio = (ratio: string) => {
     const isMobile = window.innerWidth <= 880;
@@ -40,7 +35,6 @@ export default function Desktop() {
 
               const getRandomPosition = (icon: Icon, index: number) => {
                 const { width, height } = getSizeForRatio(icon.ratio);
-                const seed = index + 12345;
                 
                 const viewportWidth = window.innerWidth;
                 const viewportHeight = window.innerHeight;

@@ -21,11 +21,12 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function CasePage({ params }: { params: { slug: string } }) {
+export default async function CasePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   let caseStudy;
   
   try {
-    caseStudy = getCaseBySlug(params.slug);
+    caseStudy = getCaseBySlug(slug);
   } catch {
     notFound();
   }
