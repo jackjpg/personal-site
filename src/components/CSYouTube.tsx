@@ -28,7 +28,7 @@ export default function CSYouTube({ url, title }: CSYouTubeProps) {
         }}
       >
         <iframe
-          src={`https://www.youtube.com/embed/${videoId}?vq=hd1080&autoplay=0&rel=0&modestbranding=1`}
+          src={`https://www.youtube.com/embed/${videoId}?vq=hd1080&autoplay=0&rel=0&modestbranding=1&iv_load_policy=3&fs=1&cc_load_policy=0&start=0&end=0&loop=0&controls=1&disablekb=0&enablejsapi=0`}
           title={title || 'YouTube video'}
           style={{
             position: 'absolute',

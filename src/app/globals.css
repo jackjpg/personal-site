@@ -638,6 +638,11 @@ body:has(.desktop) {
   border-radius: 4px;
 }
 
+.cs-image-wrapper.aspect-\[16\/9\] {
+  aspect-ratio: 16 / 9;
+  min-height: 500px;
+}
+
 .cs-image {
   object-fit: cover;
   object-position: center;

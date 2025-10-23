@@ -34,21 +34,24 @@ export default function CSImage({
         style={{
           maxWidth: style?.maxWidth || '1288px',
           width: '100%',
-          margin: '0 auto'
+          margin: '0 auto',
+          ...(aspectRatio === '16:9' && { minHeight: '500px' })
         }}
       >
         {isVideo ? (
           <div 
             style={{
               width: '100%',
-              height: aspectRatio === 'none' ? '400px' : '100%',
-              backgroundColor: '#f5f5f5',
+              height: aspectRatio === 'none' ? '500px' : '100%',
+              backgroundColor: '#E7DAFC',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               position: aspectRatio === 'none' ? 'relative' : 'absolute',
               top: aspectRatio === 'none' ? 'auto' : 0,
-              left: aspectRatio === 'none' ? 'auto' : 0
+              left: aspectRatio === 'none' ? 'auto' : 0,
+              paddingTop: '24px',
+              paddingBottom: '24px'
             }}
           >
             <video

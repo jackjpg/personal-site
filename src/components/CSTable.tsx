@@ -31,3 +31,4 @@ export default function CSTable({ headers, rows }: CSTableProps) {
     </div>
   );
 }
+
