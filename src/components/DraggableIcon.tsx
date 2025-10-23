@@ -187,7 +187,7 @@ export default function DraggableIcon({
         ease: "easeInOut",
         delay: floatDelay
       }}
-      initial={false}
+      initial={true}
     >
       <div 
         ref={textContainerRef}
