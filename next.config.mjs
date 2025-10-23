@@ -12,7 +12,6 @@ const withMDX = createMDX({
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   images: {
-    quality: 100,
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 60,
   },
