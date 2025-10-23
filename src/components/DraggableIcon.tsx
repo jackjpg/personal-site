@@ -168,11 +168,9 @@ export default function DraggableIcon({
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       onMouseEnter={() => {
-        setIsHovered(true);
         onInteractionChange?.(true);
       }}
       onMouseLeave={() => {
-        setIsHovered(false);
         onInteractionChange?.(false);
       }}
       whileTap={{ scale: 0.98, cursor: "grabbing" }}
