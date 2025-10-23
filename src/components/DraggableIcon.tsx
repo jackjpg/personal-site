@@ -52,10 +52,10 @@ export default function DraggableIcon({
   const { width, height } = sizeMap[icon.ratio];
 
   // Generate unique floating animation parameters for each icon
-  const floatDuration = 8 + (icon.id.length % 5); // 8-12 seconds based on id
-  const floatX = 8 + (icon.id.charCodeAt(0) % 6); // 8-14px horizontal
-  const floatY = 10 + (icon.id.charCodeAt(1) % 8); // 10-18px vertical
-  const floatDelay = (icon.id.charCodeAt(0) % 10) * 0.2; // 0-1.8s stagger
+  const floatDuration = 6 + (icon.id.length % 3); // 6-8 seconds based on id
+  const floatX = 3 + (icon.id.charCodeAt(0) % 3); // 3-5px horizontal
+  const floatY = 4 + (icon.id.charCodeAt(1) % 4); // 4-7px vertical
+  const floatDelay = (icon.id.charCodeAt(0) % 8) * 0.1; // 0-0.7s stagger
 
   useEffect(() => {
     const updateConstraints = () => {
