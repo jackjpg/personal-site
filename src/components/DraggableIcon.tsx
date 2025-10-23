@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Icon } from "@/lib/icons";
 
@@ -13,7 +13,9 @@ interface DraggableIconProps {
   rotation: number;
   zIndex: number;
   onDragEnd: (id: string, x: number, y: number) => void;
-  workspaceRef: React.RefObject<HTMLDivElement>;
+  workspaceRef: React.RefObject<HTMLDivElement | null>;
+  isActive?: boolean;
+  onInteractionChange?: (isInteracting: boolean) => void;
 }
 
 export default function DraggableIcon({ 
@@ -23,11 +25,17 @@ export default function DraggableIcon({
   rotation,
   zIndex,
   onDragEnd, 
-  workspaceRef 
+  workspaceRef,
+  isActive = false,
+  onInteractionChange
 }: DraggableIconProps) {
   const router = useRouter();
   const [isDragging, setIsDragging] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [needsScroll, setNeedsScroll] = useState(false);
+  const textContentRef = useRef<HTMLDivElement>(null);
+  const textContainerRef = useRef<HTMLDivElement>(null);
   const [dragConstraints, setDragConstraints] = useState({
     left: 0,
     right: 0,
@@ -35,13 +43,20 @@ export default function DraggableIcon({
     bottom: 0
   });
 
-  // Ratio-to-size mapping
+  // Ratio-to-size mapping - responsive sizing
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 880;
   const sizeMap = {
-    square: { width: 120, height: 120 },
-    portrait: { width: 120, height: 216 },
-    landscape: { width: 216, height: 120 }
+    square: { width: isMobile ? 110 : 160, height: isMobile ? 110 : 160 },
+    portrait: { width: isMobile ? 110 : 160, height: isMobile ? 198 : 288 },
+    landscape: { width: isMobile ? 198 : 288, height: isMobile ? 110 : 160 }
   };
   const { width, height } = sizeMap[icon.ratio];
+
+  // Generate unique floating animation parameters for each icon
+  const floatDuration = 8 + (icon.id.length % 5); // 8-12 seconds based on id
+  const floatX = 3 + (icon.id.charCodeAt(0) % 4); // 3-6px horizontal
+  const floatY = 4 + (icon.id.charCodeAt(1) % 5); // 4-8px vertical
+  const floatDelay = (icon.id.charCodeAt(0) % 10) * 0.2; // 0-1.8s stagger
 
   useEffect(() => {
     const updateConstraints = () => {
@@ -51,7 +66,6 @@ export default function DraggableIcon({
       }
       
       const workspaceRect = workspaceRef.current.getBoundingClientRect();
-      const margin = window.innerWidth <= 880 ? 16 : 24; // Responsive margins
       
       // Use workspace bounds for drag constraints
       setDragConstraints({
@@ -66,6 +80,15 @@ export default function DraggableIcon({
     window.addEventListener('resize', updateConstraints);
     return () => window.removeEventListener('resize', updateConstraints);
   }, [icon.ratio, width, height]);
+
+  // Check if text needs scrolling
+  useEffect(() => {
+    if (icon.text && textContentRef.current && textContainerRef.current) {
+      const contentHeight = textContentRef.current.scrollHeight;
+      const containerHeight = textContainerRef.current.clientHeight;
+      setNeedsScroll(contentHeight > containerHeight);
+    }
+  }, [icon.text, width, height]);
 
   const handleClick = () => {
     if (isDragging) return; // Don't trigger click if we were dragging
@@ -91,10 +114,19 @@ export default function DraggableIcon({
 
   const handleDragStart = () => {
     setIsDragging(true);
+    onInteractionChange?.(true);
   };
 
-  const handleDragEnd = (_, info) => {
+  const handleDrag = () => {
+    // Keep isDragging true during drag
+    if (!isDragging) {
+      setIsDragging(true);
+    }
+  };
+
+  const handleDragEnd = (_: unknown, info: { offset: { x: number; y: number } }) => {
     setIsDragging(false);
+    onInteractionChange?.(false);
     
     // Calculate new position
     const newX = x + info.offset.x;
@@ -118,43 +150,153 @@ export default function DraggableIcon({
   return (
     <motion.button
       className="iconButton focusRing"
+      data-is-active={isActive}
       style={{ 
         x, 
         y,
         rotate: rotation,
         zIndex: isDragging ? 1000 : zIndex
-      } as React.CSSProperties}
+      } as React.CSSProperties & { x: number; y: number; rotate: number }}
       drag
       dragConstraints={dragConstraints}
       dragMomentum={false}
       dragElastic={0.1}
       dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
+      dragPropagation={false}
       onDragStart={handleDragStart}
+      onDrag={handleDrag}
       onDragEnd={handleDragEnd}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
+      onMouseEnter={() => {
+        setIsHovered(true);
+        onInteractionChange?.(true);
+      }}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        onInteractionChange?.(false);
+      }}
       whileTap={{ scale: 0.98, cursor: "grabbing" }}
       aria-label={icon.label}
       tabIndex={0}
+      animate={isDragging ? false : {
+        x: [x, x + floatX, x - floatX, x],
+        y: [y, y - floatY, y + floatY, y],
+        rotate: [rotation, rotation + 0.5, rotation - 0.5, rotation]
+      }}
+      transition={isDragging ? { duration: 0 } : {
+        duration: floatDuration,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: floatDelay
+      }}
+      initial={false}
     >
-      <div className="iconTileRoot" style={{ width, height }}>
-        <Image
-          src={icon.img}
-          alt=""
-          fill
-          sizes="(max-width: 880px) 120px, 216px"
-          quality={95}
-          style={{ 
-            objectFit: "cover", 
-            transform: "translateZ(0)",
-            opacity: isImageLoaded ? 1 : 0,
-            transition: "opacity 0.2s ease-in-out"
-          }}
-          onLoad={() => setIsImageLoaded(true)}
-          priority={false}
-        />
+      <div 
+        ref={textContainerRef}
+        className={`iconTileRoot ${icon.text ? "textThumbnail" : ""} ${icon.kind === "route" ? "projectThumbnail" : ""}`} 
+        style={{ 
+          width, 
+          height,
+          backgroundColor: icon.bgColor || (icon.text ? "#F6F3EE" : "#FDE047"),
+          '--thumbnail-bg': icon.bgColor || (icon.text ? "#F6F3EE" : "#FDE047")
+        } as React.CSSProperties & { '--thumbnail-bg': string }}
+      >
+        {icon.text ? (
+          needsScroll ? (
+            <div className="textThumbnailScroller">
+              <div 
+                ref={textContentRef}
+                className="textThumbnailContent"
+                style={{
+                  color: icon.bgColor === "#2B272A" ? "#FFFFFF" : "#000000"
+                }}
+              >
+                {icon.text}
+              </div>
+              <div 
+                className="textThumbnailContent"
+                style={{
+                  color: icon.bgColor === "#2B272A" ? "#FFFFFF" : "#000000"
+                }}
+              >
+                {icon.text}
+              </div>
+            </div>
+          ) : (
+            <div className="textThumbnailStatic">
+              {icon.kind === "route" && (
+                <div 
+                  className="projectLabel"
+                  style={{
+                    color: icon.bgColor === "#2B272A" ? "#FFFFFF" : "#000000"
+                  }}
+                >
+                  PROJECT
+                </div>
+              )}
+              <div 
+                ref={textContentRef}
+                className="textThumbnailContent"
+                style={{
+                  color: icon.bgColor === "#2B272A" ? "#FFFFFF" : "#000000"
+                }}
+              >
+                {icon.text}
+              </div>
+              {icon.kind === "route" && icon.year && (
+                <div 
+                  className="projectYear"
+                  style={{
+                    color: icon.bgColor === "#2B272A" ? "#FFFFFF" : "#000000"
+                  }}
+                >
+                  {icon.year}
+                </div>
+              )}
+            </div>
+          )
+        ) : icon.video ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              pointerEvents: "none",
+              userSelect: "none",
+              opacity: isImageLoaded ? 1 : 0,
+              transition: "opacity 0.2s ease-in-out"
+            }}
+            onLoadedData={() => setIsImageLoaded(true)}
+          >
+            <source src={icon.video} type="video/mp4" />
+          </video>
+        ) : icon.img ? (
+          <Image
+            src={icon.img}
+            alt=""
+            fill
+            sizes="(max-width: 880px) 120px, 216px"
+            quality={95}
+            style={{ 
+              objectFit: "cover", 
+              transform: "translateZ(0)",
+              opacity: isImageLoaded ? 1 : 0,
+              transition: "opacity 0.2s ease-in-out"
+            }}
+            onLoad={() => setIsImageLoaded(true)}
+            priority={false}
+          />
+        ) : null}
       </div>
-      <div className="iconLabel label-">{icon.label}</div>
+      {icon.kind !== "route" && icon.label && (
+        <div className="iconLabel label-">{icon.label}</div>
+      )}
     </motion.button>
   );
 }

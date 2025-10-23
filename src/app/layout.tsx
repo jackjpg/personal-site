@@ -10,7 +10,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 const inter = Inter({ 
   subsets: ["latin"],
-  weight: ["500"]
+  weight: ["400", "500", "600", "800"]
 });
 
 export const metadata: Metadata = {

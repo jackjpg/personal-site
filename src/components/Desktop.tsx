@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { icons, Icon } from "@/lib/icons";
 import DraggableIcon from "./DraggableIcon";
 
@@ -16,142 +16,90 @@ export default function Desktop() {
   const workspaceRef = useRef<HTMLDivElement>(null);
   const [iconPositions, setIconPositions] = useState<IconPosition[]>([]);
   const [zIndexOrder, setZIndexOrder] = useState<string[]>([]); // Track z-index order
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(null); // Track hovered/dragged project
+  const chipRef = useRef<HTMLDivElement>(null);
+  const chipAnimReq = useRef<number | null>(null);
+  const chipPos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const chipTarget = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
   // Seeded random function for consistent positioning
   const seededRandom = (seed: number) => {
-    let x = Math.sin(seed) * 10000;
+    const x = Math.sin(seed) * 10000;
     return x - Math.floor(x);
   };
 
   const getSizeForRatio = (ratio: string) => {
+    const isMobile = window.innerWidth <= 880;
     const sizeMap = {
-      square: { width: 120, height: 120 },
-      portrait: { width: 120, height: 216 },
-      landscape: { width: 216, height: 120 }
+      square: { width: isMobile ? 110 : 160, height: isMobile ? 110 : 160 },
+      portrait: { width: isMobile ? 110 : 160, height: isMobile ? 198 : 288 },
+      landscape: { width: isMobile ? 198 : 288, height: isMobile ? 110 : 160 }
     };
     return sizeMap[ratio as keyof typeof sizeMap];
   };
 
               const getRandomPosition = (icon: Icon, index: number) => {
                 const { width, height } = getSizeForRatio(icon.ratio);
-                const seed = index + 98765; // Different seed for new positioning
+                const seed = index + 12345;
                 const randomValue = seededRandom(seed);
                 
                 const viewportWidth = window.innerWidth;
                 const viewportHeight = window.innerHeight;
-                const headerHeight = 72; // Just the header height, no margin
-                const margin = viewportWidth <= 880 ? 16 : 24; // Responsive margins
-                
-                // Account for desktop margins only (header no longer has margins)
-                const totalMargin = margin; // Only desktop margin now
-                
-                // Available area dimensions with padding
-                const availableWidth = viewportWidth - totalMargin * 2;
-                const availableHeight = viewportHeight - headerHeight - margin - 40; // 20px top + 20px bottom padding
-                
-                // Use an 810px centered container for initial positioning on desktop
                 const isMobile = viewportWidth <= 880;
+                const margin = isMobile ? 16 : 24;
                 
-                // Generate multiple random values for more variation
-                const randomX = seededRandom(seed * 2);
-                const randomY = seededRandom(seed * 3);
-                const randomCluster = seededRandom(seed * 7);
+                // Manual positioning - carefully spaced to avoid overlaps
+                // Desktop: landscape=360x200, portrait=200x360
+                const desktopPositions = [
+                  { x: 0.05, y: 0.45, rot: -6 },   // 0: forest (landscape) - left-middle
+                  { x: 0.70, y: 0.35, rot: 4 },    // 1: sweden (landscape) - right-middle
+                  { x: 0.75, y: 0.50, rot: -8 },   // 2: seenit (portrait) - right-center
+                  { x: 0.25, y: 0.25, rot: 7 },    // 3: cornfields (portrait) - left-center  
+                  { x: 0.85, y: 0.30, rot: -5 },   // 4: clouds (portrait) - far-right
+                  { x: 0.40, y: 0.50, rot: 6 },    // 5: post-sale (portrait) - center-middle
+                  { x: 0.55, y: 0.35, rot: -4 }    // 6: verification (portrait) - center-right
+                ];
                 
-                // Desktop: 810px container, Mobile: 90% of width
-                const containerWidth = isMobile ? (availableWidth * 0.9) : Math.min(810, availableWidth);
-                const spreadHeight = isMobile ? (availableHeight * 0.7) : (availableHeight * 0.5);
+                // Mobile: utilize vertical space, more organic scatter
+                const mobilePositions = [
+                  { x: 0.15, y: 0.08, rot: -6 },   // 0: forest (landscape) - top
+                  { x: 0.60, y: 0.22, rot: 4 },    // 1: sweden (landscape) - upper-right
+                  { x: 0.75, y: 0.42, rot: -8 },   // 2: seenit (portrait) - middle-right
+                  { x: 0.08, y: 0.35, rot: 7 },    // 3: cornfields (portrait) - middle-left  
+                  { x: 0.55, y: 0.55, rot: -5 },   // 4: clouds (portrait) - center-right
+                  { x: 0.20, y: 0.50, rot: 6 },    // 5: post-sale (portrait) - center-left
+                  { x: 0.65, y: 0.72, rot: -4 }    // 6: verification (portrait) - lower-right
+                ];
                 
-                // Center the container
-                const containerOffsetX = (viewportWidth - containerWidth) / 2;
-                const offsetY = (availableHeight - spreadHeight) / 2;
+                const pos = isMobile 
+                  ? (mobilePositions[index] || { x: 0.5, y: 0.5, rot: 0 })
+                  : (desktopPositions[index] || { x: 0.5, y: 0.5, rot: 0 });
                 
-                // Position within the container
-                const baseX = containerOffsetX + randomX * containerWidth;
-                const baseY = headerHeight + 20 + offsetY * 0.3 + randomY * spreadHeight;
+                const availableWidth = viewportWidth - margin * 2;
                 
-                // Add clustering variation (some thumbnails cluster more)
-                // Less clustering on mobile for better spread
-                const clusterOffsetX = (randomCluster - 0.5) * (isMobile ? 40 : 60);
-                const clusterOffsetY = (randomCluster - 0.5) * (isMobile ? 40 : 50);
+                // Use full viewport width
+                const containerWidth = availableWidth;
+                const containerOffsetX = margin;
                 
-                let x = baseX + clusterOffsetX - width / 2;
-                let y = baseY + clusterOffsetY - height / 2;
-                
-                // Constrain to bounds (with 20px padding)
-                const minX = totalMargin;
-                const maxX = viewportWidth - totalMargin - width;
-                const minY = headerHeight + 20; // 20px top padding
-                const maxY = viewportHeight - margin - 20 - height; // 20px bottom padding
-                
-                x = Math.max(minX, Math.min(x, maxX));
-                y = Math.max(minY, Math.min(y, maxY));
-                
-                // Add random rotation for organic feel
-                const rotation = (randomValue - 0.5) * 8; // -4 to +4 degrees
+                const x = containerOffsetX + (pos.x * (containerWidth - width));
+                const y = pos.y * (viewportHeight - height); // Use full viewport height
+                const rotation = pos.rot;
                 
                 return { x, y, rotation };
               };
 
-  const loadPositions = () => {
-    // Create random positions for all icons with collision detection
-    const positions: IconPosition[] = [];
-    const isMobile = window.innerWidth <= 880;
-    const minSpacing = isMobile ? -30 : 20; // Allow overlap on mobile (-30px), spacing on desktop (20px)
-    
-    icons.forEach((icon, index) => {
-      let attempts = 0;
-      let position;
-      let hasCollision;
-      
-      do {
-        position = getRandomPosition(icon, index + attempts);
-        hasCollision = false;
-        
-        // Check if this position collides with any existing positions
-        for (const existingPos of positions) {
-          const existingIcon = icons.find(i => i.id === existingPos.id);
-          if (!existingIcon) continue;
-          
-          const existingSize = getSizeForRatio(existingIcon.ratio);
-          const currentSize = getSizeForRatio(icon.ratio);
-          
-          // Calculate bounding boxes
-          const left1 = position.x;
-          const right1 = position.x + currentSize.width;
-          const top1 = position.y;
-          const bottom1 = position.y + currentSize.height;
-          
-          const left2 = existingPos.x;
-          const right2 = existingPos.x + existingSize.width;
-          const top2 = existingPos.y;
-          const bottom2 = existingPos.y + existingSize.height;
-          
-          // Check for overlap with spacing buffer
-          if (!(right1 + minSpacing < left2 || 
-                left1 > right2 + minSpacing || 
-                bottom1 + minSpacing < top2 || 
-                top1 > bottom2 + minSpacing)) {
-            hasCollision = true;
-            break;
-          }
-        }
-        
-        attempts++;
-      } while (hasCollision && attempts < 50); // Try up to 50 times
-      
-      positions.push({
+  const loadPositions = useCallback(() => {
+    // Create positions for all icons - simple direct positioning
+    const positions: IconPosition[] = icons.map((icon, index) => {
+      const position = getRandomPosition(icon, index);
+      return {
         id: icon.id,
         ...position
-      });
+      };
     });
     
     setIconPositions(positions);
-  };
-
-  // Force refresh positions
-  const refreshPositions = () => {
-    loadPositions();
-  };
+  }, []);
 
   const savePosition = (id: string, x: number, y: number) => {
     const newPositions = iconPositions.map(pos => 
@@ -195,14 +143,79 @@ export default function Desktop() {
     return () => window.removeEventListener('resize', handleResize);
   }, [icons]); // Include icons dependency to ensure all thumbnails are handled
 
+  // Floating chip follower for active project
+  useEffect(() => {
+    const el = chipRef.current;
+    const workspaceEl = workspaceRef.current;
+    if (!workspaceEl) return;
+
+    const offset = { x: -80, y: -60 }; // Further left and higher up to avoid hand blocking
+
+    const isCoarsePointer = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+
+    const animate = () => {
+      const lerp = isCoarsePointer ? 0.5 : 0.2;
+      chipPos.current.x += (chipTarget.current.x - chipPos.current.x) * lerp;
+      chipPos.current.y += (chipTarget.current.y - chipPos.current.y) * lerp;
+      if (el) {
+        el.style.transform = `translate3d(${chipPos.current.x}px, ${chipPos.current.y}px, 0)`;
+      }
+      chipAnimReq.current = requestAnimationFrame(animate);
+    };
+
+    const handlePointerMove = (e: PointerEvent) => {
+      const rect = workspaceEl.getBoundingClientRect();
+      const x = e.clientX - rect.left + offset.x;
+      const y = e.clientY - rect.top + offset.y;
+      if (isCoarsePointer) {
+        // On touch devices, follow finger tightly with no extra smoothing
+        chipPos.current = { x, y };
+        if (el) {
+          el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        }
+      } else {
+        chipTarget.current = { x, y };
+        if (chipAnimReq.current === null) {
+          chipAnimReq.current = requestAnimationFrame(animate);
+        }
+      }
+    };
+
+    if (activeProjectId) {
+      // Initialize position to center so it fades/moves in smoothly
+      const rect = workspaceEl.getBoundingClientRect();
+      chipPos.current = { x: rect.width / 2, y: rect.height / 2 };
+      workspaceEl.addEventListener('pointermove', handlePointerMove);
+    } else {
+      if (chipAnimReq.current !== null) {
+        cancelAnimationFrame(chipAnimReq.current);
+        chipAnimReq.current = null;
+      }
+      workspaceEl.removeEventListener('pointermove', handlePointerMove);
+    }
+
+    return () => {
+      if (chipAnimReq.current !== null) {
+        cancelAnimationFrame(chipAnimReq.current);
+        chipAnimReq.current = null;
+      }
+      workspaceEl.removeEventListener('pointermove', handlePointerMove);
+    };
+  }, [activeProjectId]);
+
   return (
     <div className="desktop">
-      <div ref={workspaceRef} className="workspace">
+      <div 
+        ref={workspaceRef} 
+        className={`workspace ${activeProjectId ? 'has-active-project' : ''}`}
+      >
         {iconPositions.map(position => {
           const icon = icons.find(i => i.id === position.id);
           if (!icon) return null;
           
-          const zIndex = zIndexOrder.indexOf(icon.id);
+          // Projects (case studies) get higher z-index by default
+          const baseZIndex = zIndexOrder.indexOf(icon.id);
+          const zIndex = icon.kind === "route" ? baseZIndex + 100 : baseZIndex;
           
           return (
             <DraggableIcon
@@ -214,9 +227,22 @@ export default function Desktop() {
               zIndex={zIndex}
               onDragEnd={savePosition}
               workspaceRef={workspaceRef}
+              isActive={activeProjectId === icon.id}
+              onInteractionChange={(isInteracting) => {
+                // Only set active state for project thumbnails
+                if (icon.kind === "route") {
+                  setActiveProjectId(isInteracting ? icon.id : null);
+                }
+              }}
             />
           );
         })}
+
+        {activeProjectId && (
+          <div ref={chipRef} className="floatingChip" aria-hidden="true">
+            View project
+          </div>
+        )}
       </div>
     </div>
   );

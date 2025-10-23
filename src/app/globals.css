@@ -9,12 +9,17 @@
 
 html, body {
   height: 100%;
-  overflow: hidden;
 }
 
 body {
   background-color: white;
   font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Only hide overflow on pages with .desktop (homepage) */
+body:has(.desktop) {
+  overflow: hidden;
+  background-color: #FFFFFF;
 }
 
 .desktop {
@@ -26,7 +31,7 @@ body {
 
 .workspace {
   width: 100%;
-  height: calc(100vh - 72px - 16px - 20px - 60px); /* 20px bottom padding + 60px footer */
+  height: calc(100vh - 72px - 16px - 40px); /* Header + top margin + bottom padding */
   position: relative;
   background: transparent;
 }
@@ -42,6 +47,9 @@ body {
   flex-direction: column;
   align-items: center;
   z-index: 0;
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .iconButton:focus-visible {
@@ -64,21 +72,34 @@ body {
   flex-direction: column;
   align-items: center;
   z-index: 0;
+  filter: grayscale(0);
+  transition: filter 300ms ease-in-out;
 }
 
 .iconButton:active {
   cursor: grabbing;
 }
 
+/* Grayscale effect when a project is active */
+.workspace.has-active-project .iconButton {
+  filter: grayscale(1);
+}
+
+.workspace.has-active-project .iconButton[data-is-active="true"] {
+  filter: grayscale(0);
+}
+
 .iconTileRoot {
   position: relative;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 1000px;
   background: #FDE047; /* yellow-300 - same as pill */
   flex: 0 0 auto;
-  transition: transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
-  min-width: 120px;
-  min-height: 120px;
+  transition: transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1), background-color 300ms ease-in-out;
+}
+
+.iconButton:hover .iconTileRoot.projectThumbnail {
+  background-color: #FDE047 !important;
 }
 
 .iconTileRoot img {
@@ -98,12 +119,137 @@ body {
   transform: scale(1.067); /* 128/120 for square, adjust per ratio */
 }
 
+/* Text Thumbnail Styles */
+.textThumbnail {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.textThumbnail::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--thumbnail-bg) 0%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.textThumbnail::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(to top, var(--thumbnail-bg) 0%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.textThumbnailScroller {
+  display: flex;
+  flex-direction: column;
+  animation: scrollVertical 20s linear infinite;
+  will-change: transform;
+  position: relative;
+  z-index: 2;
+}
+
+.textThumbnailContent {
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: #000000;
+  white-space: pre-line;
+  word-break: break-word;
+  padding: 0 16px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.textThumbnailStatic {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  padding: 24px 0;
+}
+
+.projectLabel {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+  opacity: 1;
+  margin-bottom: 8px;
+}
+
+.projectYear {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+  opacity: 1;
+  margin-top: 8px;
+}
+
+@keyframes scrollVertical {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@media (max-width: 880px) {
+  .textThumbnailContent {
+    font-size: 16px;
+    line-height: 20px;
+    padding: 0 16px;
+  }
+  
+  .textThumbnailStatic {
+    padding: 16px 0;
+  }
+  
+  .projectLabel {
+    font-size: 10px;
+    margin-bottom: 6px;
+  }
+  
+  .projectYear {
+    font-size: 10px;
+    margin-top: 6px;
+  }
+}
+
 
 .label- {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
   letter-spacing: 0.02em;
   text-transform: uppercase;
 }
@@ -121,14 +267,18 @@ body {
   padding: 0 8px;
   border-radius: 1000px;
   background: transparent;
+  opacity: 0;
+  visibility: hidden;
 }
 
-/* Label pill on hover/focus */
-.iconButton:hover .iconLabel,
-.iconButton:focus-visible .iconLabel {
+/* Label pill on hover/focus for project thumbnails only */
+.iconButton:hover .projectThumbnail ~ .iconLabel,
+.iconButton:focus-visible .projectThumbnail ~ .iconLabel {
   background: #FDE047; /* yellow-300 */
   color: #111111;
   margin-top: 16px; /* 8px base + 8px extra padding on hover */
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Focus ring */
@@ -145,7 +295,7 @@ body {
 /* Site Header */
 .siteHeader {
   height: 72px;
-  background: white;
+  background: transparent;
   display: flex;
   align-items: center;
   padding: 0 24px;
@@ -161,8 +311,37 @@ body {
   text-transform: uppercase;
 }
 
+.siteHeader__leadingGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .siteHeader__leading {
   color: #000000;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.siteHeader__leading:hover {
+  opacity: 0.7;
+}
+
+.siteHeader__linkedin {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.siteHeader__linkedin:hover {
+  opacity: 0.7;
 }
 
 .siteHeader__trailing {
@@ -183,6 +362,11 @@ body {
   .desktop {
     margin-left: 16px;
     margin-right: 16px;
+  }
+  
+  .label- {
+    font-size: 12px;
+    line-height: 18px;
   }
 }
 
@@ -274,5 +458,320 @@ body {
   }
 }
 
+/* Case Study Styles */
+.case-study-container {
+  max-width: 810px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  line-height: 30px;
+}
 
+.case-study-header {
+  margin-bottom: 56px;
+}
+
+.case-study-title {
+  font-family: "Inter", sans-serif;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 44px;
+  margin-bottom: 32px;
+  color: #000000;
+}
+
+.case-study-subtitle {
+  font-size: 20px;
+  line-height: 30px;
+  color: #333333;
+  margin-bottom: 16px;
+}
+
+.case-study-introduction {
+  font-size: 20px;
+  line-height: 30px;
+  color: #333333;
+  margin-bottom: 32px;
+}
+
+.case-study-introduction p {
+  margin-bottom: 24px;
+}
+
+.case-study-introduction p:last-child {
+  margin-bottom: 0;
+}
+
+.case-study-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 767px) {
+  .case-study-meta {
+    grid-template-columns: 1fr;
+  }
+}
+
+.case-study-meta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  background-color: #E5E5E5;
+  border-radius: 4px;
+  padding: 16px 24px;
+}
+
+.case-study-meta-item dt {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #000000;
+  margin: 0;
+}
+
+.case-study-meta-item dd {
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: #000000;
+  margin: 0;
+}
+
+.case-study-prose {
+  font-size: 20px;
+  line-height: 30px;
+  color: #333333;
+}
+
+.case-study-prose p {
+  margin-bottom: 24px;
+}
+
+.case-study-prose h2 {
+  font-family: "Inter", sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 40px;
+  margin-top: 48px;
+  margin-bottom: 24px;
+  color: #000000;
+}
+
+.case-study-prose h3 {
+  font-family: "Inter", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  color: #000000;
+}
+
+.case-study-prose ul,
+.case-study-prose ol {
+  margin-bottom: 16px;
+  padding-left: 24px;
+  list-style-position: outside;
+}
+
+.case-study-prose ol {
+  list-style-type: decimal;
+}
+
+.case-study-prose ul {
+  list-style-type: disc;
+}
+
+.case-study-prose li {
+  margin-bottom: 8px;
+}
+
+/* Section Component */
+.cs-section {
+  margin-bottom: 40px;
+}
+
+.cs-section-tight {
+  margin-bottom: 24px;
+}
+
+.cs-section-normal {
+  margin-bottom: 40px;
+}
+
+.cs-section-loose {
+  margin-bottom: 64px;
+}
+
+.cs-section-title {
+  font-family: "Inter", sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 40px;
+  margin-bottom: 24px;
+  color: #000000;
+}
+
+.cs-section-content {
+  font-size: 20px;
+  line-height: 30px;
+}
+
+/* Image Component */
+.cs-image-figure {
+  margin: 40px 0;
+}
+
+.cs-image-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.cs-image {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+}
+
+.cs-image-caption {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666666;
+  margin-top: 12px;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 880px) {
+  .case-study-container {
+    padding: 48px 16px;
+  }
+
+  .case-study-title {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .case-study-subtitle {
+    font-size: 18px;
+  }
+
+  .case-study-header {
+    margin-bottom: 40px;
+  }
+
+  .case-study-prose h2,
+  .cs-section-title {
+    font-size: 24px;
+    line-height: 32px;
+    margin-top: 32px;
+    margin-bottom: 16px;
+  }
+
+  .case-study-prose h3 {
+    font-size: 20px;
+    margin-top: 24px;
+  }
+
+  .cs-section {
+    margin-bottom: 32px;
+  }
+
+  .cs-section-tight {
+    margin-bottom: 16px;
+  }
+
+  .cs-section-loose {
+    margin-bottom: 48px;
+  }
+
+  .cs-image-figure {
+    margin: 32px 0;
+  }
+}
+
+/* Case Study Table Styles */
+.cs-table-wrapper {
+  width: 100%;
+  margin: 32px 0;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.cs-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.cs-table-header {
+  background-color: #f5f5f5;
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.cs-table-row {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.cs-table-row:last-child {
+  border-bottom: none;
+}
+
+.cs-table-cell {
+  padding: 16px;
+  font-size: 16px;
+  line-height: 24px;
+  vertical-align: top;
+  border-right: 1px solid #e5e5e5;
+}
+
+.cs-table-cell:last-child {
+  border-right: none;
+}
+
+.cs-table-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Floating chip follows cursor */
+.floatingChip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  border-radius: 1000px;
+  padding: 0 16px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  will-change: transform, opacity;
+  transition: opacity 120ms ease;
+  opacity: 0.9;
+  z-index: 2000;
+}
 

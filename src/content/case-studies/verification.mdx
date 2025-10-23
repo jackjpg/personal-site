@@ -1,0 +1,97 @@
+---
+title: "Reducing document verification failures"
+introduction: |
+  Verifying documents was one of the biggest sources of time and money sinks across Motorway's seller journey. As leadership scaled ops and backed machine vision bets, our small team had no pm or back-end support. Rather than wait, I led a fast, content-led redesign of the upload flow to reduce failure, without heavy engineering.
+
+  Impact (in 2 months): +7% first-time approval rate, −3h average verification time, and unlocked machine-learning improvements that scaled across the business.
+
+  This project was a reminder that even small design interventions can shift both user trust and system efficiency.
+date: "2024"
+role: "Product Designer"
+client: "Motorway"
+---
+
+<CSImage 
+  src="/Project_verification/verification-hero.png" 
+  alt="Verification project overview"
+  aspectRatio="16:9"
+/>
+
+<Section title="Research learnings">
+
+I started analysing submitted photos and most common failure reasons, and prioritised open questions I needed answering, all this identified recurring failure patterns and existing technical and operational constraints:
+
+1. Sellers were hiding sensitive data, making verification impossible.
+2. Low-quality, cropped, dark photos and missing pages led to frequent rejections.
+3. Mismatch details (e.g names not aligning with records).
+
+<CSImage 
+  src="/Project_verification/verification-eval.png" 
+  alt="Research insights and failure patterns"
+  aspectRatio="none"
+  style={{ margin: '32px 0', maxWidth: '810px' }}
+/>
+
+</Section>
+
+<Section title="Design challenge">
+
+<CSTable 
+  headers={["Pain points & insights", "Key needs"]}
+  rows={[
+    ["Sellers don't know why they need to upload documents", "Clarify the need for the document"],
+    ["Sellers aren't comfortable submitting private documents", "Provide safety reassurances"],
+    ["Sellers don't know what a \"good\" photo looks like", "Show what a good photo looks like"]
+  ]}
+/>
+
+I framed the work around one question: What are the smallest, most impactful changes we can make to improve the upload experience?
+
+I saw an opportunity to drive quick improvements through content-led solutions. This approach allowed us to refine clarity, guidance, and usability with minimal FE engineering effort. I looped in our UX content designer and together, addressed the user needs.
+
+</Section>
+
+<Section title="Priority 1: Helping sellers understand what 'good' is">
+
+<CSImage 
+  src="/Project_verification/Model-guidance.png" 
+  alt="Photo tips and guidance UI"
+  aspectRatio="16:9"
+/>
+
+One key improvement was ensuring photo tips were discoverable. Previously, sellers were forced to dismiss a persistent modal every time they added a photo (up to four times for core documents alone). I replaced this with a tile that remained visible as a reference point. On mobile, I simplified the UI further, using a bottom sheet that only appeared on the first upload. These changes mattered because:
+
+1. I empowered sellers: Keeping photo tips always visible allowed sellers to cross-reference guidance if their photo failed, rather than relying on memory.
+2. I reduced friction: Instead of blocking sellers with repeated modals, we surfaced help only when needed, reducing friction.
+3. We improved clarity and scalability: by ensuring consistency across UI, help centre, and support.
+
+</Section>
+
+<Section title="Priority 2: Clarifying the need for the document">
+
+<CSImage 
+  src="/Project_verification/content-framework.png" 
+  alt="Document guidance framework"
+  aspectRatio="16:9"
+/>
+
+Alongside key UX improvements, myself and a contend designer developed a scalable guidance framework and content structure. We clarified what does is needed, why this is required, and what are the specifics we need (sometimes this could be things like rules around expiration date.
+
+This UI pattern was quickly adopted by other product teams, ensuring consistency across the product experience, help centre articles, and phone/email support. As a result, sellers received clear, aligned guidance on what we needed to see—and why it mattered.
+
+</Section>
+
+<Section title="Priority 3: Proving support and safety reassurances">
+
+<CSImage 
+  src="/Project_verification/support.png" 
+  alt="Support and safety features"
+  aspectRatio="16:9"
+/>
+
+Lastly, informed by seller feedback and support CS insights, I replaced generic contact links with a support tile featuring the 3 most frequent seller concerns from support logs, paired with detailed help centre articles. Additionally I added a universally recognised lock icon to the submission button, aligning with seller expectations around document privacy.
+
+The redesign proved that lightweight UX and content changes could deliver material business value, influencing how future ops-led projects were approached.
+
+</Section>
+
