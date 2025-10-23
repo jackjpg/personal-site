@@ -28,7 +28,7 @@ export default function CSImage({
   const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
   
   return (
-    <figure className="cs-image-figure" style={style || { margin: '32px -239px' }}>
+    <figure className="cs-image-figure" style={style || { margin: '32px 0' }}>
       <div 
         className={`cs-image-wrapper ${aspectRatioMap[aspectRatio]}`}
         style={{
@@ -61,9 +61,9 @@ export default function CSImage({
               playsInline
               className="cs-image"
               style={{
-                maxWidth: '100%',
-                maxHeight: '100%',
-                objectFit: 'contain',
+                width: aspectRatio === 'none' ? '100%' : '100%',
+                height: aspectRatio === 'none' ? '100%' : '100%',
+                objectFit: aspectRatio === 'none' ? 'cover' : 'contain',
                 objectPosition: 'center'
               }}
             >
