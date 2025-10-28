@@ -44,10 +44,14 @@ export default function DraggableIcon({
 
   // Ratio-to-size mapping - responsive sizing
   const isMobile = typeof window !== 'undefined' && window.innerWidth <= 880;
+  const baseMobile = 116;
+  const baseDesktop = 172;
+  const base = isMobile ? baseMobile : baseDesktop;
+  const longSide = Math.round(base * 1.8);
   const sizeMap = {
-    square: { width: isMobile ? 110 : 160, height: isMobile ? 110 : 160 },
-    portrait: { width: isMobile ? 110 : 160, height: isMobile ? 198 : 288 },
-    landscape: { width: isMobile ? 198 : 288, height: isMobile ? 110 : 160 }
+    square: { width: base, height: base },
+    portrait: { width: base, height: longSide },
+    landscape: { width: longSide, height: base }
   };
   const { width, height } = sizeMap[icon.ratio];
 
@@ -223,14 +227,37 @@ export default function DraggableIcon({
           ) : (
             <div className="textThumbnailStatic">
               {icon.kind === "route" && (
-                <div 
-                  className="projectLabel"
-                  style={{
-                    color: icon.bgColor === "#2B272A" ? "#FFFFFF" : "#000000"
+                <svg 
+                  className="projectLabel" 
+                  viewBox="0 0 100 20" 
+                  style={{ 
+                    position: 'absolute', 
+                    top: '14px', 
+                    left: '50%', 
+                    transform: 'translateX(-50%)',
+                    width: '80px',
+                    height: '20px',
+                    zIndex: 10
                   }}
                 >
-                  PROJECT
-                </div>
+                  <defs>
+                    <path id="topCurve" d="M 10,15 Q 50,5 90,15" />
+                  </defs>
+                  <text 
+                    style={{ 
+                      fontSize: '11px', 
+                      fill: icon.bgColor === "#2B272A" ? "#FFFFFF" : "#000000",
+                      fontFamily: 'Inter, sans-serif',
+                      fontWeight: '600',
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase'
+                    }}
+                  >
+                    <textPath href="#topCurve" startOffset="50%" textAnchor="middle">
+                      PROJECT
+                    </textPath>
+                  </text>
+                </svg>
               )}
               <div 
                 ref={textContentRef}
@@ -242,14 +269,37 @@ export default function DraggableIcon({
                 {icon.text}
               </div>
               {icon.kind === "route" && icon.year && (
-                <div 
-                  className="projectYear"
-                  style={{
-                    color: icon.bgColor === "#2B272A" ? "#FFFFFF" : "#000000"
+                <svg 
+                  className="projectYear" 
+                  viewBox="0 0 100 20" 
+                  style={{ 
+                    position: 'absolute', 
+                    bottom: '14px', 
+                    left: '50%', 
+                    transform: 'translateX(-50%)',
+                    width: '80px',
+                    height: '20px',
+                    zIndex: 10
                   }}
                 >
-                  {icon.year}
-                </div>
+                  <defs>
+                    <path id="bottomCurve" d="M 10,5 Q 50,15 90,5" />
+                  </defs>
+                  <text 
+                    style={{ 
+                      fontSize: '11px', 
+                      fill: icon.bgColor === "#2B272A" ? "#FFFFFF" : "#000000",
+                      fontFamily: 'Inter, sans-serif',
+                      fontWeight: '600',
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase'
+                    }}
+                  >
+                    <textPath href="#bottomCurve" startOffset="50%" textAnchor="middle">
+                      {icon.year}
+                    </textPath>
+                  </text>
+                </svg>
               )}
             </div>
           )

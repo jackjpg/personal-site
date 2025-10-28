@@ -208,7 +208,10 @@ export default function Desktop() {
           
           // Projects (case studies) get higher z-index by default
           const baseZIndex = zIndexOrder.indexOf(icon.id);
-          const zIndex = icon.kind === "route" ? baseZIndex + 100 : baseZIndex;
+          let zIndex = icon.kind === "route" ? baseZIndex + 100 : baseZIndex;
+          if (icon.id === "seenit-image") {
+            zIndex += 50; // Boost Seenit above other project thumbnails by default
+          }
           
           return (
             <DraggableIcon

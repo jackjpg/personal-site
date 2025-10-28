@@ -190,27 +190,11 @@ body:has(.desktop) {
 }
 
 .projectLabel {
-  font-family: "Inter", sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 0.08em;
-  text-align: center;
-  text-transform: uppercase;
-  opacity: 1;
-  margin-bottom: 8px;
+  /* SVG curved text - styles handled inline */
 }
 
 .projectYear {
-  font-family: "Inter", sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 0.08em;
-  text-align: center;
-  text-transform: uppercase;
-  opacity: 1;
-  margin-top: 8px;
+  /* SVG curved text - styles handled inline */
 }
 
 @keyframes scrollVertical {

@@ -64,7 +64,7 @@ export const icons: Icon[] = [
     kind: "route",
     href: "/case/post-sale",
     ratio: "portrait",
-    text: "Hi, I confirmed the sale, now what?",
+    text: "Designing trust after the sale",
     bgColor: "#A8E6CF",
     showLabel: true,
     year: "2025"
