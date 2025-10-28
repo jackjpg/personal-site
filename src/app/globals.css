@@ -207,7 +207,7 @@ body:has(.desktop) {
 
 @media (max-width: 880px) {
   .textThumbnailContent {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
     padding: 0 16px;
   }
