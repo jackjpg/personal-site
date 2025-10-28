@@ -13,7 +13,6 @@ html, body {
 
 body {
   background-color: white;
-  font-family: system-ui, -apple-system, sans-serif;
 }
 
 /* Only hide overflow on pages with .desktop (homepage) */
@@ -355,90 +354,54 @@ body:has(.desktop) {
 }
 
 /* Site Footer */
+
+/* Site-wide Footer */
 .siteFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0 24px;
+  margin-top: 24px;
+  padding-bottom: 16px;
+}
+
+/* Fixed footer on homepage */
+body:has(.desktop) .siteFooter {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 0 24px;
-  margin-bottom: 16px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 16px;
-  font-size: 12px;
-  line-height: 16px;
-  color: #000000;
+  margin-top: 24px;
+  background: white;
   z-index: 10;
 }
 
-.siteFooter__leading {
-  text-align: left;
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 400;
+.siteFooter__text {
+  font-size: 12px;
+  line-height: 16px;
 }
 
-.siteFooter__centre {
-  text-align: center;
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 400;
-  max-width: 400px;
-}
-
-.siteFooter__trailing {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.siteFooter__socialIcons {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.siteFooter__socialIcon {
+.siteFooter__link {
   display: block;
-  padding: 4px;
-  border-radius: 4px;
   transition: opacity 0.2s ease;
 }
 
-.siteFooter__socialIcon:hover {
+.siteFooter__link:hover {
   opacity: 0.7;
 }
 
-.siteFooter__socialIcon:focus-visible {
-  outline: 2px solid #007acc;
-  outline-offset: 2px;
-}
-
-.siteFooter__iconWrapper {
-  position: relative;
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  overflow: hidden;
+.siteFooter__icon {
+  width: 16px;
+  height: 16px;
+  display: block;
 }
 
 @media (max-width: 767px) {
   .siteFooter {
-    grid-template-columns: 1fr auto;
     padding: 0 16px;
-    margin-bottom: 16px;
     gap: 16px;
-    text-align: center;
-  }
-  
-  .siteFooter__leading {
-    text-align: left;
-  }
-  
-  .siteFooter__centre {
-    display: none;
-  }
-  
-  .siteFooter__trailing {
-    justify-content: flex-end;
+    margin-bottom: 16px;
   }
 }
 
