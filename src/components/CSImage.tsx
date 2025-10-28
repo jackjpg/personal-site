@@ -29,6 +29,12 @@ export default function CSImage({
 }: CSImageProps) {
   const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
   
+  // Generate poster image path for videos
+  const getPosterPath = (videoSrc: string) => {
+    const basePath = videoSrc.replace(/\.(mp4|webm|ogg|mov)$/i, '');
+    return `${basePath}_poster.jpg`;
+  };
+  
   // Compute width behavior based on size variant
   const isLarge = size === 'large';
   const maxWidth = isLarge ? '1228px' : '810px';
@@ -64,6 +70,7 @@ export default function CSImage({
               loop
               muted
               playsInline
+              preload="auto"
               className="cs-image"
               style={{
                 position: aspectRatio === 'none' ? 'relative' : 'absolute',
