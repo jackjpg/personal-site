@@ -345,6 +345,7 @@ body:has(.desktop) {
   .desktop {
     margin-left: 16px;
     margin-right: 16px;
+    margin-top: 0;
   }
   
   .label- {

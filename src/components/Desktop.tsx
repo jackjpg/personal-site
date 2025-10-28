@@ -75,7 +75,9 @@ export default function Desktop() {
                 const containerOffsetX = margin;
                 
                 const x = containerOffsetX + (pos.x * (containerWidth - width));
-                const y = pos.y * (viewportHeight - height); // Use full viewport height
+                const y = isMobile 
+                  ? (pos.y * (viewportHeight - 72 - height)) + 72 // Account for header height on mobile
+                  : pos.y * (viewportHeight - height); // Use full viewport height on desktop
                 const rotation = pos.rot;
                 
                 return { x, y, rotation };
