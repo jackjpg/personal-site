@@ -40,7 +40,7 @@ export const icons: Icon[] = [
     text: "Screenshots as a social primitive",
     bgColor: "#FC6DB3",
     showLabel: true,
-    year: "2024"
+    year: "2025"
   },
   {
     id: "cornfields",

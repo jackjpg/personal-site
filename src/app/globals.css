@@ -492,7 +492,7 @@ body:has(.desktop) {
   font-size: 20px;
   line-height: 30px;
   color: #333333;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
 }
 
 .case-study-introduction p {
@@ -519,11 +519,15 @@ body:has(.desktop) {
 .case-study-meta-item {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 0;
-  background-color: #E5E5E5;
+  position: relative;
+  background-color: #FFFFFF;
+  border: 2px solid #F5F4F1;
   border-radius: 4px;
-  padding: 16px 24px;
+  padding: 16px;
+  max-height: 92px;
+  text-align: left;
 }
 
 .case-study-meta-item dt {
@@ -533,8 +537,20 @@ body:has(.desktop) {
   line-height: 16px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #000000;
+  color: #FC6DB3;
   margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  padding-right: 8px;
+  padding-bottom: 8px; /* mask outline at bottom of label */
+  background: #FFFFFF;
+  z-index: 1; /* ensure label sits above the tile border */
+  /* Left-aligned; vertically centered with slight downward nudge */
+  transform: translate(0, calc(-50% + 4px));
+  /* Mask the 2px outline beneath the label area */
+  box-shadow: 0 0 0 2px #FFFFFF;
 }
 
 .case-study-meta-item dd {
@@ -544,6 +560,7 @@ body:has(.desktop) {
   letter-spacing: 0.02em;
   color: #000000;
   margin: 0;
+  text-align: left;
 }
 
 .case-study-prose {
@@ -628,7 +645,7 @@ body:has(.desktop) {
 
 /* Image Component */
 .cs-image-figure {
-  margin: 40px 0;
+  margin: 32px 0;
 }
 
 .cs-image-wrapper {
@@ -647,7 +664,6 @@ body:has(.desktop) {
 
 .cs-image-wrapper.aspect-\[16\/9\] {
   aspect-ratio: 16 / 9;
-  min-height: 500px;
 }
 
 .cs-image {

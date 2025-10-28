@@ -8,6 +8,7 @@ interface CSImageProps {
   caption?: string;
   aspectRatio?: '16:9' | '4:3' | '1:1' | '3:2' | 'none';
   style?: React.CSSProperties;
+  size?: 'medium' | 'large';
 }
 
 const aspectRatioMap = {
@@ -23,19 +24,28 @@ export default function CSImage({
   alt, 
   caption, 
   aspectRatio = '16:9',
-  style
+  style,
+  size = 'medium'
 }: CSImageProps) {
   const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
+  
+  // Compute width behavior based on size variant
+  const isLarge = size === 'large';
+  const maxWidth = isLarge ? '1228px' : '810px';
   
   return (
     <figure className="cs-image-figure" style={style || { margin: '32px 0' }}>
       <div 
         className={`cs-image-wrapper ${aspectRatioMap[aspectRatio]}`}
         style={{
-          maxWidth: style?.maxWidth || '1288px',
+          maxWidth: maxWidth,
           width: '100%',
           margin: '0 auto',
-          ...(aspectRatio === '16:9' && { minHeight: '500px' })
+          ...(isLarge && {
+            marginLeft: '50%',
+            transform: 'translateX(-50%)',
+            width: `min(${maxWidth}, 100vw - 48px)`
+          })
         }}
       >
         {isVideo ? (
@@ -43,27 +53,25 @@ export default function CSImage({
             style={{
               width: '100%',
               height: aspectRatio === 'none' ? '500px' : '100%',
-              backgroundColor: '#E7DAFC',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              backgroundColor: 'transparent',
               position: aspectRatio === 'none' ? 'relative' : 'absolute',
               top: aspectRatio === 'none' ? 'auto' : 0,
-              left: aspectRatio === 'none' ? 'auto' : 0,
-              paddingTop: '24px',
-              paddingBottom: '24px'
+              left: aspectRatio === 'none' ? 'auto' : 0
             }}
           >
             <video
-              autoPlay
+              controls
               loop
               muted
               playsInline
               className="cs-image"
               style={{
-                width: aspectRatio === 'none' ? '100%' : '100%',
-                height: aspectRatio === 'none' ? '100%' : '100%',
-                objectFit: aspectRatio === 'none' ? 'cover' : 'contain',
+                position: aspectRatio === 'none' ? 'relative' : 'absolute',
+                top: aspectRatio === 'none' ? 'auto' : 0,
+                left: aspectRatio === 'none' ? 'auto' : 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
                 objectPosition: 'center'
               }}
             >

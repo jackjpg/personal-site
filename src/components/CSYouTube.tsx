@@ -1,9 +1,10 @@
 interface CSYouTubeProps {
   url: string;
   title?: string;
+  caption?: string;
 }
 
-export default function CSYouTube({ url, title }: CSYouTubeProps) {
+export default function CSYouTube({ url, title, caption }: CSYouTubeProps) {
   // Extract video ID from YouTube URL
   const getVideoId = (url: string) => {
     const match = url.match(/(?:youtube\.com\/shorts\/|youtu\.be\/|youtube\.com\/watch\?v=)([^&\n?#]+)/);
@@ -42,6 +43,9 @@ export default function CSYouTube({ url, title }: CSYouTubeProps) {
           allowFullScreen
         />
       </div>
+      {caption && (
+        <figcaption className="cs-image-caption">{caption}</figcaption>
+      )}
     </figure>
   );
 }
