@@ -14,8 +14,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Jack's Desktop",
-  description: "Personal desktop interface",
+  title: "Jack Parrish",
+  description: "Product Designer",
 };
 
 export default function RootLayout({
