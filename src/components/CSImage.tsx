@@ -28,6 +28,8 @@ export default function CSImage({
   size = 'medium'
 }: CSImageProps) {
   const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
+  const isPng = /\.png$/i.test(src);
+  const isLargeImage = src.includes('seenit-case-overview') || src.includes('seenit-overview');
   
   // Generate poster image path for videos
   const getPosterPath = (videoSrc: string) => {
@@ -97,6 +99,7 @@ export default function CSImage({
             height={aspectRatio === 'none' ? 0 : undefined}
             sizes="(min-width: 1300px) 1288px, (min-width: 820px) 810px, 92vw"
             quality={100}
+            unoptimized={isPng || isLargeImage}
             className="cs-image"
             style={aspectRatio === 'none' ? { position: 'relative', width: '100%', height: 'auto' } : undefined}
           />
