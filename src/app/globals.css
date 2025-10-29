@@ -420,6 +420,11 @@ body:has(.desktop) .siteFooter {
   margin-bottom: 56px;
 }
 
+/* Override for Seenit case study */
+.case-study-header.seenit-header {
+  margin-bottom: 0;
+}
+
 .case-study-title {
   font-family: "Inter", sans-serif;
   font-size: 36px;

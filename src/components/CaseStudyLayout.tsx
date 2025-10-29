@@ -15,7 +15,7 @@ export default function CaseStudyLayout({
 }: CaseStudyLayoutProps) {
   return (
     <div className="case-study-container">
-      <header className="case-study-header">
+      <header className={`case-study-header ${title.toLowerCase().includes('screenshots') ? 'seenit-header' : ''}`}>
         <h1 className="case-study-title">{title}</h1>
         {subtitle && <p className="case-study-subtitle">{subtitle}</p>}
         {meta && meta.length > 0 && (
