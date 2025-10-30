@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Analytics } from '@vercel/analytics/react';
 import "./globals.css";
 
 const ibmPlexMono = IBM_Plex_Mono({ 
@@ -30,6 +31,7 @@ export default function RootLayout({
         <Header interClassName={inter.className} />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
