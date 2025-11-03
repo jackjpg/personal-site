@@ -100,15 +100,29 @@ export default function DraggableIcon({
     }
     switch (icon.kind) {
       case "route":
-        // let anchor default handle it if present
         if (!e) router.push(icon.href);
-        break;
+        return;
       case "link":
         window.open(icon.href, "_blank", "noopener,noreferrer");
-        break;
+        return;
       case "mailto":
         window.location.href = icon.href;
-        break;
+        return;
+    }
+  };
+
+  const handleTap = () => {
+    if (isDragging) return;
+    switch (icon.kind) {
+      case "route":
+        router.push(icon.href);
+        return;
+      case "link":
+        window.open(icon.href, "_blank", "noopener,noreferrer");
+        return;
+      case "mailto":
+        window.location.href = icon.href;
+        return;
     }
   };
 
@@ -205,6 +219,7 @@ export default function DraggableIcon({
       onDrag={handleDrag}
       onDragEnd={handleDragEnd}
       onClick={(e: any) => handleClick(e)}
+      onTap={handleTap}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onKeyDown={handleKeyDown}
