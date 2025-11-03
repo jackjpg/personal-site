@@ -35,6 +35,7 @@ export default function DraggableIcon({
   const [needsScroll, setNeedsScroll] = useState(false);
   const textContentRef = useRef<HTMLDivElement>(null);
   const textContainerRef = useRef<HTMLDivElement>(null);
+  const didDragRef = useRef<boolean>(false);
   const [dragConstraints, setDragConstraints] = useState({
     left: 0,
     right: 0,
@@ -130,8 +131,16 @@ export default function DraggableIcon({
   const pressStart = useRef<{ x: number; y: number } | null>(null);
   const handlePointerDown = (e: React.PointerEvent) => {
     pressStart.current = { x: e.clientX, y: e.clientY };
+    didDragRef.current = false;
   };
   const handlePointerUp = (e: React.PointerEvent) => {
+    // If a drag just occurred, suppress any navigation on this release
+    if (didDragRef.current) {
+      didDragRef.current = false;
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
     const start = pressStart.current;
     pressStart.current = null;
     if (!start) return;
@@ -153,6 +162,49 @@ export default function DraggableIcon({
       }
     }
   };
+
+  // Ensure anchor clicks are blocked immediately after a drag
+  const handleAnchorClick = (e: React.MouseEvent) => {
+    if (didDragRef.current || isDragging) {
+      didDragRef.current = false;
+      setIsDragging(false);
+      onInteractionChange?.(false);
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    if (icon.kind === 'route') {
+      // Prefer client navigation for routes
+      e.preventDefault();
+      setIsDragging(false);
+      onInteractionChange?.(false);
+      router.push(icon.href);
+    }
+  };
+
+  // Global safety net: ensure drag state resets when leaving/returning to page
+  useEffect(() => {
+    const cancelDrag = () => {
+      didDragRef.current = false;
+      setIsDragging(false);
+      onInteractionChange?.(false);
+    };
+    const handleVisibility = () => {
+      if (document.visibilityState !== 'visible') {
+        cancelDrag();
+      }
+    };
+    window.addEventListener('pointerup', cancelDrag);
+    window.addEventListener('pointercancel', cancelDrag);
+    window.addEventListener('blur', cancelDrag);
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => {
+      window.removeEventListener('pointerup', cancelDrag);
+      window.removeEventListener('pointercancel', cancelDrag);
+      window.removeEventListener('blur', cancelDrag);
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
+  }, [onInteractionChange]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -180,6 +232,12 @@ export default function DraggableIcon({
     // Calculate new position
     const newX = x + info.offset.x;
     const newY = y + info.offset.y;
+
+    // Mark if this interaction was a drag beyond the tap threshold
+    const movedPx = Math.max(Math.abs(info.offset.x), Math.abs(info.offset.y));
+    if (movedPx > 4) {
+      didDragRef.current = true;
+    }
     
     // Get actual workspace bounds from DOM
     if (!workspaceRef.current) {
@@ -208,10 +266,10 @@ export default function DraggableIcon({
     onMouseLeave: () => { onInteractionChange?.(false); },
   };
 
-  const clickHandlers: any = icon.kind === 'route' ? {
-    onClick: (e: any) => handleClick(e),
+  const clickHandlers: any = {
+    onClick: handleAnchorClick,
     onTap: handleTap,
-  } : {};
+  };
 
   return (
     <MotionElement
