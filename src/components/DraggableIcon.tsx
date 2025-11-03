@@ -200,6 +200,19 @@ export default function DraggableIcon({
   const isDraggable = true;
   const MotionElement: any = isAnchor ? motion.a : motion.button;
 
+  const commonHandlers: any = {
+    onPointerDown: handlePointerDown,
+    onPointerUp: handlePointerUp,
+    onKeyDown: handleKeyDown,
+    onMouseEnter: () => { onInteractionChange?.(true); },
+    onMouseLeave: () => { onInteractionChange?.(false); },
+  };
+
+  const clickHandlers: any = icon.kind === 'route' ? {
+    onClick: (e: any) => handleClick(e),
+    onTap: handleTap,
+  } : {};
+
   return (
     <MotionElement
       className="iconButton focusRing"
@@ -219,17 +232,8 @@ export default function DraggableIcon({
       onDragStart={handleDragStart}
       onDrag={handleDrag}
       onDragEnd={handleDragEnd}
-      onClick={(e: any) => handleClick(e)}
-      onTap={handleTap}
-      onPointerDown={handlePointerDown}
-      onPointerUp={handlePointerUp}
-      onKeyDown={handleKeyDown}
-      onMouseEnter={() => {
-        onInteractionChange?.(true);
-      }}
-      onMouseLeave={() => {
-        onInteractionChange?.(false);
-      }}
+      {...commonHandlers}
+      {...clickHandlers}
       whileTap={{ scale: 0.98, cursor: "grabbing" }}
       aria-label={icon.label}
       tabIndex={0}
