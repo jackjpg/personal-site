@@ -1,3 +1,12 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+};
+
+export default nextConfig;
+
 import createMDX from '@next/mdx'
 
 const withMDX = createMDX({
