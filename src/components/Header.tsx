@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header({ interClassName }: { interClassName: string }) {
   return (
@@ -13,7 +14,7 @@ export default function Header({ interClassName }: { interClassName: string }) {
             rel="noopener noreferrer"
             className="siteHeader__linkedin"
           >
-            <img 
+            <Image 
               src="/Icons/linkedin.png" 
               alt="LinkedIn" 
               width={24} 

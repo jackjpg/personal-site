@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Footer() {
   return (
     <footer className="siteFooter" role="contentinfo" aria-label="Site footer">
@@ -9,7 +11,7 @@ export default function Footer() {
         rel="noopener noreferrer"
         className="siteFooter__link"
       >
-        <img
+        <Image
           className="siteFooter__icon"
           src="/Social/ig.jpg"
           alt="Instagram"

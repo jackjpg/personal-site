@@ -31,11 +31,7 @@ export default function CSImage({
   const isPng = /\.png$/i.test(src);
   const isLargeImage = src.includes('seenit-case-overview') || src.includes('seenit-overview');
   
-  // Generate poster image path for videos
-  const getPosterPath = (videoSrc: string) => {
-    const basePath = videoSrc.replace(/\.(mp4|webm|ogg|mov)$/i, '');
-    return `${basePath}_poster.jpg`;
-  };
+  // poster path generation not used
   
   // Compute width behavior based on size variant
   const isLarge = size === 'large';

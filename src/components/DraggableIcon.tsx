@@ -82,7 +82,7 @@ export default function DraggableIcon({
     updateConstraints();
     window.addEventListener('resize', updateConstraints);
     return () => window.removeEventListener('resize', updateConstraints);
-  }, [icon.ratio, width, height]);
+  }, [icon.ratio, width, height, workspaceRef]);
 
   // Check if text needs scrolling
   useEffect(() => {

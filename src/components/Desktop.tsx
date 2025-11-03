@@ -33,7 +33,7 @@ export default function Desktop() {
     return sizeMap[ratio as keyof typeof sizeMap];
   };
 
-              const getRandomPosition = (icon: Icon, index: number) => {
+              const getRandomPosition = ((icon: Icon, index: number) => {
                 const { width, height } = getSizeForRatio(icon.ratio);
                 
                 const viewportWidth = window.innerWidth;
@@ -81,7 +81,7 @@ export default function Desktop() {
                 const rotation = pos.rot;
                 
                 return { x, y, rotation };
-              };
+              });
 
   const loadPositions = useCallback(() => {
     // Create positions for all icons - simple direct positioning
@@ -94,7 +94,7 @@ export default function Desktop() {
     });
     
     setIconPositions(positions);
-  }, []);
+  }, [getRandomPosition]);
 
   const savePosition = (id: string, x: number, y: number) => {
     const newPositions = iconPositions.map(pos => 
@@ -120,12 +120,12 @@ export default function Desktop() {
     }, 100);
     
     return () => clearTimeout(timer);
-  }, []);
+  }, [loadPositions]);
 
   // Force refresh positions when icons change
   useEffect(() => {
     loadPositions();
-  }, [icons]); // Use full icons array instead of just length
+  }, [loadPositions]);
 
   // Handle window resize to regenerate positions for new screen size
   useEffect(() => {
@@ -136,7 +136,7 @@ export default function Desktop() {
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [icons]); // Include icons dependency to ensure all thumbnails are handled
+  }, [loadPositions]);
 
   // Floating chip follower for active project
   useEffect(() => {
