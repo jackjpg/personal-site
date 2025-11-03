@@ -197,6 +197,7 @@ export default function DraggableIcon({
   };
 
   const isAnchor = icon.kind === "route" || icon.kind === "link" || icon.kind === "mailto";
+  const isDraggable = icon.kind === "route";
   const MotionElement: any = isAnchor ? motion.a : motion.button;
 
   return (
@@ -209,19 +210,20 @@ export default function DraggableIcon({
         rotate: rotation,
         zIndex: isDragging ? 1000 : zIndex
       } as React.CSSProperties & { x: number; y: number; rotate: number }}
-      drag
-      dragConstraints={dragConstraints}
-      dragMomentum={false}
-      dragElastic={0.1}
-      dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
-      dragPropagation={false}
-      onDragStart={handleDragStart}
-      onDrag={handleDrag}
-      onDragEnd={handleDragEnd}
+      {...(isDraggable ? {
+        drag: true,
+        dragConstraints: dragConstraints,
+        dragMomentum: false,
+        dragElastic: 0.1,
+        dragTransition: { bounceStiffness: 300, bounceDamping: 20 },
+        dragPropagation: false,
+        onDragStart: handleDragStart,
+        onDrag: handleDrag,
+        onDragEnd: handleDragEnd,
+      } : {})}
       onClick={(e: any) => handleClick(e)}
       onTap={handleTap}
-      onPointerDown={handlePointerDown}
-      onPointerUp={handlePointerUp}
+      {...(isDraggable ? { onPointerDown: handlePointerDown, onPointerUp: handlePointerUp } : {})}
       onKeyDown={handleKeyDown}
       onMouseEnter={() => {
         onInteractionChange?.(true);
@@ -229,7 +231,7 @@ export default function DraggableIcon({
       onMouseLeave={() => {
         onInteractionChange?.(false);
       }}
-      whileTap={{ scale: 0.98, cursor: "grabbing" }}
+      whileTap={isDraggable ? { scale: 0.98, cursor: "grabbing" } : undefined}
       aria-label={icon.label}
       tabIndex={0}
       animate={isDragging ? false : {
