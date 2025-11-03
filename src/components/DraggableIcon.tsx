@@ -93,11 +93,15 @@ export default function DraggableIcon({
     }
   }, [icon.text, width, height]);
 
-  const handleClick = () => {
-    if (isDragging) return; // Don't trigger click if we were dragging
+  const handleClick = (e?: React.MouseEvent) => {
+    if (isDragging) {
+      e?.preventDefault();
+      return;
+    }
     switch (icon.kind) {
       case "route":
-        router.push(icon.href);
+        // let anchor default handle it if present
+        if (!e) router.push(icon.href);
         break;
       case "link":
         window.open(icon.href, "_blank", "noopener,noreferrer");
@@ -178,8 +182,11 @@ export default function DraggableIcon({
     onDragEnd(icon.id, constrainedX, constrainedY);
   };
 
+  const isAnchor = icon.kind === "route" || icon.kind === "link" || icon.kind === "mailto";
+  const MotionElement: any = isAnchor ? motion.a : motion.button;
+
   return (
-    <motion.button
+    <MotionElement
       className="iconButton focusRing"
       data-is-active={isActive}
       style={{ 
@@ -197,7 +204,7 @@ export default function DraggableIcon({
       onDragStart={handleDragStart}
       onDrag={handleDrag}
       onDragEnd={handleDragEnd}
-      onClick={handleClick}
+      onClick={(e: any) => handleClick(e)}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onKeyDown={handleKeyDown}
@@ -222,6 +229,9 @@ export default function DraggableIcon({
         delay: floatDelay
       }}
       initial={true}
+      {...(isAnchor && icon.kind === "route" ? { href: icon.href } : {})}
+      {...(isAnchor && icon.kind === "link" ? { href: icon.href, target: "_blank", rel: "noopener noreferrer" } : {})}
+      {...(isAnchor && icon.kind === "mailto" ? { href: icon.href } : {})}
     >
       <div 
         ref={textContainerRef}
@@ -374,6 +384,6 @@ export default function DraggableIcon({
       {icon.kind !== "route" && icon.label && (
         <div className="iconLabel label-">{icon.label}</div>
       )}
-    </motion.button>
+    </MotionElement>
   );
 }
