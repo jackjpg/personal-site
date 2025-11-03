@@ -21,8 +21,8 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function CasePage({ params }: { params: any }) {
-  const slug: string = params?.slug as string;
+export default async function CasePage({ params }: any) {
+  const { slug } = await params;
   let caseStudy;
   
   try {
