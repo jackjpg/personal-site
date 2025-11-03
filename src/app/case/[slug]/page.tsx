@@ -21,8 +21,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function CasePage({ params }: any) {
-  const { slug } = await params;
+export default async function CasePage({ params }: { params: { slug: string } | Promise<{ slug: string }> }) {
+  const resolved = await Promise.resolve(params);
+  const { slug } = resolved;
   let caseStudy;
   
   try {
