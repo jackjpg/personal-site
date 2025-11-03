@@ -108,6 +108,34 @@ export default function DraggableIcon({
     }
   };
 
+  // Treat minimal movement as a click even though drag is enabled
+  const pressStart = useRef<{ x: number; y: number } | null>(null);
+  const handlePointerDown = (e: React.PointerEvent) => {
+    pressStart.current = { x: e.clientX, y: e.clientY };
+  };
+  const handlePointerUp = (e: React.PointerEvent) => {
+    const start = pressStart.current;
+    pressStart.current = null;
+    if (!start) return;
+    const dx = Math.abs(e.clientX - start.x);
+    const dy = Math.abs(e.clientY - start.y);
+    const moved = Math.max(dx, dy) > 4; // threshold in px
+    if (!moved) {
+      // Force treat as click regardless of drag state
+      switch (icon.kind) {
+        case "route":
+          router.push(icon.href);
+          return;
+        case "link":
+          window.open(icon.href, "_blank", "noopener,noreferrer");
+          return;
+        case "mailto":
+          window.location.href = icon.href;
+          return;
+      }
+    }
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -170,6 +198,8 @@ export default function DraggableIcon({
       onDrag={handleDrag}
       onDragEnd={handleDragEnd}
       onClick={handleClick}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
       onKeyDown={handleKeyDown}
       onMouseEnter={() => {
         onInteractionChange?.(true);
