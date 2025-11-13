@@ -35,7 +35,7 @@ export default function DraggableIcon({
   const [needsScroll, setNeedsScroll] = useState(false);
   const textContentRef = useRef<HTMLDivElement>(null);
   const textContainerRef = useRef<HTMLDivElement>(null);
-  const didDragRef = useRef<boolean>(false);
+  const dragOccurredRef = useRef<boolean>(false);
   const [dragConstraints, setDragConstraints] = useState({
     left: 0,
     right: 0,
@@ -94,135 +94,32 @@ export default function DraggableIcon({
     }
   }, [icon.text, width, height]);
 
-  const handleClick = (e?: React.MouseEvent) => {
-    if (isDragging) {
-      e?.preventDefault();
-      return;
-    }
-    switch (icon.kind) {
-      case "route":
-        if (!e) router.push(icon.href);
-        return;
-      case "link":
-        window.open(icon.href, "_blank", "noopener,noreferrer");
-        return;
-      case "mailto":
-        window.location.href = icon.href;
-        return;
-    }
-  };
-
-  const handleTap = () => {
-    if (isDragging) return;
-    switch (icon.kind) {
-      case "route":
-        router.push(icon.href);
-        return;
-      case "link":
-        window.open(icon.href, "_blank", "noopener,noreferrer");
-        return;
-      case "mailto":
-        window.location.href = icon.href;
-        return;
-    }
-  };
-
-  // Treat minimal movement as a click even though drag is enabled
-  const pressStart = useRef<{ x: number; y: number } | null>(null);
-  const handlePointerDown = (e: React.PointerEvent) => {
-    pressStart.current = { x: e.clientX, y: e.clientY };
-    didDragRef.current = false;
-  };
-  const handlePointerUp = (e: React.PointerEvent) => {
-    // If a drag just occurred, suppress any navigation on this release
-    if (didDragRef.current) {
-      didDragRef.current = false;
-      e.preventDefault();
-      e.stopPropagation();
-      return;
-    }
-    const start = pressStart.current;
-    pressStart.current = null;
-    if (!start) return;
-    const dx = Math.abs(e.clientX - start.x);
-    const dy = Math.abs(e.clientY - start.y);
-    const moved = Math.max(dx, dy) > 4; // threshold in px
-    if (!moved) {
-      // Force treat as click regardless of drag state
-      switch (icon.kind) {
-        case "route":
-          router.push(icon.href);
-          return;
-        case "link":
-          window.open(icon.href, "_blank", "noopener,noreferrer");
-          return;
-        case "mailto":
-          window.location.href = icon.href;
-          return;
-      }
-    }
-  };
-
-  // Ensure anchor clicks are blocked immediately after a drag
-  const handleAnchorClick = (e: React.MouseEvent) => {
-    if (didDragRef.current || isDragging) {
-      didDragRef.current = false;
-      setIsDragging(false);
-      onInteractionChange?.(false);
-      e.preventDefault();
-      e.stopPropagation();
-      return;
-    }
-    if (icon.kind === 'route') {
-      // Prefer client navigation for routes
-      e.preventDefault();
-      setIsDragging(false);
-      onInteractionChange?.(false);
-      router.push(icon.href);
-    }
-  };
-
-  // Global safety net: ensure drag state resets when leaving/returning to page
+  // Prefetch route on mount for faster navigation
   useEffect(() => {
-    const cancelDrag = () => {
-      didDragRef.current = false;
-      setIsDragging(false);
-      onInteractionChange?.(false);
-    };
-    const handleVisibility = () => {
-      if (document.visibilityState !== 'visible') {
-        cancelDrag();
-      }
-    };
-    window.addEventListener('pointerup', cancelDrag);
-    window.addEventListener('pointercancel', cancelDrag);
-    window.addEventListener('blur', cancelDrag);
-    document.addEventListener('visibilitychange', handleVisibility);
-    return () => {
-      window.removeEventListener('pointerup', cancelDrag);
-      window.removeEventListener('pointercancel', cancelDrag);
-      window.removeEventListener('blur', cancelDrag);
-      document.removeEventListener('visibilitychange', handleVisibility);
-    };
-  }, [onInteractionChange]);
+    if (icon.kind === 'route' && icon.href) {
+      router.prefetch(icon.href);
+    }
+  }, [icon.kind, icon.href, router]);
+
+  // Prefetch on hover for even faster navigation
+  const handleMouseEnter = () => {
+    onInteractionChange?.(true);
+    if (icon.kind === 'route' && icon.href) {
+      router.prefetch(icon.href);
+    }
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      handleClick();
+      handleClick(e as any);
     }
   };
 
   const handleDragStart = () => {
     setIsDragging(true);
     onInteractionChange?.(true);
-  };
-
-  const handleDrag = () => {
-    // Keep isDragging true during drag
-    if (!isDragging) {
-      setIsDragging(true);
-    }
+    dragOccurredRef.current = true;
   };
 
   const handleDragEnd = (_: unknown, info: { offset: { x: number; y: number } }) => {
@@ -232,12 +129,6 @@ export default function DraggableIcon({
     // Calculate new position
     const newX = x + info.offset.x;
     const newY = y + info.offset.y;
-
-    // Mark if this interaction was a drag beyond the tap threshold
-    const movedPx = Math.max(Math.abs(info.offset.x), Math.abs(info.offset.y));
-    if (movedPx > 4) {
-      didDragRef.current = true;
-    }
     
     // Get actual workspace bounds from DOM
     if (!workspaceRef.current) {
@@ -252,27 +143,40 @@ export default function DraggableIcon({
     const constrainedY = Math.max(20, Math.min(newY, workspaceRect.height - 20 - height));
     
     onDragEnd(icon.id, constrainedX, constrainedY);
+    
+    // Clear drag flag after delay to prevent click navigation
+    setTimeout(() => {
+      dragOccurredRef.current = false;
+    }, 100);
   };
 
-  const isAnchor = icon.kind === "route" || icon.kind === "link" || icon.kind === "mailto";
-  const isDraggable = true;
-  const MotionElement: any = isAnchor ? motion.a : motion.button;
-
-  const commonHandlers: any = {
-    onPointerDown: handlePointerDown,
-    onPointerUp: handlePointerUp,
-    onKeyDown: handleKeyDown,
-    onMouseEnter: () => { onInteractionChange?.(true); },
-    onMouseLeave: () => { onInteractionChange?.(false); },
-  };
-
-  const clickHandlers: any = {
-    onClick: handleAnchorClick,
-    onTap: handleTap,
+  const handleClick = (e: React.MouseEvent) => {
+    // Block navigation if drag occurred or is currently dragging
+    if (dragOccurredRef.current || isDragging) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    
+    // Navigate only on explicit clicks (no drag)
+    switch (icon.kind) {
+      case "route":
+        e.preventDefault();
+        router.push(icon.href);
+        break;
+      case "link":
+        e.preventDefault();
+        window.open(icon.href, "_blank", "noopener,noreferrer");
+        break;
+      case "mailto":
+        e.preventDefault();
+        window.location.href = icon.href;
+        break;
+    }
   };
 
   return (
-    <MotionElement
+    <motion.div
       className="iconButton focusRing"
       data-is-active={isActive}
       style={{ 
@@ -288,12 +192,14 @@ export default function DraggableIcon({
       dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
       dragPropagation={false}
       onDragStart={handleDragStart}
-      onDrag={handleDrag}
       onDragEnd={handleDragEnd}
-      {...commonHandlers}
-      {...clickHandlers}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={() => { onInteractionChange?.(false); }}
       whileTap={{ scale: 0.98, cursor: "grabbing" }}
       aria-label={icon.label}
+      role={icon.kind === "route" || icon.kind === "link" || icon.kind === "mailto" ? "link" : "button"}
       tabIndex={0}
       animate={isDragging ? false : {
         x: [x, x + floatX, x - floatX, x],
@@ -307,9 +213,6 @@ export default function DraggableIcon({
         delay: floatDelay
       }}
       initial={true}
-      {...(isAnchor && icon.kind === "route" ? { href: icon.href } : {})}
-      {...(isAnchor && icon.kind === "link" ? { href: icon.href, target: "_blank", rel: "noopener noreferrer" } : {})}
-      {...(isAnchor && icon.kind === "mailto" ? { href: icon.href } : {})}
     >
       <div 
         ref={textContainerRef}
@@ -462,6 +365,6 @@ export default function DraggableIcon({
       {icon.kind !== "route" && icon.label && (
         <div className="iconLabel label-">{icon.label}</div>
       )}
-    </MotionElement>
+    </motion.div>
   );
 }
