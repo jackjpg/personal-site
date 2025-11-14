@@ -1,9 +1,9 @@
 ---
-title: "Screenshots as a new social primitive"
+title: "Turning screenshots into status updates"
 introduction: |
   Gen Z takes 20–25 screenshots a day. From wanted clothes to breakup memes, it's their most honest digital behaviour, and they just sit hidden in camera albums.
 
-  As founding designer at Seenit, I explored how LLMs could make sense of screenshots and turn them into a new form of self-expression. I defined screenshots as a new social primitive and built the first interface to prove it.
+  As founding designer at Seenit, I explored how LLMs could make sense of screenshots and turn them into a new form of self-expression. I defined screenshots as a new social primitive and built the first interface to prove it: lightweight, AI-generated status updates powered by screenshots.
 
   Impact: Generated 200+ cards across 10 friendship groups, with a 20–30% share rate. Validated screenshots as a new social signal and showed early signs of habit formation.
 date: "Jul 2025–Oct 2025"
@@ -29,9 +29,9 @@ client: "Seenit"
 
 To move from idea to product, I broke the problem into three behavioural pillars, signals that would tell us if screenshot-as-status could sustain a real loop:
 
-1. Expression: can AI turn mundane screenshots into something share-worthy?
-2. Reaction: do they spark replies or stories in existing channels?
-3. Usage: can it become a sustained behaviour, not just novel?
+1. <span className="list-label">Expression:</span> can AI turn mundane screenshots into something share-worthy?
+2. <span className="list-label">Reaction:</span> do they spark replies or stories in existing channels?
+3. <span className="list-label">Usage:</span> can it become a sustained behaviour, not just a novelty?
 
 </Section>
 
@@ -43,11 +43,11 @@ To move from idea to product, I broke the problem into three behavioural pillars
   caption="Testflight build"
 />
 
-I partnered with an engineer to ship the first experiment: a weekly Sunday card that told the story of your week. In six weeks we went from a hypothesis to a live Testflight build.
+I partnered with an engineer to ship the v1 experiment: a sunday card generated from your screenshots.  In six weeks we went from a hypothesis to a live Testflight build. What I learned:
 
-- Tone testing gave us intuition: Each week we shifted the LLM's output (dry, playful, reflective) and gave users three cards to flick between. Meme-like captions consistently got the strongest response.
-- Behaviour revealed the limits of summaries: The format hit a 20–30% share rate and saw organic adoption between friends, but re-engagement came from comparison, not reflection. Shares didn't go to IG; they moved into whatsapp and group chats.
-- Summaries closed loops; they didn't create them. The best cards captured the the small, throwaway moments, the things people wouldn't usually share, but felt human and created reactions
+- <span className="list-label">Tone testing gave us intuition:</span> Each week we shifted the LLM's output (dry, playful, reflective) and gave users three cards to flick between. Meme-like captions consistently got the strongest response.
+- <span className="list-label">Engagement came from comparison:</span> Shares happened in WhatsApp and group chats, not IG. It was for friends, not an audience.
+- <span className="list-label">Summaries closed loops:</span> The best cards captured the the small, throwaway moments, the things people wouldn't usually share, but felt human and created reactions.
 
 </Section>
 
@@ -61,11 +61,11 @@ I partnered with an engineer to ship the first experiment: a weekly Sunday card 
   caption="The feed in Seenit"
 />
 
-After three weeks, retention dropped from 80% → 50% → 30%. Users didn’t want a scrapbook; they wanted a sticker. That insight — backed by both data and feedback — drove the pivot. When the original engineer stepped away, I led the new direction, rebuilding the product myself and redesigning the experience around real-time presence.
+After three weeks, usage dropped. users didn't want a scrapbook; they wanted a sticker. When the original engineer stepped away, I led the pivot, defining a new product direction, rebuilding the product myself, and redesigning the experience around real-time presence.
 
-The new version introduced lightweight, live-feeling status cards that updated as users moved through their week. The goal: make sharing feel as frictionless and honest as screenshotting itself. 
+The new version introduced lightweight, live-feeling status cards that updated as users moved through their day. The goal: make sharing feel as frictionless and honest as screenshotting itself. 
 
-Seenit evolved into a small-group friendship app, limited to six people. Statuses were generated automatically from recent screenshots via an LLM pipeline and shared as short POV updates in the feed. In the video above you can see the friendship feed, with everything you see generated with LLMs (the status, POV, replies). 
+Seenit became a six-person friendship app, with each status interpreted from recent screenshots and shared as short POV updates. The content in the video above is generated from an LLM pipeline: statues, reactions, POVs. 
 
 </Section>
 
@@ -79,13 +79,11 @@ Seenit evolved into a small-group friendship app, limited to six people. Statuse
   caption="Adding a status with the action button"
 />
 
-Adding a status happens without opening the app. When users get a push reminder, either because they haven’t shared in a while, or a friend has, a back tap triggers a lightweight status, AI-generated from recent screenshots and shared to their squad. 
+Statuses were triggered without opening the app. When users get a push reminder, either because they haven't shared in a while, or a friend has, a back tap triggers a lightweight status, AI-generated from recent screenshots and shared to their squad. 
 
-Push → Screenshots → LLM interprets behaviour → generates status + POV + reactions → shares to friends
+Push → Screenshots → LLM → Status + POV + reactions → Squad
 
-There’s no post to craft, no caption to write, no feed to perform into. It’s an interface that’s passive in input, invisible in action, intelligent in output.
-
-Unlike other social apps that rely on active input, Seenit is built from what people already do but never show.
+There's no post to craft, no caption to write, no feed to perform into. It's an interface that's passive in input, invisible in action, intelligent in output.
 
 </Section>
 
@@ -98,7 +96,7 @@ Unlike other social apps that rely on active input, Seenit is built from what pe
   size="medium"
 />
 
-To extend presence beyond drops, I prototyped an invisible avatar system that used a diffusion model to turn an IG display photo into a recognisable, playful, personality-driven characters. Each avatar was carried across profiles, widgets, invites, and feed — forming an ambient identity layer that matched the product's tone.
+To add identity beyond drops, I built an avatar system using a diffusion model. A user's IG photo generated a playful, personality-driven character used across profiles, widgets, invites and the feed.
 
 </Section>
 

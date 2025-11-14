@@ -565,6 +565,20 @@ body:has(.desktop) .siteFooter {
   margin-bottom: 8px;
 }
 
+.case-study-prose ol li::marker {
+  font-weight: 500;
+  color: #FC6DB3;
+}
+
+.case-study-prose ul li::marker {
+  color: #FC6DB3;
+}
+
+.case-study-prose li .list-label {
+  font-weight: 500;
+  color: #FC6DB3;
+}
+
 /* Section Component */
 .cs-section {
   margin-bottom: 40px;

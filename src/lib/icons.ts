@@ -37,7 +37,7 @@ export const icons: Icon[] = [
     kind: "route",
     href: "/case/seenit",
     ratio: "portrait",
-    text: "Screenshots as a social primitive",
+    text: "Turning screenshots into status updates",
     bgColor: "#FC6DB3",
     showLabel: true,
     year: "2025"
