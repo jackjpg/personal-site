@@ -12,9 +12,10 @@ export interface Icon {
   showLabel?: boolean; // Show label pill even on text thumbnails
   curvedText?: string; // Custom text for curved decoration (defaults to "PROJECT")
   year?: string; // Year for project thumbnails
+  previewImage?: string; // Preview media (image or video) from case study (for hover chip)
 }
 
-export const icons: Icon[] = [
+const iconsBase: Omit<Icon, 'previewImage'>[] = [
   {
     id: "forest",
     label: "FOREST.JPG",
@@ -81,3 +82,27 @@ export const icons: Icon[] = [
     year: "2024"
   }
 ];
+
+// Preview media extracted from case studies (hardcoded for client/server compatibility)
+// Uses first media (image or video) from each case study
+const previewMediaMap: Record<string, string> = {
+  'seenit': '/Project_seenit/seenit_remix.mp4',
+  'post-sale': '/Project_post-sale/mw_post-sale_hero.jpg',
+  'verification': '/Project_verification/verification-hero.png'
+};
+
+// Add preview media to project thumbnails
+export const icons: Icon[] = iconsBase.map(icon => {
+  if (icon.kind === "route") {
+    // Extract slug from href (e.g., "/case/seenit" -> "seenit")
+    const slugMatch = icon.href.match(/\/case\/(.+)$/);
+    if (slugMatch && slugMatch[1]) {
+      const slug = slugMatch[1];
+      const previewImage = previewMediaMap[slug];
+      if (previewImage) {
+        return { ...icon, previewImage };
+      }
+    }
+  }
+  return icon;
+});

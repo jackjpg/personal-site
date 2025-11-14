@@ -348,6 +348,10 @@ body:has(.desktop) {
     margin-top: 0;
   }
   
+  .workspace {
+    height: calc(100vh - 72px); /* Only subtract header on mobile */
+  }
+  
   .label- {
     font-size: 12px;
     line-height: 18px;
@@ -765,8 +769,65 @@ body:has(.desktop) .siteFooter {
   letter-spacing: 0.02em;
   white-space: nowrap;
   will-change: transform, opacity;
-  transition: opacity 120ms ease;
-  opacity: 0.9;
+  transition: opacity 120ms ease, visibility 120ms ease;
+  opacity: 0;
+  visibility: hidden;
   z-index: 2000;
+  top: 0;
+  left: 0;
+}
+
+/* Thumbnail variant */
+.floatingChip--thumbnail {
+  height: 260px;
+  width: auto;
+  border-radius: 4px;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.floatingChip--thumbnail img,
+.floatingChip--thumbnail video {
+  display: block;
+  width: auto;
+  height: 260px;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (max-width: 880px) {
+  .floatingChip--thumbnail {
+    height: 130px; /* 50% of 260px on mobile */
+  }
+  
+  .floatingChip--thumbnail img,
+  .floatingChip--thumbnail video {
+    height: 130px; /* 50% of 260px on mobile */
+  }
+}
+
+.floatingChip__text {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  border-radius: 1000px;
+  padding: 0 16px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  z-index: 10;
 }
 

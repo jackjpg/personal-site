@@ -43,3 +43,20 @@ export function getAllCases(): CaseStudy[] {
   return slugs.map(slug => getCaseBySlug(slug));
 }
 
+export function getFirstMediaFromCase(slug: string): string | null {
+  try {
+    const caseStudy = getCaseBySlug(slug);
+    const content = caseStudy.content;
+    
+    // Find first CSImage component (can be image or video)
+    const firstMatch = content.match(/<CSImage\s+[^>]*src=["']([^"']+)["']/);
+    if (firstMatch && firstMatch[1]) {
+      return firstMatch[1];
+    }
+    
+    return null;
+  } catch {
+    return null;
+  }
+}
+

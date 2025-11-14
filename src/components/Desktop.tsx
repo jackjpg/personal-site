@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import Image from "next/image";
 import { icons, Icon } from "@/lib/icons";
 import DraggableIcon from "./DraggableIcon";
 
@@ -41,6 +42,16 @@ export default function Desktop() {
                 const isMobile = viewportWidth <= 880;
                 const margin = isMobile ? 16 : 24;
                 
+                // Get actual workspace height if available, otherwise fall back to viewport
+                let workspaceHeight = viewportHeight;
+                if (workspaceRef.current) {
+                  const workspaceRect = workspaceRef.current.getBoundingClientRect();
+                  workspaceHeight = workspaceRect.height;
+                } else if (isMobile) {
+                  // Fallback: workspace is viewport minus header on mobile
+                  workspaceHeight = viewportHeight - 72;
+                }
+                
                 // Manual positioning - carefully spaced to avoid overlaps
                 // Desktop: landscape=360x200, portrait=200x360
                 const desktopPositions = [
@@ -75,13 +86,12 @@ export default function Desktop() {
                 const containerOffsetX = margin;
                 
                 const x = containerOffsetX + (pos.x * (containerWidth - width));
-                const y = isMobile 
-                  ? (pos.y * (viewportHeight - 72 - height)) + 72 // Account for header height on mobile
-                  : pos.y * (viewportHeight - height); // Use full viewport height on desktop
+                // Use workspace height for Y positioning - workspace already accounts for header on mobile
+                const y = pos.y * (workspaceHeight - height);
                 const rotation = pos.rot;
                 
                 return { x, y, rotation };
-              }, []);
+              }, [workspaceRef]);
 
   const loadPositions = useCallback(() => {
     // Create positions for all icons - simple direct positioning
@@ -158,13 +168,24 @@ export default function Desktop() {
       chipAnimReq.current = requestAnimationFrame(animate);
     };
 
+    let hasMoved = false;
+
     const handlePointerMove = (e: PointerEvent) => {
       const rect = workspaceEl.getBoundingClientRect();
       const x = e.clientX - rect.left + offset.x;
       const y = e.clientY - rect.top + offset.y;
+      
+      if (!hasMoved && el) {
+        // First move - show the chip and set initial position
+        hasMoved = true;
+        el.style.opacity = '0.9';
+        el.style.visibility = 'visible';
+      }
+      
       if (isCoarsePointer) {
         // On touch devices, follow finger tightly with no extra smoothing
         chipPos.current = { x, y };
+        chipTarget.current = { x, y };
         if (el) {
           el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         }
@@ -177,25 +198,69 @@ export default function Desktop() {
     };
 
     if (activeProjectId) {
-      // Initialize position to center so it fades/moves in smoothly
+      // Initialize both positions and hide chip initially
       const rect = workspaceEl.getBoundingClientRect();
-      chipPos.current = { x: rect.width / 2, y: rect.height / 2 };
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      // Try to get current mouse position if available
+      let initialX = centerX;
+      let initialY = centerY;
+      
+      // Check if we can get the current pointer position
+      if (typeof window !== 'undefined' && 'PointerEvent' in window) {
+        // We'll update on first move, but initialize to a safe position
+        initialX = centerX;
+        initialY = centerY;
+      }
+      
+      chipPos.current = { x: initialX, y: initialY };
+      chipTarget.current = { x: initialX, y: initialY };
+      hasMoved = false;
+      
+      if (el) {
+        // Hide chip initially until first pointer move
+        el.style.opacity = '0';
+        el.style.visibility = 'hidden';
+        el.style.transform = `translate3d(${initialX}px, ${initialY}px, 0)`;
+      }
+      
       workspaceEl.addEventListener('pointermove', handlePointerMove);
+      
+      // Also listen for mouseenter to catch initial position
+      const handleMouseEnter = (e: MouseEvent) => {
+        if (!hasMoved) {
+          const rect = workspaceEl.getBoundingClientRect();
+          const x = e.clientX - rect.left + offset.x;
+          const y = e.clientY - rect.top + offset.y;
+          chipPos.current = { x, y };
+          chipTarget.current = { x, y };
+          if (el) {
+            el.style.opacity = '0.9';
+            el.style.visibility = 'visible';
+            el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            hasMoved = true;
+          }
+        }
+      };
+      
+      workspaceEl.addEventListener('mouseenter', handleMouseEnter as any);
+      
+      return () => {
+        workspaceEl.removeEventListener('pointermove', handlePointerMove);
+        workspaceEl.removeEventListener('mouseenter', handleMouseEnter as any);
+      };
     } else {
       if (chipAnimReq.current !== null) {
         cancelAnimationFrame(chipAnimReq.current);
         chipAnimReq.current = null;
       }
-      workspaceEl.removeEventListener('pointermove', handlePointerMove);
-    }
-
-    return () => {
-      if (chipAnimReq.current !== null) {
-        cancelAnimationFrame(chipAnimReq.current);
-        chipAnimReq.current = null;
+      if (el) {
+        el.style.opacity = '0';
+        el.style.visibility = 'hidden';
       }
       workspaceEl.removeEventListener('pointermove', handlePointerMove);
-    };
+    }
   }, [activeProjectId]);
 
   return (
@@ -236,11 +301,52 @@ export default function Desktop() {
           );
         })}
 
-        {activeProjectId && (
-          <div ref={chipRef} className="floatingChip" aria-hidden="true">
-            View project
-          </div>
-        )}
+        {activeProjectId && (() => {
+          const activeIcon = icons.find(i => i.id === activeProjectId);
+          const previewMedia = activeIcon?.previewImage;
+          
+          if (previewMedia) {
+            const isVideo = previewMedia.match(/\.(mp4|mov|webm)$/i);
+            
+            return (
+              <div ref={chipRef} className="floatingChip floatingChip--thumbnail" aria-hidden="true">
+                {isVideo ? (
+                  <video
+                    src={previewMedia}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    style={{
+                      width: 'auto',
+                      objectFit: 'cover',
+                      display: 'block'
+                    }}
+                  />
+                ) : (
+                  <Image
+                    src={previewMedia}
+                    alt=""
+                    width={400}
+                    height={260}
+                    style={{
+                      width: 'auto',
+                      objectFit: 'cover',
+                      display: 'block'
+                    }}
+                    unoptimized
+                  />
+                )}
+              </div>
+            );
+          }
+          
+          return (
+            <div ref={chipRef} className="floatingChip" aria-hidden="true">
+              View project
+            </div>
+          );
+        })()}
       </div>
     </div>
   );
