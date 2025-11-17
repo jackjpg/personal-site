@@ -853,8 +853,8 @@ body:has(.desktop) .siteFooter {
 
   .case-study-prose h2,
   .cs-section-title {
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 22px;
+    line-height: 30px;
     margin-top: 0;
     margin-bottom: 24px;
   }
