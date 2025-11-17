@@ -1,11 +1,9 @@
 ---
 title: "Designing trust after the sale"
 introduction: |
-  After selling a car on Motorway, users entered a black box. What should've been straightforward—verification, scheduling, inspections, payments—was a fragmented, offline process.
+  Motorway is a marketplace connecting car sellers with verified dealers. After seller accepts an offer, they entered a high-friction, high-uncertainty "post-sale" journey involving verification, logistics, payment, and dealer coordination.
 
   In 2025, I defined the vision for a post-sale journey as a critical business opportunity, securing exec buy-in, establishing a new product vertical, and uniting the team around a shared mission and objectives.
-
-  Impact: A live status tracker that replaced anxious refreshes and support calls with real-time trust, reducing enquiries by 32%, dealer contact by 27%, and achieving 56% organic adoption.
 date: "Dec 2024–Mar 2025"
 role: "Snr Product Designer"
 client: "Motorway"
@@ -20,14 +18,21 @@ client: "Motorway"
 
 <Section title="Spotting the blind spot">
 
-I noticed that the final screen in the seller journey was getting 4 times more page views than the homepage. Sellers kept revisiting expecting updates that never came, they were anxious about a major asset they'd just sold. Reviews and support logs said the same thing. I asked myself: how does the lack of post-sale visibility impact user trust and satisfaction? To find out, I partnered with customer support and data teams to audit tickets and operational workflows. That's when we discovered the scale of the issue:
+The final screen in the seller journey received 4× more page views than the homepage. Sellers kept returning, expecting updates that never came, they were anxious about a major asset they'd just sold. I asked myself: how does the lack of post-sale visibility impact user trust and satisfaction? To find out, I partnered with customer support and data teams to audit tickets and operational workflows: 
 
 1. 100% of sales relied on whatsapp and phone calls, causing delays and cancellations
+
 2. 56% of enquiries stemmed from sellers unsure of next steps
 
-Every support call cost a few pounds. If we could reduce that traffic by giving people visibility, the savings and trust impact would be huge.
+3. 25% cancellation rate and climbing
 
-To expose where the journey was breaking down, I ran a cross-functional workshop with PMs and designers across the company. We mapped the current post-sale experience, annotated it with real seller pain points, and highlighted where ownership was fragmented or missing.
+4. £3.5M+ annual revenue: At risk from poor experience
+
+Sellers didn't know what to do, who they were waiting for, or whether the process was on track.
+
+
+
+To expose why, I ran a cross-functional workshop mapping the entire post-sale flow. We mapped the current post-sale experience, annotated it with real seller pain points, and highlighted where ownership was fragmented or missing.
 
 <CSImage 
   src="/Project_post-sale/search_workshop.png" 
@@ -40,19 +45,29 @@ To expose where the journey was breaking down, I ran a cross-functional workshop
 
  
 
-<Section title="Design challenge">
+<Section title="Reframing the challenge">
 
 How might we improve Motorway's post-sale experience from a 'black box' into a transparent, self-serve journey that reduces operational friction. This led to 3 product goals:
 
-1. Give sellers real-time visibility into key milestones like scheduling and payments, reducing "what's next?" uncertainty
-2. Digitise manual workflows to reduce cancellations and delays caused by whatsapp and phone dependency
-3. Reposition motorway as a category leader by solving an industry-wide pain point around post-sale opacity
+1. Clarity: Every user should know what they need to do, who they are waiting for, and why.
+
+2. Visibility: Everything happening behind the scenes should be surfaced clearly.
+
+3. Operational deflection: Reduce CS by turning common questions into product surfaces
 
 </Section>
 
  
 
 <Section title="Design vision and planning">
+
+I created a vision storyboard to show what a transparent post-sale experience could feel like. It focused on all user types in the post-sale experience, showed updates appearing in real time, payments confirmed automatically, and communication moving in-app rather than over Whatsapp.
+
+I presented the storyboard to the executive team, framing it as both a trust strategy and a growth opportunity. The head of product championed it, and together we aligned product leads around the vision, prioritising opportunity areas across squads, balancing short-term impact with scalable bets.
+
+
+
+This alignment led to the creation of a dedicated post-sale pillar, where I partnered with a PM and six engineers to ship the MVP.
 
 <CSImage 
   src="/Project_post-sale/vision-video.mov" 
@@ -61,29 +76,105 @@ How might we improve Motorway's post-sale experience from a 'black box' into a t
   style={{ margin: '32px 0', maxWidth: '810px' }}
 />
 
-With the problem defined, I created a vision storyboard to show what a transparent post-sale experience could feel like. It focused on all user types in the post-sale experience, showed updates appearing in real time, payments confirmed automatically, and communication moving in-app rather than over Whatsapp.
+</Section>
 
-I presented the storyboard to the executive team, framing it as both a trust strategy and a growth opportunity. The head of product championed it, and together we aligned product leads around the vision, prioritising opportunity areas across squads, balancing short-term impact with scalable bets.
+ 
 
-This alignment led to the creation of a dedicated post-sale pillar, where I partnered with a PM and six engineers to ship the MVP.
+<Section title="Setting expectations">
+
+To address the insights from UXR, our first launch was to start building trust during identity verification, as well as to prepare them for what's coming up. I made 2 improvements to build user confidence:
+
+1. Redesigned the verification screen with clear timeframes, ownership, and next steps. 
+
+2. Built on the signposting by adding an entry point that replaced a confusing dead-end with a clear explanation of what happens next.
+
+This small piece of UX became a surprisingly important moment in the journey, closing a gap that previously left users uncertain and unsupported.
+
+<CSImage 
+  src="/Project_post-sale/mw_post-sale_verification.jpg" 
+  alt="Post-sale verification screen"
+  aspectRatio="none"
+/>
+
+<CSImage 
+  src="/Project_post-sale/mw_post-sale_entrypoint.jpg" 
+  alt="Post-sale entry point"
+  aspectRatio="none"
+/> 
 
 </Section>
 
+ 
+
+<Section title="The unified post-sale hub">
+
+We replaced a fragmented, WhatsApp-driven experience with a single hub that became the source of truth once a car was sold. To mirror the seller's mental model, the page is designed around two anchors: whats happening now, what did I agree to.
+
 <CSImage 
-  src="/Project_post-sale/Neeedssw@3x.png" 
-  alt="Post-sale design"
+  src="/Project_post-sale/Desktop@2x.png" 
+  alt="Post-sale hub desktop view"
   aspectRatio="none"
 />
 
+</Section>
+
+ 
+
+<Section title="Making the journey visible">
+
+The process after a sale was largely invisible. We delivered a milestone tracker that reflected the real operational flow:
+
+- Linear progression tied to real backend events
+
+- Time expectations to reduce uncertainty make the experience feel controlled 
+
+- Progressive reveal of details, like transport partner, driver name, and collection window
+
 <CSImage 
-  src="/Project_post-sale/New132@3x.png" 
-  alt="Post-sale design"
+  src="/Project_post-sale/mw_post-sale_milestones.jpg" 
+  alt="Post-sale milestones"
   aspectRatio="none"
 />
 
+Because most sellers had never sold through the Motorway before, we added short visual explainers for unfamiliar steps (Collection, inspection, payment release). These helped users build a clear mental model of the journey without digging through help articles, and each explainer aligned directly to a milestone in the timeline
+
+</Section>
+
+ 
+
 <CSImage 
-  src="/Project_post-sale/mw_post-sale_together.jpg" 
-  alt="Post-sale overview"
+  src="/Project_post-sale/mw_post-sale_howitworks.jpg" 
+  alt="Post-sale how it works"
   aspectRatio="none"
 />
+
+<Section title="Impact">
+
+<dl className="case-study-impact case-study-impact--three-col">
+  <div className="case-study-impact-item">
+    <dt>Post Sale Enquiries</dt>
+    <dd>32% reduction</dd>
+  </div>
+  <div className="case-study-impact-item">
+    <dt>Buyer contact enquiries</dt>
+    <dd>27% reduction</dd>
+  </div>
+  <div className="case-study-impact-item">
+    <dt>Payment enquiries</dt>
+    <dd>62% less</dd>
+  </div>
+</dl>
+
+<dl className="case-study-impact case-study-impact--two-col">
+  <div className="case-study-impact-item">
+    <dt>Organic Adoption</dt>
+    <dd>78% (no marketing push or CRM)</dd>
+  </div>
+  <div className="case-study-impact-item">
+    <dt>RRV</dt>
+    <dd>47%</dd>
+  </div>
+</dl>
+
+</Section>
 
