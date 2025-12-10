@@ -9,7 +9,9 @@ export interface CaseMetadata {
   subtitle?: string;
   date: string;
   role?: string;
+  team?: string;
   client?: string;
+  layout?: string;
   [key: string]: string | undefined;
 }
 

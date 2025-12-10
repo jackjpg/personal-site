@@ -34,7 +34,7 @@ export default function Desktop() {
     return sizeMap[ratio as keyof typeof sizeMap];
   };
 
-              const getRandomPosition = useCallback((icon: Icon, index: number) => {
+  const getRandomPosition = useCallback((icon: Icon, index: number) => {
                 const { width, height } = getSizeForRatio(icon.ratio);
                 
                 const viewportWidth = window.innerWidth;

@@ -1,20 +1,30 @@
 ---
 title: "Reducing document verification failures"
-introduction: |
-  Verifying documents was one of the biggest sources of time and money sinks across Motorway's seller journey. As leadership scaled ops and backed machine vision bets, our small team had no pm or back-end support. Rather than wait, I led a fast, content-led redesign of the upload flow to reduce failure, without heavy engineering.
-
-  This project was a reminder that even small design interventions can shift both user trust and system efficiency.
-date: "Jul 2024"
+date: "Motorway"
 role: "Snr Product Designer"
 client: "Motorway"
+layout: "v3"
 ---
 
-<CSImage 
+<Section>
+
+In late 2024, I redesigned Motorway's document-verification flow, improving first-time approval rates by 7% and reducing average verification time by 3 hours. With no PM or backend support, I delivered a lightweight, content-led solution that reduced operational load and strengthened seller trust.
+
+</Section>
+
+<V3Image 
   src="/Project_verification/verification-hero.png" 
   alt="Verification project overview"
   aspectRatio="none"
-  size="large"
 />
+
+<Section title="Background">
+
+Document verification was one of the highest-cost steps in Motorway's seller journey. As the business scaled and invested in machine-vision systems, our small team had no backend support and no dedicated product manager. Failures were common, guidance was unclear, and sellers blamed Motorway when documents were rejected.
+
+Rather than wait for engineering capacity, I led a fast, design-led sprint that reframed verification as a guided, confidence-building experience.
+
+</Section>
 
 <Section title="Research learnings">
 
@@ -24,14 +34,13 @@ I started analysing submitted photos and most common failure reasons, and priori
 2. Low-quality, cropped, dark photos and missing pages led to frequent rejections.
 3. Mismatch details (e.g names not aligning with records).
 
-<CSImage 
+</Section>
+
+<V3Image 
   src="/Project_verification/verification-eval.png" 
   alt="Research insights and failure patterns"
   aspectRatio="none"
-  style={{ margin: '32px 0', maxWidth: '810px' }}
 />
-
-</Section>
 
 <Section title="Design challenge">
 
@@ -52,27 +61,21 @@ I saw an opportunity to drive quick improvements through content-led solutions. 
 
 <Section title="Priority 1: Helping sellers understand what 'good' is">
 
-<CSImage 
+One key improvement was ensuring photo tips were discoverable. Previously, sellers were forced to dismiss a persistent modal every time they added a photo (up to four times for core documents alone). I replaced this with a tile that remained visible as a reference point. On mobile, I simplified the UI further, using a bottom sheet that only appeared on the first upload. These changes mattered because:
+
+1. **I empowered sellers:** Keeping photo tips always visible allowed sellers to cross-reference guidance if their photo failed, rather than relying on memory.
+2. **I reduced friction:** Instead of blocking sellers with repeated modals, we surfaced help only when needed, reducing friction.
+3. **We improved clarity and scalability:** by ensuring consistency across UI, help centre, and support.
+
+</Section>
+
+<V3Image 
   src="/Project_verification/Model-guidance.png" 
   alt="Photo tips and guidance UI"
   aspectRatio="none"
 />
 
-One key improvement was ensuring photo tips were discoverable. Previously, sellers were forced to dismiss a persistent modal every time they added a photo (up to four times for core documents alone). I replaced this with a tile that remained visible as a reference point. On mobile, I simplified the UI further, using a bottom sheet that only appeared on the first upload. These changes mattered because:
-
-1. I empowered sellers: Keeping photo tips always visible allowed sellers to cross-reference guidance if their photo failed, rather than relying on memory.
-2. I reduced friction: Instead of blocking sellers with repeated modals, we surfaced help only when needed, reducing friction.
-3. We improved clarity and scalability: by ensuring consistency across UI, help centre, and support.
-
-</Section>
-
 <Section title="Priority 2: Clarifying the need for the document">
-
-<CSImage 
-  src="/Project_verification/content-framework.png" 
-  alt="Document guidance framework"
-  aspectRatio="none"
-/>
 
 Alongside key UX improvements, myself and a contend designer developed a scalable guidance framework and content structure. We clarified what does is needed, why this is required, and what are the specifics we need (sometimes this could be things like rules around expiration date.
 
@@ -80,13 +83,13 @@ This UI pattern was quickly adopted by other product teams, ensuring consistency
 
 </Section>
 
-<Section title="Priority 3: Proving support and safety reassurances">
-
-<CSImage 
-  src="/Project_verification/support.png" 
-  alt="Support and safety features"
+<V3Image 
+  src="/Project_verification/content-framework.png" 
+  alt="Document guidance framework"
   aspectRatio="none"
 />
+
+<Section title="Priority 3: Proving support and safety reassurances">
 
 Lastly, informed by seller feedback and support CS insights, I replaced generic contact links with a support tile featuring the 3 most frequent seller concerns from support logs, paired with detailed help centre articles. Additionally I added a universally recognised lock icon to the submission button, aligning with seller expectations around document privacy.
 
@@ -94,20 +97,9 @@ The redesign proved that lightweight UX and content changes could deliver materi
 
 </Section>
 
- 
-
-<Section title="Impact">
-
-<dl className="case-study-impact case-study-impact--two-col">
-  <div className="case-study-impact-item">
-    <dt>First-time Approval Rate</dt>
-    <dd>+7%</dd>
-  </div>
-  <div className="case-study-impact-item">
-    <dt>Average Verification Time</dt>
-    <dd>−3h</dd>
-  </div>
-</dl>
-
-</Section>
+<V3Image 
+  src="/Project_verification/support.png" 
+  alt="Support and safety features"
+  aspectRatio="none"
+/>
 

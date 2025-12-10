@@ -2,14 +2,11 @@
 
 import Image from "next/image";
 
-interface CSImageProps {
+interface ImageBlockV3Props {
   src: string;
   alt: string;
   caption?: string;
   aspectRatio?: '16:9' | '4:3' | '1:1' | '3:2' | 'none';
-  style?: React.CSSProperties;
-  size?: 'medium' | 'large';
-  fullWidth?: boolean;
 }
 
 const aspectRatioMap = {
@@ -20,53 +17,23 @@ const aspectRatioMap = {
   'none': '',
 };
 
-export default function CSImage({ 
+export default function ImageBlockV3({ 
   src, 
   alt, 
-  caption, 
-  aspectRatio = '16:9',
-  style,
-  size = 'medium',
-  fullWidth = false
-}: CSImageProps) {
+  caption,
+  aspectRatio = '16:9'
+}: ImageBlockV3Props) {
   const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
   const isPng = /\.png$/i.test(src);
-  const isLargeImage = src.includes('seenit-case-overview') || src.includes('seenit-overview');
-  
-  // poster path generation not used
-  
-  // Compute width behavior based on size variant
-  const isLarge = size === 'large';
-  const maxWidth = isLarge ? '1228px' : '810px';
   
   return (
-    <figure
-      className={`cs-image-figure ${isLarge ? 'cs-image-figure--hero' : ''}`}
-      style={style}
-    >
-      <div 
-        className={`cs-image-wrapper ${aspectRatioMap[aspectRatio]}`}
-        style={fullWidth
-          ? {
-              width: '100%',
-              maxWidth: '100%',
-              margin: '0',
-              marginLeft: '0',
-              marginRight: '0',
-              transform: 'none',
-            }
-          : {
-          maxWidth: maxWidth,
-          width: '100%',
-          margin: '0 auto',
-            }
-        }
-      >
+    <figure className="case-study-v3-image-block">
+      <div className={`case-study-v3-image-wrapper ${aspectRatioMap[aspectRatio]}`}>
         {isVideo ? (
           <div 
             style={{
               width: '100%',
-              height: aspectRatio === 'none' ? '500px' : '100%',
+              height: aspectRatio === 'none' ? 'auto' : '100%',
               backgroundColor: 'transparent',
               position: aspectRatio === 'none' ? 'relative' : 'absolute',
               top: aspectRatio === 'none' ? 'auto' : 0,
@@ -79,7 +46,7 @@ export default function CSImage({
               muted
               playsInline
               preload="auto"
-              className="cs-image"
+              className="case-study-v3-image"
               style={{
                 position: aspectRatio === 'none' ? 'relative' : 'absolute',
                 top: aspectRatio === 'none' ? 'auto' : 0,
@@ -101,18 +68,18 @@ export default function CSImage({
             src={src}
             alt={alt}
             fill={aspectRatio !== 'none'}
-            width={aspectRatio === 'none' ? 1288 : undefined}
+            width={aspectRatio === 'none' ? 1024 : undefined}
             height={aspectRatio === 'none' ? 0 : undefined}
-            sizes="(min-width: 1300px) 1288px, (min-width: 820px) 810px, 92vw"
+            sizes="(min-width: 1024px) 1024px, 100vw"
             quality={100}
-            unoptimized={isPng || isLargeImage}
-            className="cs-image"
+            unoptimized={isPng}
+            className="case-study-v3-image"
             style={aspectRatio === 'none' ? { position: 'relative', width: '100%', height: 'auto' } : undefined}
           />
         )}
       </div>
       {caption && (
-        <figcaption className="cs-image-caption">{caption}</figcaption>
+        <figcaption className="case-study-v3-image-caption">{caption}</figcaption>
       )}
     </figure>
   );

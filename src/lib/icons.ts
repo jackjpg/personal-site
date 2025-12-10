@@ -65,7 +65,7 @@ const iconsBase: Omit<Icon, 'previewImage'>[] = [
     kind: "route",
     href: "/case/post-sale",
     ratio: "portrait",
-    text: "Designing trust after the sale",
+    text: "Building trust after the sale",
     bgColor: "#A8E6CF",
     showLabel: true,
     year: "2025"
@@ -87,7 +87,7 @@ const iconsBase: Omit<Icon, 'previewImage'>[] = [
 // Uses first media (image or video) from each case study
 const previewMediaMap: Record<string, string> = {
   'seenit': '/Project_seenit/seenit_remix.mp4',
-  'post-sale': '/Project_post-sale/mw_post-sale_hero.jpg',
+  'post-sale': '/Project_post-sale/hero_bmwpostsale.png',
   'verification': '/Project_verification/verification-hero.png'
 };
 
