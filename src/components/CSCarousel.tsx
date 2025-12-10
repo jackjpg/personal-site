@@ -74,7 +74,7 @@ export default function CSCarousel({ images, captions, items, fullWidth = false 
                     height={fullWidth ? 0 : undefined}
                     sizes={fullWidth ? "(min-width: 1024px) 1024px, 100vw" : "(min-width: 820px) 810px, 92vw"}
                     quality={100}
-                    loading={index === 0 ? "eager" : "lazy"}
+                    loading="eager"
                     priority={index === 0 && fullWidth}
                     unoptimized={shouldUnoptimize(src) || fullWidth}
                     className="cs-carousel-image"
