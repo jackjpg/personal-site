@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 
 interface ProjectNavV3Props {
   title: string;
@@ -12,7 +11,7 @@ export default function ProjectNavV3({ title, date }: ProjectNavV3Props) {
   return (
     <nav className="case-study-v3-nav">
       <Link href="/" className="case-study-v3-nav__back">
-        <Image 
+        <img 
           src="/Icons/Arrow full.svg"
           alt="Back to home"
           width={56}

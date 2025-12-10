@@ -59,23 +59,19 @@ export default function CSCarousel({ images, captions, items, fullWidth = false 
                 }}
               >
                 <div className="cs-carousel-image-wrapper">
-                  {fullWidth ? (
-                    <img
-                      src={src}
-                      alt={`Carousel image ${index + 1}`}
-                      className="cs-carousel-image"
-                      style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '100%' }}
-                    />
-                  ) : (
-                    <Image
-                      src={src}
-                      alt={`Carousel image ${index + 1}`}
-                      fill
-                      className="cs-carousel-image"
-                      sizes="(min-width: 820px) 810px, 92vw"
-                      quality={100}
-                    />
-                  )}
+                  <Image
+                    src={src}
+                    alt={`Carousel image ${index + 1}`}
+                    fill={!fullWidth}
+                    width={fullWidth ? 1024 : undefined}
+                    height={fullWidth ? 0 : undefined}
+                    sizes={fullWidth ? "(min-width: 1024px) 1024px, 100vw" : "(min-width: 820px) 810px, 92vw"}
+                    quality={100}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    priority={index === 0 && fullWidth}
+                    className="cs-carousel-image"
+                    style={fullWidth ? { position: 'relative', width: '100%', height: 'auto', display: 'block', maxWidth: '100%' } : undefined}
+                  />
                 </div>
               </div>
             ))

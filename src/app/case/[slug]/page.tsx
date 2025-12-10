@@ -14,6 +14,7 @@ import CSChip from '@/components/CSChip';
 import Content from '@/components/Content';
 import SectionV3 from '@/components/v3/SectionV3';
 import ImageBlockV3 from '@/components/v3/ImageBlockV3';
+import ImageBlockV3Wrapper from '@/components/v3/ImageBlockV3Wrapper';
 import BodyTextV3 from '@/components/v3/BodyTextV3';
 
 const components = {
@@ -31,8 +32,8 @@ const components = {
 
 const componentsV3 = {
   Section: SectionV3,
-  CSImage: ImageBlockV3,
-  V3Image: ImageBlockV3,
+  CSImage: ImageBlockV3Wrapper,
+  V3Image: ImageBlockV3Wrapper,
   p: BodyTextV3,
   div: BodyTextV3,
   CSTable,

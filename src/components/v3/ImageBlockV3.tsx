@@ -7,6 +7,7 @@ interface ImageBlockV3Props {
   alt: string;
   caption?: string;
   aspectRatio?: '16:9' | '4:3' | '1:1' | '3:2' | 'none';
+  priority?: boolean;
 }
 
 const aspectRatioMap = {
@@ -21,10 +22,10 @@ export default function ImageBlockV3({
   src, 
   alt, 
   caption,
-  aspectRatio = '16:9'
+  aspectRatio = '16:9',
+  priority = false
 }: ImageBlockV3Props) {
   const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
-  const isPng = /\.png$/i.test(src);
   
   return (
     <figure className="case-study-v3-image-block">
@@ -45,7 +46,7 @@ export default function ImageBlockV3({
               loop
               muted
               playsInline
-              preload="auto"
+              preload="metadata"
               className="case-study-v3-image"
               style={{
                 position: aspectRatio === 'none' ? 'relative' : 'absolute',
@@ -72,7 +73,8 @@ export default function ImageBlockV3({
             height={aspectRatio === 'none' ? 0 : undefined}
             sizes="(min-width: 1024px) 1024px, 100vw"
             quality={100}
-            unoptimized={isPng}
+            priority={priority}
+            loading={priority ? undefined : 'lazy'}
             className="case-study-v3-image"
             style={aspectRatio === 'none' ? { position: 'relative', width: '100%', height: 'auto' } : undefined}
           />

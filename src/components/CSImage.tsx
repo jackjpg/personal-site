@@ -78,7 +78,7 @@ export default function CSImage({
               loop
               muted
               playsInline
-              preload="auto"
+              preload="metadata"
               className="cs-image"
               style={{
                 position: aspectRatio === 'none' ? 'relative' : 'absolute',
@@ -105,7 +105,9 @@ export default function CSImage({
             height={aspectRatio === 'none' ? 0 : undefined}
             sizes="(min-width: 1300px) 1288px, (min-width: 820px) 810px, 92vw"
             quality={100}
-            unoptimized={isPng || isLargeImage}
+            priority={isLarge}
+            loading={isLarge ? undefined : 'lazy'}
+            unoptimized={isLargeImage}
             className="cs-image"
             style={aspectRatio === 'none' ? { position: 'relative', width: '100%', height: 'auto' } : undefined}
           />
