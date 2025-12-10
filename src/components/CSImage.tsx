@@ -30,12 +30,11 @@ export default function CSImage({
   fullWidth = false
 }: CSImageProps) {
   const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
-  const isPng = /\.png$/i.test(src);
-  const isHighRes = /@2x/i.test(src);
   const isLargeImage = src.includes('seenit-case-overview') || src.includes('seenit-overview');
   
   // Determine if image should be unoptimized (pre-optimized images)
-  const shouldUnoptimize = isPng || isHighRes || isLargeImage;
+  // Bypass Next.js optimization to preserve original image quality for case studies
+  const shouldUnoptimize = true;
   
   // poster path generation not used
   
@@ -104,9 +103,10 @@ export default function CSImage({
           <Image
             src={src}
             alt={alt}
-            fill={aspectRatio !== 'none'}
-            width={aspectRatio === 'none' ? 1288 : undefined}
-            height={aspectRatio === 'none' ? 0 : undefined}
+            {...(aspectRatio === 'none' 
+              ? { width: 1288, height: 966 } 
+              : { fill: true }
+            )}
             sizes="(min-width: 1300px) 1288px, (min-width: 820px) 810px, 92vw"
             quality={100}
             priority={isLarge}

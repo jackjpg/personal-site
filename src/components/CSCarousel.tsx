@@ -27,9 +27,8 @@ export default function CSCarousel({ images, captions, items, fullWidth = false 
 
   // Helper to determine if image should be unoptimized
   const shouldUnoptimize = (src: string) => {
-    const isPng = /\.png$/i.test(src);
-    const isHighRes = /@2x/i.test(src);
-    return isPng || isHighRes;
+    // Bypass Next.js optimization to preserve original image quality for case studies
+    return true;
   };
 
   const goToPrevious = () => {
@@ -69,14 +68,15 @@ export default function CSCarousel({ images, captions, items, fullWidth = false 
                   <Image
                     src={src}
                     alt={`Carousel image ${index + 1}`}
-                    fill={!fullWidth}
-                    width={fullWidth ? 1024 : undefined}
-                    height={fullWidth ? 0 : undefined}
+                    {...(fullWidth 
+                      ? { width: 1024, height: 768 } 
+                      : { fill: true }
+                    )}
                     sizes={fullWidth ? "(min-width: 1024px) 1024px, 100vw" : "(min-width: 820px) 810px, 92vw"}
                     quality={100}
-                    loading="eager"
+                    loading={index <= 1 ? "eager" : "lazy"}
                     priority={index === 0 && fullWidth}
-                    unoptimized={shouldUnoptimize(src) || fullWidth}
+                    unoptimized={shouldUnoptimize(src)}
                     className="cs-carousel-image"
                     style={fullWidth ? { position: 'relative', width: '100%', height: 'auto', display: 'block', maxWidth: '100%' } : undefined}
                   />
