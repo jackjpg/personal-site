@@ -2143,24 +2143,47 @@ body:has(.case-study-v3-container) {
     max-width: 100%;
   }
   
+  /* Images break out of wrapper and container padding on mobile - 100% width, 0 horizontal margin */
   .case-study-v3-image-block {
-    max-width: 100%;
+    max-width: 100vw;
+    width: 100vw;
+    margin-left: calc(-1 * var(--v3-outer-margin) * 2);
+    margin-right: calc(-1 * var(--v3-outer-margin) * 2);
+  }
+  
+  /* Captions keep horizontal margin on mobile */
+  .case-study-v3-image-caption {
+    padding-left: calc(var(--v3-outer-margin) * 2);
+    padding-right: calc(var(--v3-outer-margin) * 2);
+  }
+  
+  .case-study-v3-container .cs-carousel {
+    max-width: 100vw;
+    width: 100vw;
+    margin-left: calc(-1 * var(--v3-outer-margin) * 2);
+    margin-right: calc(-1 * var(--v3-outer-margin) * 2);
+  }
+  
+  /* Carousel captions keep horizontal margin on mobile */
+  .case-study-v3-container .cs-carousel-caption {
+    padding-left: calc(var(--v3-outer-margin) * 2);
+    padding-right: calc(var(--v3-outer-margin) * 2);
   }
   
   /* Mobile typography - smaller sizes */
   .case-study-v3-section-header {
-    font-size: 24px;
-    line-height: 28px;
+    font-size: 32px;
+    line-height: 36px;
   }
   
   .case-study-v3-body {
-    font-size: 17px;
-    line-height: 22px;
+    font-size: 18px;
+    line-height: 29px;
   }
   
   .case-study-v3-content-section {
-    font-size: 17px;
-    line-height: 22px;
+    font-size: 18px;
+    line-height: 29px;
   }
   
   /* Mobile project nav - left aligned text, 24px from icon */
@@ -2178,6 +2201,58 @@ body:has(.case-study-v3-container) {
   .case-study-v3-nav__title,
   .case-study-v3-nav__date {
     text-align: left;
+  }
+  
+  /* Mobile: Change project title to 16px */
+  .case-study-v3-nav__title {
+    font-size: 16px !important;
+    line-height: 22px !important;
+  }
+  
+  /* Mobile: Change "See more" footer title to 16px */
+  .case-study-v3-footer__title {
+    font-size: 16px !important;
+    line-height: 22px !important;
+  }
+  
+  /* Mobile: Change 16px fonts to 14px / 22px line-height */
+  .case-study-v3-image-caption {
+    font-size: 14px !important;
+    line-height: 22px !important;
+  }
+  
+  .case-study-v3-nav__date {
+    font-size: 14px !important;
+    line-height: 22px !important;
+  }
+  
+  /* Mobile: Change footer links to 14px */
+  .case-study-v3-footer__link {
+    font-size: 14px !important;
+    line-height: 22px !important;
+  }
+  
+  /* Mobile: Change 60px margins to 40px */
+  .case-study-v3-container {
+    padding-bottom: 40px;
+  }
+  
+  .case-study-v3-image-block {
+    margin-bottom: 40px;
+  }
+  
+  .case-study-v3-container .cs-carousel {
+    margin-bottom: 40px;
+  }
+  
+  .case-study-v3-section {
+    margin-bottom: 40px;
+  }
+  
+  .case-study-v3-footer {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-top: 40px;
   }
 }
 
