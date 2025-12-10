@@ -16,6 +16,7 @@ export default function ProjectNavV3({ title, date }: ProjectNavV3Props) {
           alt="Back to home"
           width={56}
           height={56}
+          decoding="async"
           style={{ display: 'block' }}
         />
       </Link>
