@@ -25,6 +25,13 @@ export default function CSCarousel({ images, captions, items, fullWidth = false 
   const itemCount = images ? images.length : (items || 3);
   const hasImages = images && images.length > 0;
 
+  // Helper to determine if image should be unoptimized
+  const shouldUnoptimize = (src: string) => {
+    const isPng = /\.png$/i.test(src);
+    const isHighRes = /@2x/i.test(src);
+    return isPng || isHighRes;
+  };
+
   const goToPrevious = () => {
     setCurrentIndex((prev) => (prev === 0 ? itemCount - 1 : prev - 1));
   };
@@ -69,6 +76,7 @@ export default function CSCarousel({ images, captions, items, fullWidth = false 
                     quality={100}
                     loading={index === 0 ? "eager" : "lazy"}
                     priority={index === 0 && fullWidth}
+                    unoptimized={shouldUnoptimize(src) || fullWidth}
                     className="cs-carousel-image"
                     style={fullWidth ? { position: 'relative', width: '100%', height: 'auto', display: 'block', maxWidth: '100%' } : undefined}
                   />

@@ -31,7 +31,11 @@ export default function CSImage({
 }: CSImageProps) {
   const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
   const isPng = /\.png$/i.test(src);
+  const isHighRes = /@2x/i.test(src);
   const isLargeImage = src.includes('seenit-case-overview') || src.includes('seenit-overview');
+  
+  // Determine if image should be unoptimized (pre-optimized images)
+  const shouldUnoptimize = isPng || isHighRes || isLargeImage;
   
   // poster path generation not used
   
@@ -107,7 +111,7 @@ export default function CSImage({
             quality={100}
             priority={isLarge}
             loading={isLarge ? undefined : 'lazy'}
-            unoptimized={isLargeImage}
+            unoptimized={shouldUnoptimize}
             className="cs-image"
             style={aspectRatio === 'none' ? { position: 'relative', width: '100%', height: 'auto' } : undefined}
           />

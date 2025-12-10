@@ -27,6 +27,11 @@ export default function ImageBlockV3({
 }: ImageBlockV3Props) {
   const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
   
+  // Detect pre-optimized images that don't need Next.js optimization
+  const isPng = /\.png$/i.test(src);
+  const isHighRes = /@2x/i.test(src);
+  const shouldUnoptimize = isPng || isHighRes;
+  
   return (
     <figure className="case-study-v3-image-block">
       <div className={`case-study-v3-image-wrapper ${aspectRatioMap[aspectRatio]}`}>
@@ -75,6 +80,7 @@ export default function ImageBlockV3({
             quality={100}
             priority={priority}
             loading={priority ? undefined : 'lazy'}
+            unoptimized={shouldUnoptimize}
             className="case-study-v3-image"
             style={aspectRatio === 'none' ? { position: 'relative', width: '100%', height: 'auto' } : undefined}
           />
