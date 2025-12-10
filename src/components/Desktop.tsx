@@ -5,6 +5,46 @@ import Image from "next/image";
 import { icons, Icon } from "@/lib/icons";
 import DraggableIcon from "./DraggableIcon";
 
+// Preview video component that loads only when active
+function PreviewVideo({ src }: { src: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    // Small delay before loading video to prioritize initial render
+    const timer = setTimeout(() => {
+      setShouldLoad(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (shouldLoad && videoRef.current) {
+      videoRef.current.load();
+      videoRef.current.play().catch(() => {
+        // Ignore autoplay errors
+      });
+    }
+  }, [shouldLoad]);
+
+  return (
+    <video
+      ref={videoRef}
+      src={src}
+      loop
+      muted
+      playsInline
+      preload="none"
+      style={{
+        width: 'auto',
+        objectFit: 'cover',
+        display: 'block'
+      }}
+    />
+  );
+}
+
 interface IconPosition {
   id: string;
   x: number;
@@ -25,7 +65,7 @@ export default function Desktop() {
 
 
   const getSizeForRatio = (ratio: string) => {
-    const isMobile = window.innerWidth <= 880;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 880;
     const sizeMap = {
       square: { width: isMobile ? 110 : 160, height: isMobile ? 110 : 160 },
       portrait: { width: isMobile ? 110 : 160, height: isMobile ? 198 : 288 },
@@ -35,6 +75,11 @@ export default function Desktop() {
   };
 
   const getRandomPosition = useCallback((icon: Icon, index: number) => {
+                // Only run in browser
+                if (typeof window === 'undefined') {
+                  return { x: 0, y: 0, rotation: 0 };
+                }
+                
                 const { width, height } = getSizeForRatio(icon.ratio);
                 
                 const viewportWidth = window.innerWidth;
@@ -311,30 +356,20 @@ export default function Desktop() {
             return (
               <div ref={chipRef} className="floatingChip floatingChip--thumbnail" aria-hidden="true">
                 {isVideo ? (
-                  <video
-                    src={previewMedia}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    style={{
-                      width: 'auto',
-                      objectFit: 'cover',
-                      display: 'block'
-                    }}
-                  />
+                  <PreviewVideo src={previewMedia} />
                 ) : (
                   <Image
                     src={previewMedia}
                     alt=""
                     width={400}
                     height={260}
+                    quality={90}
                     style={{
                       width: 'auto',
                       objectFit: 'cover',
                       display: 'block'
                     }}
-                    unoptimized
+                    loading="lazy"
                   />
                 )}
               </div>

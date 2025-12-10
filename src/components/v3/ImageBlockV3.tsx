@@ -27,7 +27,8 @@ export default function ImageBlockV3({
 }: ImageBlockV3Props) {
   const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
   
-  // Bypass Next.js optimization to preserve original image quality
+  // Bypass Next.js optimization to preserve original image quality for case studies
+  // Quality 100 with optimization can still reduce quality, so we use unoptimized
   const shouldUnoptimize = true;
   
   return (
@@ -49,7 +50,7 @@ export default function ImageBlockV3({
               loop
               muted
               playsInline
-              preload="metadata"
+              preload="none"
               className="case-study-v3-image"
               style={{
                 position: aspectRatio === 'none' ? 'relative' : 'absolute',

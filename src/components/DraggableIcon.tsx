@@ -6,6 +6,101 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Icon } from "@/lib/icons";
 
+// Video thumbnail component that loads video only on intersection/hover
+function VideoThumbnail({ 
+  src, 
+  isLoaded, 
+  onLoaded 
+}: { 
+  src: string; 
+  isLoaded: boolean; 
+  onLoaded: () => void;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Only run in browser
+    if (typeof window === 'undefined') return;
+    
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Use Intersection Observer to load video when visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !shouldLoad) {
+            setShouldLoad(true);
+          }
+        });
+      },
+      { rootMargin: "50px" } // Start loading 50px before entering viewport
+    );
+
+    observer.observe(container);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [shouldLoad]);
+
+  // Load video on hover as well
+  const handleMouseEnter = () => {
+    if (!shouldLoad) {
+      setShouldLoad(true);
+    }
+  };
+
+  useEffect(() => {
+    if (shouldLoad && videoRef.current) {
+      videoRef.current.load();
+    }
+  }, [shouldLoad]);
+
+  return (
+    <div
+      ref={containerRef}
+      onMouseEnter={handleMouseEnter}
+      style={{
+        width: "100%",
+        height: "100%",
+        position: "relative"
+      }}
+    >
+      <video
+        ref={videoRef}
+        loop
+        muted
+        playsInline
+        preload="none"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center",
+          pointerEvents: "none",
+          userSelect: "none",
+          opacity: isLoaded ? 1 : 0,
+          transition: "opacity 0.2s ease-in-out"
+        }}
+        onLoadedData={() => {
+          // Only autoplay once loaded
+          if (videoRef.current) {
+            videoRef.current.play().catch(() => {
+              // Ignore autoplay errors
+            });
+          }
+          onLoaded();
+        }}
+      >
+        <source src={src} type="video/mp4" />
+      </video>
+    </div>
+  );
+}
+
 interface DraggableIconProps {
   icon: Icon;
   x: number;
@@ -325,32 +420,18 @@ export default function DraggableIcon({
             </div>
           )
         ) : icon.video ? (
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "center",
-              pointerEvents: "none",
-              userSelect: "none",
-              opacity: isImageLoaded ? 1 : 0,
-              transition: "opacity 0.2s ease-in-out"
-            }}
-            onLoadedData={() => setIsImageLoaded(true)}
-          >
-            <source src={icon.video} type="video/mp4" />
-          </video>
+          <VideoThumbnail
+            src={icon.video}
+            isLoaded={isImageLoaded}
+            onLoaded={() => setIsImageLoaded(true)}
+          />
         ) : icon.img ? (
           <Image
             src={icon.img}
             alt=""
             fill
             sizes="(max-width: 880px) 120px, 216px"
-            quality={95}
+            quality={90}
             style={{ 
               objectFit: "cover", 
               transform: "translateZ(0)",
@@ -358,6 +439,7 @@ export default function DraggableIcon({
               transition: "opacity 0.2s ease-in-out"
             }}
             onLoad={() => setIsImageLoaded(true)}
+            loading="lazy"
             priority={false}
           />
         ) : null}

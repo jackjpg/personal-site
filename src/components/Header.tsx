@@ -19,7 +19,9 @@ export default function Header({ interClassName }: { interClassName: string }) {
               alt="LinkedIn" 
               width={24} 
               height={24}
+              quality={90}
               style={{ borderRadius: '50%', display: 'block' }}
+              priority
             />
           </a>
           <Link href="/" className="siteHeader__leading">

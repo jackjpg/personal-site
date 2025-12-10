@@ -32,8 +32,8 @@ export default function CSImage({
   const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
   const isLargeImage = src.includes('seenit-case-overview') || src.includes('seenit-overview');
   
-  // Determine if image should be unoptimized (pre-optimized images)
   // Bypass Next.js optimization to preserve original image quality for case studies
+  // Quality 100 with optimization can still reduce quality, so we use unoptimized
   const shouldUnoptimize = true;
   
   // poster path generation not used
@@ -81,7 +81,7 @@ export default function CSImage({
               loop
               muted
               playsInline
-              preload="metadata"
+              preload="none"
               className="cs-image"
               style={{
                 position: aspectRatio === 'none' ? 'relative' : 'absolute',

@@ -6,7 +6,8 @@ import "./globals.css";
 
 const inter = Inter({ 
   subsets: ["latin"],
-  weight: ["400", "500", "600", "800"]
+  weight: ["400", "600"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
