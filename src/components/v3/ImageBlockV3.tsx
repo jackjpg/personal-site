@@ -39,10 +39,13 @@ export default function ImageBlockV3({
             style={{
               width: '100%',
               height: aspectRatio === 'none' ? 'auto' : '100%',
-              backgroundColor: 'transparent',
+              backgroundColor: '#ffffff',
               position: aspectRatio === 'none' ? 'relative' : 'absolute',
               top: aspectRatio === 'none' ? 'auto' : 0,
-              left: aspectRatio === 'none' ? 'auto' : 0
+              left: aspectRatio === 'none' ? 'auto' : 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
           >
             <video
@@ -53,12 +56,12 @@ export default function ImageBlockV3({
               preload="none"
               className="case-study-v3-image"
               style={{
-                position: aspectRatio === 'none' ? 'relative' : 'absolute',
-                top: aspectRatio === 'none' ? 'auto' : 0,
-                left: aspectRatio === 'none' ? 'auto' : 0,
+                position: aspectRatio === 'none' ? 'relative' : 'relative',
+                top: aspectRatio === 'none' ? 'auto' : 'auto',
+                left: aspectRatio === 'none' ? 'auto' : 'auto',
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover',
+                objectFit: 'contain',
                 objectPosition: 'center'
               }}
             >

@@ -1802,8 +1802,8 @@ body:has(.desktop) .siteFooter {
   --v3-gutter: 40px;
   
   /* Typography */
-  --v3-section-header-size: 36px;
-  --v3-section-header-line: 44px;
+  --v3-section-header-size: 24px;
+  --v3-section-header-line: 32px;
   --v3-body-size: 20px;
   --v3-body-line: 28px;
   --v3-content-margin: 20px;
@@ -2078,6 +2078,51 @@ body:has(.case-study-v3-container) {
   margin-bottom: 0;
 }
 
+/* V3 Section with media (text + media side by side) */
+.case-study-v3-section-with-media {
+  max-width: var(--v3-page-max-width);
+}
+
+.case-study-v3-section-with-media__grid {
+  display: grid;
+  grid-template-columns: minmax(0, var(--v3-content-max-width)) minmax(0, 1fr);
+  column-gap: var(--v3-gutter);
+  align-items: flex-start;
+}
+
+.case-study-v3-section-with-media__text {
+  max-width: var(--v3-content-max-width);
+}
+
+.case-study-v3-section-with-media__media {
+  width: 100%;
+  align-self: flex-start; /* ensure media top-aligns with text body */
+}
+
+/* When an image block is used as media, remove the extra top margin so it
+   aligns visually with the start of the text column */
+/* Override hero top margin when an image block is used as media, so it
+   aligns with the body text rather than sitting lower like a hero image. */
+.case-study-v3-container .case-study-v3-section-with-media figure.case-study-v3-image-block {
+  margin-top: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .case-study-v3-section-with-media__grid {
+    display: block;
+  }
+
+  .case-study-v3-section-with-media__media {
+    margin-top: var(--v3-content-margin);
+  }
+}
+
+/* When two SectionWithMedia blocks are adjacent, tighten the vertical gap
+   between them so they read as a single logical section with 20px spacing. */
+.case-study-v3-section-with-media:has(+ .case-study-v3-section-with-media) {
+  margin-bottom: 20px;
+}
+
 /* V3 Project Navigation */
 .case-study-v3-nav {
   height: 104px;
@@ -2172,8 +2217,8 @@ body:has(.case-study-v3-container) {
   
   /* Mobile typography - smaller sizes */
   .case-study-v3-section-header {
-    font-size: 32px;
-    line-height: 36px;
+    font-size: 24px;
+    line-height: 32px;
   }
   
   .case-study-v3-body {

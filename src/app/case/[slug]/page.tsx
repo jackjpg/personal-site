@@ -16,6 +16,7 @@ import SectionV3 from '@/components/v3/SectionV3';
 import ImageBlockV3 from '@/components/v3/ImageBlockV3';
 import ImageBlockV3Wrapper from '@/components/v3/ImageBlockV3Wrapper';
 import BodyTextV3 from '@/components/v3/BodyTextV3';
+import SectionWithMediaV3 from '@/components/v3/SectionWithMediaV3';
 
 const components = {
   CSImage,
@@ -32,6 +33,7 @@ const components = {
 
 const componentsV3 = {
   Section: SectionV3,
+  SectionWithMedia: SectionWithMediaV3,
   CSImage: ImageBlockV3Wrapper,
   V3Image: ImageBlockV3Wrapper,
   p: BodyTextV3,

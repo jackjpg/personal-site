@@ -8,124 +8,186 @@ layout: "v3"
 
 <Section>
 
-As founding designer at Seenit, I built a new social primitive that turns screenshots into a new form of self-expression. We launched a three-week beta to 10 friendship groups, generating ~200 cards with a 20–30% share rate — validating screenshots as a social signal and showing early signs of habit formation.
+As founding designer at Seenit, I explored whether screenshots could become a new social primitive. Over three weeks, we launched a beta to 10 friendship groups, generating ~200 cards with a 20–30% share rate. The goal was to turn an existing, non-performative behaviour (screenshots) into a social update between friends.
 
 </Section>
 
 <V3Image 
-  src="/Project_seenit/seenit_remix.mp4" 
+  src="/Project_seenit/seenit-hero.png" 
   alt="Seenit app overview"
   aspectRatio="16:9"
   caption="Core mechanic: screenshot in, story out"
 />
 
-<Section title="Background: Screenshots as a new language">
+<Section title="Background">
 
-Gen Z takes 20–25 screenshots a day. They're how people save, think, shop, track, flirt, remember, and plan, it's their most honest digital behaviour and identity graph, yet they just sit hidden in camera albums.
+Screenshots are a high-signal behavioural trace: they capture intent without requiring performance. Unlike photos or posts, they're taken for the self, which makes them a rare input for honest expression.
 
-Seenit started from a simple question: Can LLMs make sense of screenshots and turn them into a new form of self-expression?
-
-</Section>
-
-<Section title="Problem: People don't actually know what their friends are doing anymore">
-
-Right now, friendship online is either:
-
-1. a broadcast (too much)
-
-2. a DM (too effortful)
-
-Everything in between has disappeared. The small, in-between moments — the "this is what my day actually looked like" layer — are gone. Screenshots are the last unpolished signal we have. A massive, high-signal behaviour happening everywhere, with no way to share it.
+If LLMs can make sense of this unstructured dataset, screenshots could become a new form of social expression.
 
 </Section>
 
-<Section title="Opportunity: A massive behaviour with zero product surface">
+<V3Image
+  src="/Project_seenit/seenit_flow.png"
+  alt="High-level flow of screenshots turning into status updates in Seenit"
+  aspectRatio="none"
+  caption="How screenshots currently behave"
+/>
 
-1. Screenshots have hit cultural peak: every Gen Z phone is already producing a feed. no one is harnessing it.
+<Section title="Problem: Friends don't feel seen unless they speak up">
 
-2. A way to stay close to friends with zero effort, no posting, and no self-presentation work. It restores the background texture friendships used to have.
-
-3. AI is finally good enough to interpret messy inputs
-
-4. A new social layer built on taste and intent: screenshots form a natural discovery layer that can power identity, recommendations, shopping, and cultural sense-making.
-
-I saw an opportunity to build a consumer social layer built on a behaviour that already exists
-
-</Section>
-
-<Section title="Defining the bet: Can screenshots power response-driven sharing?">
-
-To move from idea to product, I broke the problem into three behavioural pillars, signals that would tell us if screenshot-as-status could sustain a real loop:
-
-1. **Expression:** can AI turn mundane screenshots into something share-worthy?
-2. **Reaction:** do they spark replies or stories in existing channels?
-3. **Usage:** can it become a sustained behaviour, not just a novelty?
+Most of what shapes our days now happens online. We rarely message about these things, but they say a lot about where our heads are at. As a result, staying close increasingly requires speaking up or performing presence, and when no one does, friendships go quiet even when nothing is wrong.
 
 </Section>
+
+<SectionWithMedia title="Opportunity: Let friends see what we’re up to online">
+
+Screenshots already capture what we're thinking about, worrying about, and circling. If interpreted correctly, they could become a way for friends to stay in sync without requiring messaging or performing. To understand whether this could sustain a real social loop, I defined three behavioural questions:
+
+1. Expression: can AI turn mundane screenshots into something people want to share?
+
+2. Reaction: does the output spark replies or conversation in existing channels?
+
+3. Usage: can this become a repeated behaviour, not a novelty?
+
+Together, these framed the core bet: Can screenshots power response-driven sharing between friends?
+
+</SectionWithMedia>
+
+<V3Image
+  src="/Project_seenit/opportunity-journey.png"
+  alt="Journey from screenshots to shared signals in Seenit"
+  aspectRatio="none"
+  caption="User flow"
+/>
 
 <Section title="First bet: Weekly summaries">
 
-<CSYouTube 
-  url="https://youtube.com/shorts/2FJmm4j1k6I"
-  title="Weekly summaries experiment"
+To test the riskiest assumptions quickly, I partnered with an engineer to ship a V1: a Sunday card summarising your week’s screenshots. I kept V1 intentionally simple to answer two questions: (1) would people share an AI interpretation of their week? and (2) which tone would they choose?
+
+<V3Image
+  src="/Project_seenit/me fr_ stories from your screenshots, for your friends.mp4"
+  alt="Weekly summaries experiment"
+  aspectRatio="16:9"
   caption="Testflight build"
 />
 
-I partnered with an engineer to ship the v1 experiment: a sunday card generated from your screenshots.  In six weeks we went from a hypothesis to a live Testflight build. What I learned:
+One quick follow-up was a redesign of onboarding. It previously over-explained privacy and how data was processed. I simplified this and leaned into it feeling more like a passive request, which increased conversion by 20%.
 
-1. **Tone testing gave us intuition:** Each week we shifted the LLM's output (dry, playful, reflective) and gave users three cards to flick between. Meme-like captions consistently got the strongest response.
-2. **Engagement came from comparison:** Shares happened in WhatsApp and group chats, not IG. It was for friends, not an audience.
-3. **Summaries closed loops:** The best cards captured the the small, throwaway moments, the things people wouldn't usually share, but felt human and created reactions.
-
-</Section>
-
-<Section title="Pivot: Presence over summaries">
-
-After three weeks, usage dropped. users didn't want a scrapbook; they wanted a sticker. When the original engineer stepped away, I led the pivot, defining a new product direction, rebuilding the product myself, and redesigning the experience around real-time presence.
-
-The new version introduced lightweight, live-feeling status cards that updated as users moved through their day. The goal: make sharing feel as frictionless and honest as screenshotting itself. 
-
-Seenit became a six-person friendship app, with each status interpreted from recent screenshots and shared as short POV updates. The content in the video above is generated from an LLM pipeline: statues, reactions, POVs. 
-
-</Section>
-
-<V3Image 
-  src="/Project_seenit/Seenit_feed.mp4" 
-  alt="Presence over summaries demo"
+<V3Image
+  src="/Project_seenit/seenit-permission-oldvsnew.png"
+  alt="Old vs new permission flows in Seenit"
   aspectRatio="16:9"
-  caption="The feed in Seenit"
+  caption="Old vs new permission flows"
 />
 
-<Section title="Adding a status">
+</Section>
 
-Statuses were triggered without opening the app. When users get a push reminder, either because they haven't shared in a while, or a friend has, a back tap triggers a lightweight status, AI-generated from recent screenshots and shared to their squad. 
+<Section title="Learnings from weekly summaries">
 
-There's no post to craft, no caption to write, no feed to perform into. It's an interface that's passive in input, invisible in action, intelligent in output.
+From ~200 generated cards, several patterns emerged. Meme-like captions consistently outperformed factual summaries. Sharing happened primarily in small WhatsApp groups (5–12 people), not on IG. Users cared more about seeing their friends' cards than their own.
+
+However, the weekly cadence broke the loop. WAU dropped ~20% week-over-week, and 7 out of 10 interviewees said that by the time the Sunday card arrived, they had already moved on from the moments it described.
 
 </Section>
 
-<V3Image 
-  src="/Project_seenit/Seenit_upload.mp4" 
-  alt="Adding a status demo"
+<Section title="Design explorations">
+
+At this point, the design challenge shifted. Instead of asking how do we summarise behaviour?, I began exploring how can screenshots create the feeling of being seen? This led to three distinct directions that tested different ways screenshots might function as a social primitive:
+
+</Section>
+
+<V3Image
+  src="/Project_seenit/Design_exploration_Seenit.png"
+  alt="Overview of Seenit design explorations"
+  caption="Design explorations 1. Interpretive stickers; 2. Shared signals; 3. Live signals"
+  aspectRatio="none"
+/>
+<Section>
+
+1. Interpretive stickers: highly shareable, but functioned as reactions, not an ongoing social loop
+
+2. Shared signals: socially interesting, but uneven participation created imbalance
+
+3. Live signals: the only direction that consistently increased the feeling of closeness in real time
+
+</Section>
+
+<Section title="Lowering the cost of sharing">
+
+After prototyping all three directions, I moved forward with live signals as they consistently made friendships feel closer. 
+
+Adding a status was the primary input into the Seenit loop, so reducing friction here was critical. Screenshotting is already an instinctive behaviour, and the product needed to sit on top of that action rather than ask users to context-switch into posting.
+
+I explored multiple triggering mechanisms, including automatic uploads via iOS shortcuts. Due to OS limitations, I designed a passive interaction pattern using the Action Button (or Back Tap) combined with Live Activities. This reduced the cost of sharing enough that users treated statuses as notifications rather than posts.
+
+</Section>
+
+<V3Image
+  src="/Project_seenit/Seenit_upload.mp4"
+  alt="Adding a status via the Seenit upload flow"
   aspectRatio="16:9"
   caption="Adding a status with the action button"
 />
 
-<V3Image 
-  src="/Project_seenit/seenit_blueprint.jpg" 
-  alt="Seenit blueprint"
-  aspectRatio="none"
-/>
+<Section title="System experience">
 
-<Section title="Extending presence through avatars">
+Because statuses were generated by an LLM, misinterpretation and oversharing were inevitable edge cases. 
 
-To add identity beyond drops, I built an avatar system using a diffusion model. A user's IG photo generated a playful, personality-driven character used across profiles, widgets, invites and the feed.
+Rather than treating this as an editing problem, I designed regeneration as a silent escape hatch. With a single tap, users could discard a status and generate a new one before it became visible to friends.
+
+Regeneration gives users confidence that they aren't locked into what the system inferred, making it easier to share passively and more often.
 
 </Section>
 
-<V3Image 
-  src="/Project_seenit/Seenit-alltogether.jpg" 
-  alt="Seenit overview"
-  aspectRatio="none"
+<V3Image
+  src="/Project_seenit/seenit_remix.mp4"
+  alt="Regenerating a Seenit status with multiple AI interpretations"
+  aspectRatio="16:9"
+  caption="Regenerating a status with multiple AI interpretations"
 />
+
+<Section title="Viewer experience">
+
+Statuses appear chronologically and are only replaced when a user shares again. There are no likes, reshares, or algorithmic ranking. 
+
+This was a deliberate choice for both UX and versioning.
+
+</Section>
+
+<V3Image
+  src="/Project_seenit/Seenit_feed.mp4"
+  alt="The Seenit feed showing friends' live status cards"
+  aspectRatio="16:9"
+  caption="The Seenit feed showing friends' live status cards"
+/>
+
+<Section title="Identity & Avatars">
+
+Photos and faces play a disproportionate role in social recognition. Seenit generates stylised avatars from a user's IG photo using a diffusion model. These avatars became consistent identity markers across the feed, widgets, invites, and statuses.
+
+I explored dynamically changing avatar expressions based on each generated status. While visually compelling, this increased system complexity and was cut for V1 in favour of stability.
+
+</Section>
+
+<V3Image
+  src="/Project_seenit/Seenit-alltogether.jpg"
+  alt="Seenit avatars and interface all together"
+  aspectRatio="none"
+  caption="Seenit avatars and interface all together"
+/>
+
+<Section title="Learnings">
+
+1. Emotional intent beats task completion. Social LLM outputs should surface what the user is already feeling.
+
+2. Tone is the interface. Users judge accuracy emotionally, not factually.
+
+3. Specificity creates trust. Concrete cues (“£259 satisfy vest”) outperform abstraction.
+
+4. Prompts are systems. Structure, scoring, and gold standards drove consistency more than iteration.
+
+5. Presence > identity. Friends care more about what you’re in the middle of than how you present yourself.
+
+</Section>
 
