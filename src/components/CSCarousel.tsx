@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { useMedia } from "@/contexts/MediaContext";
 
 interface CSCarouselProps {
   images?: string[]; // Array of image paths
@@ -12,6 +13,8 @@ interface CSCarouselProps {
 
 export default function CSCarousel({ images, captions, items, fullWidth = false }: CSCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { registerMedia, openModal } = useMedia();
+  const indicesRef = useRef<number[]>([]);
   
   const FallbackColors = [
     '#FC6DB3', // Pink
@@ -25,10 +28,31 @@ export default function CSCarousel({ images, captions, items, fullWidth = false 
   const itemCount = images ? images.length : (items || 3);
   const hasImages = images && images.length > 0;
 
+  // Register all carousel images when component mounts
+  useEffect(() => {
+    if (hasImages) {
+      indicesRef.current = images!.map((src, index) => {
+        const caption = captions && captions[index] ? captions[index] : undefined;
+        return registerMedia({
+          src,
+          alt: `Carousel image ${index + 1}`,
+          caption,
+          type: 'image',
+        });
+      });
+    }
+  }, [hasImages, images, captions, registerMedia]);
+
   // Helper to determine if image should be unoptimized
   const shouldUnoptimize = (src: string) => {
     // Bypass Next.js optimization to preserve original image quality for case studies
     return true;
+  };
+
+  const handleImageClick = (index: number) => {
+    if (indicesRef.current[index] !== undefined) {
+      openModal(indicesRef.current[index]);
+    }
   };
 
   const goToPrevious = () => {
@@ -64,7 +88,10 @@ export default function CSCarousel({ images, captions, items, fullWidth = false 
                   position: index === currentIndex ? 'relative' : 'absolute'
                 }}
               >
-                <div className="cs-carousel-image-wrapper">
+                <div 
+                  className="cs-carousel-image-wrapper cs-carousel-image-wrapper--clickable"
+                  onClick={() => handleImageClick(index)}
+                >
                   <Image
                     src={src}
                     alt={`Carousel image ${index + 1}`}

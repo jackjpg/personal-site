@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { useMedia } from "@/contexts/MediaContext";
 
 interface ImageBlockV3Props {
   src: string;
@@ -26,13 +28,35 @@ export default function ImageBlockV3({
   priority = false
 }: ImageBlockV3Props) {
   const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
+  const { registerMedia, openModal } = useMedia();
+  const indexRef = useRef<number | null>(null);
   
   // Bypass Next.js optimization to preserve original image quality for case studies
   // Quality 100 with optimization can still reduce quality, so we use unoptimized
   const shouldUnoptimize = true;
   
+  // Register this media item when component mounts
+  useEffect(() => {
+    const index = registerMedia({
+      src,
+      alt,
+      caption,
+      type: isVideo ? 'video' : 'image',
+    });
+    indexRef.current = index;
+  }, [src, alt, caption, isVideo, registerMedia]);
+
+  const handleClick = () => {
+    if (indexRef.current !== null) {
+      openModal(indexRef.current);
+    }
+  };
+  
   return (
-    <figure className="case-study-v3-image-block">
+    <figure 
+      className="case-study-v3-image-block case-study-v3-image-block--clickable"
+      onClick={handleClick}
+    >
       <div className={`case-study-v3-image-wrapper ${aspectRatioMap[aspectRatio]}`}>
         {isVideo ? (
           <div 

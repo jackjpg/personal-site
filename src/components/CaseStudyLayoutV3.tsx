@@ -1,6 +1,10 @@
+"use client";
+
 import React from 'react';
 import ProjectNavV3 from './v3/ProjectNavV3';
 import FooterV3 from './v3/FooterV3';
+import { MediaProvider } from '@/contexts/MediaContext';
+import ImageModal from './v3/ImageModal';
 
 interface CaseStudyLayoutV3Props {
   children: React.ReactNode;
@@ -21,13 +25,16 @@ export default function CaseStudyLayoutV3({
   footerLinks
 }: CaseStudyLayoutV3Props) {
   return (
-    <div className="case-study-v3-wrapper">
-      <div className="case-study-v3-container" data-case-slug={slug}>
-        <ProjectNavV3 title={title} date={date} />
-        {children}
-        <FooterV3 links={footerLinks} />
+    <MediaProvider>
+      <div className="case-study-v3-wrapper">
+        <div className="case-study-v3-container" data-case-slug={slug}>
+          <ProjectNavV3 title={title} date={date} />
+          {children}
+          <FooterV3 links={footerLinks} />
+        </div>
       </div>
-    </div>
+      <ImageModal />
+    </MediaProvider>
   );
 }
 
