@@ -8,7 +8,7 @@ layout: "v3"
 
 <Section>
 
-As founding designer at Seenit, I explored whether screenshots could become a new social primitive. Over three weeks, we launched a beta to 10 friendship groups, generating ~200 cards with a 20–30% share rate. The goal was to turn an existing, non-performative behaviour (screenshots) into a social update between friends.
+As founding designer at Seenit, I explored whether screenshots could become a new social primitive. Over three weeks, we launched a beta to 10 friendship groups, generating ~200 cards with a 20–30% share rate. The goal was to turn an existing, non-performative behaviour into a social update between friends.
 
 </Section>
 
@@ -23,7 +23,7 @@ As founding designer at Seenit, I explored whether screenshots could become a ne
 
 Screenshots are a high-signal behavioural trace: they capture intent without requiring performance. Unlike photos or posts, they're taken for the self, which makes them a rare input for honest expression.
 
-If LLMs can make sense of this unstructured dataset, screenshots could become a new form of social expression.
+Around the time people were posting ChatGPT’s “read” on themselves, I noticed that people love funny AI interpretations of themselves. That led me to a question: what behaviour shows who we are without requiring performance? Screenshots were the obvious answer.
 
 </Section>
 
@@ -42,7 +42,7 @@ Most of what shapes our days now happens online. We rarely message about these t
 
 <SectionWithMedia title="Opportunity: Let friends see what we’re up to online">
 
-Screenshots already capture what we're thinking about, worrying about, and circling. If interpreted correctly, they could become a way for friends to stay in sync without requiring messaging or performing. To understand whether this could sustain a real social loop, I defined three behavioural questions:
+Screenshots already capture what we're thinking about, worrying about, and circling. If interpreted correctly, they could become a lightweight way for friends to stay in sync without requiring messaging or performing. To understand whether this could sustain a real social loop, I defined three behavioural questions:
 
 1. Expression: can AI turn mundane screenshots into something people want to share?
 
@@ -54,16 +54,33 @@ Together, these framed the core bet: Can screenshots power response-driven shari
 
 </SectionWithMedia>
 
+<div className="case-study-v3-content-section cs-inline-image-block">
+  <V3Image
+    src="/Project_seenit/seenit_story.png"
+    alt="Journey from screenshots to shared signals in Seenit"
+    aspectRatio="none"
+    caption="What success needed to look like"
+  />
+</div>
+
+<Section title="First bet: Weekly summaries">
+
+We needed to know if the system could reliably land on something people would actually send. If the output wasn’t specific, surprising, or funny, people wouldn’t share it. The big unlock came when I defined a set of gold-standard cards and built a scoring rubric around them. 
+
+</Section>
+
 <V3Image
   src="/Project_seenit/opportunity-journey.png"
   alt="Journey from screenshots to shared signals in Seenit"
   aspectRatio="none"
-  caption="User flow"
+  caption="System flow"
 />
 
-<Section title="First bet: Weekly summaries">
+<Section>
 
-To test the riskiest assumptions quickly, I partnered with an engineer to ship a V1: a Sunday card summarising your week’s screenshots. I kept V1 intentionally simple to answer two questions: (1) would people share an AI interpretation of their week? and (2) which tone would they choose?
+To test the riskiest assumptions quickly, I partnered with an engineer to ship a V1: A Sunday card summarising your week’s screenshots. Whether people actually shared the cards was the fastest way to test if screenshots carried any social signal at all. 
+
+I kept V1 intentionally simple to answer three questions the product hinged on: (1) would people share an AI interpretation of their week? (2) which tone would they choose? and (3) were people comfortable sharing screenshots with a system, given how private they usually are?
 
 <V3Image
   src="/Project_seenit/me fr_ stories from your screenshots, for your friends.mp4"
@@ -72,28 +89,32 @@ To test the riskiest assumptions quickly, I partnered with an engineer to ship a
   caption="Testflight build"
 />
 
-One quick follow-up was a redesign of onboarding. It previously over-explained privacy and how data was processed. I simplified this and leaned into it feeling more like a passive request, which increased conversion by 20%.
+<div className="cs-onboarding-text">
+One early follow-up was a redesign of onboarding. iOS required us to ask permission for all photos (not just screenshots), which raised the stakes early. Our initial onboarding over-explained privacy and how data was processed. I simplified it and made it feel more like a passive request, which increased conversion by 8%.
+</div>
 
-<V3Image
-  src="/Project_seenit/seenit-permission-oldvsnew.png"
-  alt="Old vs new permission flows in Seenit"
-  aspectRatio="16:9"
-  caption="Old vs new permission flows"
-/>
+<div className="case-study-v3-content-section cs-inline-image-block">
+  <V3Image
+    src="/Project_seenit/seenit-permission-oldvsnew.png"
+    alt="Old vs new permission flows in Seenit"
+    aspectRatio="16:9"
+    caption="Old vs new permission flows"
+  />
+</div>
 
 </Section>
 
 <Section title="Learnings from weekly summaries">
 
-From ~200 generated cards, several patterns emerged. Meme-like captions consistently outperformed factual summaries. Sharing happened primarily in small WhatsApp groups (5–12 people), not on IG. Users cared more about seeing their friends' cards than their own.
+From ~200 generated cards, a few clear patterns emerged. The strongest engagement came from people already active in small friendship groups. Meme-like captions consistently outperformed factual summaries, and sharing happened primarily in WhatsApp groups of 5–12 people (not IG), where cards often triggered group discussion. People cared less about posting their own card than about seeing what their friends were sharing.
 
-However, the weekly cadence broke the loop. WAU dropped ~20% week-over-week, and 7 out of 10 interviewees said that by the time the Sunday card arrived, they had already moved on from the moments it described.
+What didn’t work was the weekly cadence. WAU dropped ~20% week over week, and 7 out of 10 interviewees said that by the time the Sunday card arrived, they’d already moved on from the moments it described. People responded to immediacy and presence.
 
 </Section>
 
 <Section title="Design explorations">
 
-At this point, the design challenge shifted. Instead of asking how do we summarise behaviour?, I began exploring how can screenshots create the feeling of being seen? This led to three distinct directions that tested different ways screenshots might function as a social primitive:
+At this point, the design challenge shifted. Instead of asking how do we summarise behaviour?, I began exploring how can screenshots create the feeling of being seen? This led to three distinct directions that tested a different way screenshots could show up socially: as reactions, signals, or presence.
 
 </Section>
 
@@ -115,11 +136,11 @@ At this point, the design challenge shifted. Instead of asking how do we summari
 
 <Section title="Lowering the cost of sharing">
 
-After prototyping all three directions, I moved forward with live signals as they consistently made friendships feel closer. 
+After prototyping all three directions, I moved forward with live signals as as the direction most aligned with immediacy and presence.
 
 Adding a status was the primary input into the Seenit loop, so reducing friction here was critical. Screenshotting is already an instinctive behaviour, and the product needed to sit on top of that action rather than ask users to context-switch into posting.
 
-I explored multiple triggering mechanisms, including automatic uploads via iOS shortcuts. Due to OS limitations, I designed a passive interaction pattern using the Action Button (or Back Tap) combined with Live Activities. This reduced the cost of sharing enough that users treated statuses as notifications rather than posts.
+I explored multiple triggering mechanisms, including automatic uploads via iOS shortcuts. Due to OS limitations, I designed a passive interaction pattern using the Action Button (or Back Tap) combined with Live Activities. This reduced the cost of sharing enough that statuses felt closer to notifications than posts.
 
 </Section>
 
@@ -174,7 +195,7 @@ I explored dynamically changing avatar expressions based on each generated statu
   src="/Project_seenit/Seenit-alltogether.jpg"
   alt="Seenit avatars and interface all together"
   aspectRatio="none"
-  caption="Seenit avatars and interface all together"
+  caption="1. Account; 2. Feed; 3. Squad"
 />
 
 <Section title="Learnings">

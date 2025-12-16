@@ -2068,6 +2068,39 @@ body:has(.case-study-v3-container) {
   text-align: center;
 }
 
+/* Inline image constrained to content column with custom spacing:
+   - 20px from paragraph above
+   - 60px (desktop) / 40px (mobile) before next block */
+.cs-inline-image-block {
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+
+@media (max-width: 820px) {
+  .cs-inline-image-block {
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+}
+
+/* When a SectionWithMedia is immediately followed by an inline image,
+   remove the section's own bottom margin so only the inline block's
+   margins control the vertical spacing */
+.case-study-v3-section-with-media:has(+ .cs-inline-image-block) {
+  margin-bottom: 0;
+}
+
+/* Seenit-specific spacing for onboarding paragraph above permission image */
+.cs-onboarding-text {
+  margin-bottom: 60px;
+}
+
+@media (max-width: 820px) {
+  .cs-onboarding-text {
+    margin-bottom: 40px;
+  }
+}
+
 /* V3 Section - content section at 600px */
 .case-study-v3-section {
   max-width: var(--v3-content-max-width);
@@ -2356,5 +2389,6 @@ body:has(.case-study-v3-container) {
     line-height: 22px;
   }
 }
+
 
 
