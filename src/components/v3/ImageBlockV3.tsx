@@ -77,7 +77,7 @@ export default function ImageBlockV3({
               loop
               muted
               playsInline
-              preload="none"
+              preload="metadata"
               className="case-study-v3-image"
               style={{
                 position: aspectRatio === 'none' ? 'relative' : 'relative',
