@@ -1824,7 +1824,7 @@ body:has(.desktop) .siteFooter {
   max-width: var(--v3-page-max-width);
   margin: 0 auto;
   padding: 0;
-  padding-bottom: 60px;
+  padding-bottom: 0; /* No padding - footer shell handles its own spacing */
   font-family: "Inter", sans-serif;
 }
 
@@ -1833,15 +1833,67 @@ body:has(.case-study-v3-container) .siteHeader {
   display: none;
 }
 
-/* V3 background color */
+/* V3 background color - transitions from case study color to white as footer enters */
+/* Background color is controlled by JavaScript in CaseStudyFooterShellV3 */
 body:has(.case-study-v3-container) {
   background-color: #F1EDEA;
+  transition: background-color 0.15s ease-out;
+}
+
+/* V3 Desktop Footer Preview */
+.case-study-v3-footer-preview-shell {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  max-width: none;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 160px;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
+
+.case-study-v3-footer-preview-inner {
+  position: relative;
+  width: 100vw;
+  height: 100%;
+  margin: 0;
+  padding: 24px 0 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.case-study-v3-desktop-preview {
+  flex: 1;
+  background-color: #FFFFFF;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.case-study-v3-desktop-workspace {
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .case-study-v3-footer-preview-shell {
+    margin-top: 160px;
+  }
+
+  .case-study-v3-desktop-preview {
+    padding: 0;
+  }
 }
 
 /* V3 Content Section - 600px max-width */
 .case-study-v3-content-section {
   max-width: var(--v3-content-max-width);
-  margin: 0;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
   font-size: var(--v3-body-size);
   line-height: var(--v3-body-line);
   color: #250E00;
@@ -1876,11 +1928,15 @@ body:has(.case-study-v3-container) {
   font-size: var(--v3-body-size);
   line-height: var(--v3-body-line);
   color: #250E00;
-  margin-bottom: var(--v3-content-margin);
   orphans: 2;
   widows: 2;
   text-wrap: pretty;
   hyphens: none;
+}
+
+/* Body text inside sections shouldn't have bottom margin - section controls spacing */
+.case-study-v3-section .case-study-v3-body {
+  margin-bottom: 0;
 }
 
 .case-study-v3-body p {
@@ -1907,6 +1963,31 @@ body:has(.case-study-v3-container) {
 .case-study-v3-body p:last-child,
 .case-study-v3-body div:last-child {
   margin-bottom: 0;
+}
+
+/* Ensure spacing between adjacent body text elements (when BodyTextV3 renders multiple p/div) */
+.case-study-v3-section .case-study-v3-body + .case-study-v3-body {
+  margin-top: var(--v3-content-margin);
+}
+
+/* Ensure spacing between paragraphs/divs and lists (lists are inside the wrapper div) */
+.case-study-v3-section .case-study-v3-body > .case-study-v3-body + ol,
+.case-study-v3-section .case-study-v3-body > .case-study-v3-body + ul {
+  margin-top: var(--v3-content-margin);
+}
+
+/* Ensure spacing between lists and paragraphs/divs */
+.case-study-v3-section .case-study-v3-body > ol + .case-study-v3-body,
+.case-study-v3-section .case-study-v3-body > ul + .case-study-v3-body {
+  margin-top: var(--v3-content-margin);
+}
+
+/* Ensure spacing between adjacent lists */
+.case-study-v3-section .case-study-v3-body > ol + ol,
+.case-study-v3-section .case-study-v3-body > ul + ul,
+.case-study-v3-section .case-study-v3-body > ol + ul,
+.case-study-v3-section .case-study-v3-body > ul + ol {
+  margin-top: var(--v3-content-margin);
 }
 
 /* V3 Lists */
@@ -2107,8 +2188,18 @@ body:has(.case-study-v3-container) {
   margin-bottom: 60px;
 }
 
-.case-study-v3-section:last-child {
+/* Ensure section margin applies even when combined with content-section */
+.case-study-v3-section.case-study-v3-content-section {
+  margin-bottom: 60px;
+}
+
+.case-study-v3-section:last-of-type {
   margin-bottom: 0;
+}
+
+/* When a section is followed by an image block, keep the section's margin */
+.case-study-v3-section:has(+ figure.case-study-v3-image-block) {
+  margin-bottom: 60px;
 }
 
 /* V3 Section with media (text + media side by side) */
@@ -2324,6 +2415,20 @@ body:has(.case-study-v3-container) {
   }
   
   .case-study-v3-section {
+    margin-bottom: 40px;
+  }
+  
+  /* Ensure section margin applies even when combined with content-section on mobile */
+  .case-study-v3-section.case-study-v3-content-section {
+    margin-bottom: 40px;
+  }
+  
+  .case-study-v3-section:last-of-type {
+    margin-bottom: 0;
+  }
+  
+  /* When a section is followed by an image block, keep the section's margin on mobile */
+  .case-study-v3-section:has(+ figure.case-study-v3-image-block) {
     margin-bottom: 40px;
   }
   

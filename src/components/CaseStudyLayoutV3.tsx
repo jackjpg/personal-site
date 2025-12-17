@@ -2,9 +2,10 @@
 
 import React from 'react';
 import ProjectNavV3 from './v3/ProjectNavV3';
-import FooterV3 from './v3/FooterV3';
 import { MediaProvider } from '@/contexts/MediaContext';
 import ImageModal from './v3/ImageModal';
+import CaseStudyFooterShellV3 from './v3/CaseStudyFooterShellV3';
+import CaseStudyDesktopPreview from './v3/CaseStudyDesktopPreview';
 
 interface CaseStudyLayoutV3Props {
   children: React.ReactNode;
@@ -30,7 +31,9 @@ export default function CaseStudyLayoutV3({
         <div className="case-study-v3-container" data-case-slug={slug}>
           <ProjectNavV3 title={title} date={date} />
           {children}
-          <FooterV3 links={footerLinks} />
+          <CaseStudyFooterShellV3>
+            <CaseStudyDesktopPreview />
+          </CaseStudyFooterShellV3>
         </div>
       </div>
       <ImageModal />

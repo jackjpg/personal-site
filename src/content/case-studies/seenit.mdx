@@ -90,7 +90,7 @@ I kept V1 intentionally simple to answer three questions the product hinged on: 
 />
 
 <div className="cs-onboarding-text">
-One early follow-up was a redesign of onboarding. iOS required us to ask permission for all photos (not just screenshots), which raised the stakes early. Our initial onboarding over-explained privacy and how data was processed. I simplified it and made it feel more like a passive request, which increased conversion by 8%.
+One early follow-up was a redesign of onboarding. iOS required us to ask permission for all photos (not just screenshots), which raised the stakes early. Our initial onboarding over-explained privacy and how data was processed. I simplified it and made it feel more like a passive request, which increased conversation by 60%.
 </div>
 
 <div className="case-study-v3-content-section cs-inline-image-block">
@@ -177,9 +177,15 @@ Regeneration gives users confidence that they aren't locked into what the system
 
 <Section title="Viewer experience">
 
-Statuses appear chronologically and are only replaced when a user shares again. There are no likes, reshares, or algorithmic ranking. 
+Statuses appear chronologically and are only replaced when a user shares again. There are no likes, reshares, or algorithmic ranking.
 
-This was a deliberate choice for both UX and versioning.
+
+
+This was a deliberate choice for both UX and versioning. It allowed the product to function as an awareness layer rather than a feed.
+
+
+
+To explore how conversation might start without introducing complexity, I experimented with LLM-generated reactions. These were derived directly from the status itself and surfaced as simple prompts, rather than explicit "likes" or comments. Tapping a reaction opened WhatsApp with a pre-filled message and a thumbnail of the status, keeping the interaction anchored in existing group chats.  The goal was to lower the barrier of responding.
 
 </Section>
 
