@@ -1,38 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Header({ interClassName }: { interClassName: string }) {
   return (
     <header className={`siteHeader ${interClassName}`}>
       <div className="siteHeader__content">
         <div className="siteHeader__leadingGroup">
-          <a 
-            href="https://www.linkedin.com/in/jackparrish/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="siteHeader__linkedin"
-          >
-            <Image 
-              src="/Icons/linkedin.png" 
-              alt="LinkedIn" 
-              width={24} 
-              height={24}
-              quality={90}
-              style={{ borderRadius: '50%', display: 'block' }}
-              priority
-            />
-          </a>
           <Link href="/" className="siteHeader__leading">
-            JACK PARRISH
+            Jack Parrish
           </Link>
         </div>
         <a 
           href="mailto:parrish.jack@gmail.com" 
           className="siteHeader__trailing"
         >
-          CONTACT
+          Contact
         </a>
       </div>
     </header>

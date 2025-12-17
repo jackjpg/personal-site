@@ -295,7 +295,6 @@ body:has(.desktop) {
   align-items: center;
   font-size: 16px;
   font-weight: 500;
-  text-transform: uppercase;
 }
 
 .siteHeader__leadingGroup {
@@ -307,11 +306,10 @@ body:has(.desktop) {
 .siteHeader__leading {
   color: #000000;
   font-family: "Inter", sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 24px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0;
   text-decoration: none;
   cursor: pointer;
 }
@@ -333,6 +331,10 @@ body:has(.desktop) {
 
 .siteHeader__trailing {
   color: #000000;
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
   text-decoration: none;
   cursor: pointer;
 }
@@ -344,6 +346,13 @@ body:has(.desktop) {
 @media (max-width: 880px) {
   .siteHeader {
     padding: 0 16px;
+  }
+  
+  /* Mobile: Change header navigation to 16px */
+  .siteHeader__leading,
+  .siteHeader__trailing {
+    font-size: 16px !important;
+    line-height: 22px !important;
   }
   
   .desktop {
