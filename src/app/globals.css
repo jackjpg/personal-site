@@ -295,6 +295,7 @@ body:has(.desktop) {
   align-items: center;
   font-size: 16px;
   font-weight: 500;
+  text-transform: uppercase;
 }
 
 .siteHeader__leadingGroup {
@@ -306,10 +307,11 @@ body:has(.desktop) {
 .siteHeader__leading {
   color: #000000;
   font-family: "Inter", sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 28px;
-  letter-spacing: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
 }
@@ -331,10 +333,6 @@ body:has(.desktop) {
 
 .siteHeader__trailing {
   color: #000000;
-  font-family: "Inter", sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 28px;
   text-decoration: none;
   cursor: pointer;
 }
@@ -346,13 +344,6 @@ body:has(.desktop) {
 @media (max-width: 880px) {
   .siteHeader {
     padding: 0 16px;
-  }
-  
-  /* Mobile: Change header navigation to 16px */
-  .siteHeader__leading,
-  .siteHeader__trailing {
-    font-size: 16px !important;
-    line-height: 22px !important;
   }
   
   .desktop {
@@ -1857,7 +1848,7 @@ body:has(.case-study-v3-container) {
   max-width: none;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 160px;
+  margin-top: calc(100vh - 120px); /* Show 120px of the footer so it feels like a continuous page section */
   background-color: #FFFFFF;
   overflow: hidden;
 }
@@ -1889,7 +1880,7 @@ body:has(.case-study-v3-container) {
 
 @media (max-width: 768px) {
   .case-study-v3-footer-preview-shell {
-    margin-top: 160px;
+    margin-top: calc(100vh - 220px);
   }
 
   .case-study-v3-desktop-preview {
@@ -1900,9 +1891,7 @@ body:has(.case-study-v3-container) {
 /* V3 Content Section - 600px max-width */
 .case-study-v3-content-section {
   max-width: var(--v3-content-max-width);
-  margin-top: 0;
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0;
   font-size: var(--v3-body-size);
   line-height: var(--v3-body-line);
   color: #250E00;
@@ -1937,15 +1926,11 @@ body:has(.case-study-v3-container) {
   font-size: var(--v3-body-size);
   line-height: var(--v3-body-line);
   color: #250E00;
+  margin-bottom: var(--v3-content-margin);
   orphans: 2;
   widows: 2;
   text-wrap: pretty;
   hyphens: none;
-}
-
-/* Body text inside sections shouldn't have bottom margin - section controls spacing */
-.case-study-v3-section .case-study-v3-body {
-  margin-bottom: 0;
 }
 
 .case-study-v3-body p {
@@ -1972,31 +1957,6 @@ body:has(.case-study-v3-container) {
 .case-study-v3-body p:last-child,
 .case-study-v3-body div:last-child {
   margin-bottom: 0;
-}
-
-/* Ensure spacing between adjacent body text elements (when BodyTextV3 renders multiple p/div) */
-.case-study-v3-section .case-study-v3-body + .case-study-v3-body {
-  margin-top: var(--v3-content-margin);
-}
-
-/* Ensure spacing between paragraphs/divs and lists (lists are inside the wrapper div) */
-.case-study-v3-section .case-study-v3-body > .case-study-v3-body + ol,
-.case-study-v3-section .case-study-v3-body > .case-study-v3-body + ul {
-  margin-top: var(--v3-content-margin);
-}
-
-/* Ensure spacing between lists and paragraphs/divs */
-.case-study-v3-section .case-study-v3-body > ol + .case-study-v3-body,
-.case-study-v3-section .case-study-v3-body > ul + .case-study-v3-body {
-  margin-top: var(--v3-content-margin);
-}
-
-/* Ensure spacing between adjacent lists */
-.case-study-v3-section .case-study-v3-body > ol + ol,
-.case-study-v3-section .case-study-v3-body > ul + ul,
-.case-study-v3-section .case-study-v3-body > ol + ul,
-.case-study-v3-section .case-study-v3-body > ul + ol {
-  margin-top: var(--v3-content-margin);
 }
 
 /* V3 Lists */
@@ -2197,18 +2157,8 @@ body:has(.case-study-v3-container) {
   margin-bottom: 60px;
 }
 
-/* Ensure section margin applies even when combined with content-section */
-.case-study-v3-section.case-study-v3-content-section {
-  margin-bottom: 60px;
-}
-
 .case-study-v3-section:last-of-type {
   margin-bottom: 0;
-}
-
-/* When a section is followed by an image block, keep the section's margin */
-.case-study-v3-section:has(+ figure.case-study-v3-image-block) {
-  margin-bottom: 60px;
 }
 
 /* V3 Section with media (text + media side by side) */
@@ -2427,18 +2377,8 @@ body:has(.case-study-v3-container) {
     margin-bottom: 40px;
   }
   
-  /* Ensure section margin applies even when combined with content-section on mobile */
-  .case-study-v3-section.case-study-v3-content-section {
-    margin-bottom: 40px;
-  }
-  
   .case-study-v3-section:last-of-type {
     margin-bottom: 0;
-  }
-  
-  /* When a section is followed by an image block, keep the section's margin on mobile */
-  .case-study-v3-section:has(+ figure.case-study-v3-image-block) {
-    margin-bottom: 40px;
   }
   
   .case-study-v3-footer {
