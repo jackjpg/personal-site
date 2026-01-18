@@ -86,7 +86,7 @@ const iconsBase: Omit<Icon, 'previewImage'>[] = [
 // Preview media extracted from case studies (hardcoded for client/server compatibility)
 // Uses first media (image or video) from each case study
 const previewMediaMap: Record<string, string> = {
-  'seenit': '/Project_seenit/seenit-hero.png',
+  'seenit': '/Project_seenit/seenit_hero.png',
   'post-sale': '/Project_post-sale/hero_bmwpostsale.png',
   'verification': '/Project_verification/verification-hero.png'
 };
