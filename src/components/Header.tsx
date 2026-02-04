@@ -6,7 +6,7 @@ import Link from "next/link";
 const textSequence = [
   "Jack Parrish designs products that think of you",
   ", across social, marketplaces, and mobile experiences.",
-  "Previously led consumer design at Motorway, now making AI messaging for friends."
+  "Previously led design for consumer at Motorway, now building for identity."
 ];
 
 const TYPING_SPEED = 25; // ms per character

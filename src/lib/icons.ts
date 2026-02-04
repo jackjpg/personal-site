@@ -17,13 +17,13 @@ export interface Icon {
 
 const iconsBase: Omit<Icon, 'previewImage'>[] = [
   {
-    id: "seenit-identity",
+    id: "pov",
     label: "VIEW",
     kind: "route",
-    href: "/case/seenit-identity",
+    href: "/case/pov",
     ratio: "portrait",
-    text: "Onboarding into a single tap",
-    bgColor: "#D4A5FF",
+    text: "Turning screenshots into statuses",
+    bgColor: "#87CEEB",
     showLabel: true,
     year: "2025"
   },
@@ -39,13 +39,13 @@ const iconsBase: Omit<Icon, 'previewImage'>[] = [
     year: "2025"
   },
   {
-    id: "pov",
+    id: "seenit-identity",
     label: "VIEW",
     kind: "route",
-    href: "/case/pov",
+    href: "/case/seenit-identity",
     ratio: "portrait",
-    text: "Turning screenshots into statuses",
-    bgColor: "#87CEEB",
+    text: "Onboarding into a single tap",
+    bgColor: "#D4A5FF",
     showLabel: true,
     year: "2025"
   },
