@@ -1,0 +1,34 @@
+---
+title: "Turning screenshots into statuses"
+date: "Seenit"
+role: "Founding Product Designer"
+client: "Seenit"
+layout: "v3"
+---
+
+<Section>
+
+Seenit is a mobile app that generates statuses based on your screenshots. I designed the POV creation system that turns these screenshots into social updates between friends. The goal was to make sharing feel safe, fast, and reversible for content that is inherently private and non-performative.
+
+</Section>
+
+<V3Image
+  src="/Project_pov/Seenit-Remix.mov"
+  alt="Seenit POV flow"
+  aspectRatio="16:9"
+  autoPlay
+  loop
+  controls={false}
+  border
+/>
+
+<Section>
+
+Screenshots are transformed into short POVs via an LLM pipeline. To maintain quality and trust, I defined a gold-standard scoring rubric that prioritised emotional accuracy and specificity over factual completeness. I found that users responded better to specificity (e.g., calling out a specific item of clothing rather than "shopping").
+
+To make sharing private content feel safe, I used Regeneration as the primary UI control. With one tap, users could discard a generated POV and get a new one. This gave users total agency over their signal without the friction of manual editing.
+
+I initially explored giving groups granular control, like the ability to block specific apps or manually change the POV tone. However, for the beta, the priority was learning which tones users naturally gravitated toward and where the system broke down.
+
+</Section>
+

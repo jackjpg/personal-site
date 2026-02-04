@@ -17,47 +17,37 @@ export interface Icon {
 
 const iconsBase: Omit<Icon, 'previewImage'>[] = [
   {
-    id: "forest",
-    label: "FOREST.JPG",
-    kind: "link",
-    href: "https://x.com/_jackparrish/status/1947599813475799125/video/1",
-    ratio: "landscape",
-    video: "/Icons/social_u7618731978_cinematic_animation_of_a_single_blue_flower_petal_1346aa9c-69a1-4a31-b487-4831c18a465b_3.mp4"
-  },
-  {
-    id: "sweden",
-    label: "SWEDEN.JPG",
-    kind: "link",
-    href: "https://x.com/_jackparrish/status/1963538827689042375",
-    ratio: "landscape",
-    img: "/Icons/sweden.jpg"
-  },
-  {
-    id: "seenit-image",
+    id: "seenit-identity",
     label: "VIEW",
     kind: "route",
-    href: "/case/seenit",
+    href: "/case/seenit-identity",
     ratio: "portrait",
-    text: "Turning screenshots into status updates",
-    bgColor: "#FC6DB3",
+    text: "Onboarding into a single tap",
+    bgColor: "#D4A5FF",
     showLabel: true,
     year: "2025"
   },
   {
-    id: "cornfields",
-    label: "CORNFIELDS.JPG",
-    kind: "link",
-    href: "https://x.com/_jackparrish/status/1959298827220898051/photo/1",
+    id: "reactions",
+    label: "VIEW",
+    kind: "route",
+    href: "/case/reactions",
     ratio: "portrait",
-    img: "/Icons/cornfields.jpg"
+    text: "Lowering the cost of replying",
+    bgColor: "#FFB347",
+    showLabel: true,
+    year: "2025"
   },
   {
-    id: "clouds",
-    label: "CLOUDS.JPG",
-    kind: "link",
-    href: "https://x.com/_jackparrish/status/1946687804165034475/video/1",
+    id: "pov",
+    label: "VIEW",
+    kind: "route",
+    href: "/case/pov",
     ratio: "portrait",
-    video: "/Icons/social_u7618731978_cinematic_4k_video_pan_dreamy_vector_surrealism_s_30e469f0-d7ea-46d6-9bb8-54728f6ebdde_3.mp4"
+    text: "Turning screenshots into statuses",
+    bgColor: "#87CEEB",
+    showLabel: true,
+    year: "2025"
   },
   {
     id: "post-sale",
@@ -86,8 +76,10 @@ const iconsBase: Omit<Icon, 'previewImage'>[] = [
 // Preview media extracted from case studies (hardcoded for client/server compatibility)
 // Uses first media (image or video) from each case study
 const previewMediaMap: Record<string, string> = {
-  'seenit': '/Project_seenit/seenit_hero.png',
-  'post-sale': '/Project_post-sale/hero_bmwpostsale.png',
+  'seenit-identity': '/Project_seenit-identity/Seenit-identity-Newnew.mov',
+  'reactions': '/Project_reactions/Seenit-reactions.mov',
+  'pov': '/Project_pov/Seenit-Remix.mov',
+  'post-sale': '/Project_post-sale/motorway-post-sale-1.png',
   'verification': '/Project_verification/verification-hero.png'
 };
 
