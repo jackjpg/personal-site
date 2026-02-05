@@ -1,24 +1,15 @@
-import Image from "next/image";
-
-export default function Footer() {
+export default function Footer({ interClassName }: { interClassName: string }) {
   return (
-    <footer className="siteFooter" role="contentinfo" aria-label="Site footer">
-      <span className="siteFooter__text">Website vibe-coded using Cursor</span>
-      <span className="siteFooter__spacer" />
-      <a
-        href="https://www.instagram.com/jackparrish/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="siteFooter__link"
-      >
-        <Image
-          className="siteFooter__icon"
-          src="/Social/ig.jpg"
-          alt="Instagram"
-          width={16}
-          height={16}
-        />
-      </a>
+    <footer className={`siteFooter ${interClassName}`}>
+      <div className="siteFooter__content">
+        <span className="siteFooter__text">Need to reach me?</span>
+        <div className="siteFooter__links">
+          <a href="mailto:parrish.jack@gmail.com" className="siteFooter__link">Email</a>
+          <a href="https://www.linkedin.com/in/jjackparrish" target="_blank" rel="noopener noreferrer" className="siteFooter__link">Linkedin</a>
+          <a href="https://x.com/_jackparrish" target="_blank" rel="noopener noreferrer" className="siteFooter__link">X</a>
+        </div>
+      </div>
+      <div className="siteFooter__spacer"></div>
     </footer>
   );
 }

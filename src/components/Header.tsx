@@ -23,17 +23,13 @@ function ArrowIcon({ onClick, disabled }: { onClick: () => void; disabled?: bool
       aria-label="Show more"
       style={{ opacity: disabled ? 0.3 : 1, cursor: disabled ? 'default' : 'pointer' }}
     >
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 56 56"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ display: 'block', transform: 'rotate(180deg)' }}
-      >
-        <path d="M20 43L6 28L20 13" stroke="currentColor" strokeWidth="2"/>
-        <path d="M6 28H50" stroke="currentColor" strokeWidth="2"/>
-      </svg>
+      <img
+        src="/Icons/Arrow_24.svg"
+        alt=""
+        width={16}
+        height={16}
+        style={{ display: 'block' }}
+      />
     </button>
   );
 }
