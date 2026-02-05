@@ -33,8 +33,8 @@ const iconsBase: Omit<Icon, 'previewImage'>[] = [
     kind: "route",
     href: "/case/reactions",
     ratio: "portrait",
+    img: "/Icons/Reactions_thumb.png",
     text: "Lowering the cost of replying",
-    bgColor: "#FFB347",
     showLabel: true,
     year: "2025"
   },
@@ -76,9 +76,9 @@ const iconsBase: Omit<Icon, 'previewImage'>[] = [
 // Preview media extracted from case studies (hardcoded for client/server compatibility)
 // Uses first media (image or video) from each case study
 const previewMediaMap: Record<string, string> = {
-  'seenit-identity': '/Project_seenit-identity/Seenit-identity-Newnew.mov',
-  'reactions': '/Project_reactions/Seenit-reactions.mov',
-  'pov': '/Project_pov/Seenit-Remix.mov',
+  'seenit-identity': '/Project_seenit-identity/Seenit-identity-transparent.mov',
+  'reactions': '/Project_reactions/Seenit-reactions-transparent.mov',
+  'pov': '/Project_pov/Seenit-remix-transparent.mov',
   'post-sale': '/Project_post-sale/motorway-post-sale-1.png',
   'verification': '/Project_verification/verification-hero.png'
 };

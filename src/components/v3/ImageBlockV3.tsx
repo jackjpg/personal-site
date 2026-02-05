@@ -10,6 +10,7 @@ interface ImageBlockV3Props {
   loop?: boolean;
   controls?: boolean;
   border?: boolean;
+  gradient?: string; // CSS gradient string, e.g. "linear-gradient(to bottom, #3C2A97, #DAA588)"
 }
 
 const aspectRatioMap = {
@@ -29,7 +30,8 @@ export default function ImageBlockV3({
   autoPlay = false,
   loop = true,
   controls = true,
-  border = false
+  border = false,
+  gradient
 }: ImageBlockV3Props) {
   const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
 
@@ -44,11 +46,11 @@ export default function ImageBlockV3({
         style={border ? { border: '1px solid rgba(0, 0, 0, 0.1)' } : undefined}
       >
         {isVideo ? (
-          <div 
+          <div
             style={{
               width: '100%',
               height: aspectRatio === 'none' ? 'auto' : '100%',
-              backgroundColor: '#ffffff',
+              background: gradient || 'transparent',
               position: aspectRatio === 'none' ? 'relative' : 'absolute',
               top: aspectRatio === 'none' ? 'auto' : 0,
               left: aspectRatio === 'none' ? 'auto' : 0,

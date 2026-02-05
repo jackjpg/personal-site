@@ -81,10 +81,14 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.75);
   opacity: 0;
   transition: opacity 0.2s ease;
   padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .homepage-grid-item-overlay-title {
@@ -92,7 +96,7 @@ body {
   font-size: 20px;
   font-weight: 400;
   line-height: 28px;
-  color: #000000;
+  color: #ffffff;
 }
 
 .homepage-grid-item-info {
@@ -1993,6 +1997,21 @@ body:has(.case-study-v3-container) .siteHeader {
 body:has(.case-study-v3-container) {
   background-color: #FFFFFF;
   transition: background-color 0.15s ease-out;
+}
+
+/* Reactions case study background */
+body:has(.case-study-v3-container[data-case-slug="reactions"]) {
+  background-color: #E1E3FF !important;
+}
+
+/* POV case study background */
+body:has(.case-study-v3-container[data-case-slug="pov"]) {
+  background-color: #E1E3FF !important;
+}
+
+/* Seenit Identity case study background */
+body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
+  background-color: #E1E3FF !important;
 }
 
 /* V3 Desktop Footer Preview */

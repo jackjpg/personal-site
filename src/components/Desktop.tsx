@@ -37,6 +37,7 @@ export default function Desktop() {
                     alt={project.text || project.label}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
+                    unoptimized
                     style={{ objectFit: "cover" }}
                   />
                 ) : (
