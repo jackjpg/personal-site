@@ -2218,6 +2218,12 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
   object-fit: contain;
 }
 
+@media (max-width: 768px) {
+  .case-study-v3-container .cs-image-row {
+    margin-bottom: 40px;
+  }
+}
+
 /* V3 Carousel - full 1024px width section, same as image blocks */
 .case-study-v3-container .cs-carousel {
   width: 100%;
