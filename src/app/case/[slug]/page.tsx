@@ -17,6 +17,7 @@ import ImageBlockV3 from '@/components/v3/ImageBlockV3';
 import ImageBlockV3Wrapper from '@/components/v3/ImageBlockV3Wrapper';
 import BodyTextV3 from '@/components/v3/BodyTextV3';
 import SectionWithMediaV3 from '@/components/v3/SectionWithMediaV3';
+import MoreSeenitV3 from '@/components/v3/MoreSeenitV3';
 
 const components = {
   CSImage,
@@ -42,6 +43,7 @@ const componentsV3 = {
   CSYouTube,
   CSCarousel,
   CSChip,
+  MoreSeenit: MoreSeenitV3,
 };
 
 export async function generateStaticParams() {
@@ -113,11 +115,10 @@ export default async function CasePage({ params }: { params: { slug: string } | 
       }));
 
     return (
-      <CaseStudyLayoutV3 
+      <CaseStudyLayoutV3
         slug={slug}
         title={metadata.title}
         date={metadata.date}
-        footerLinks={otherCases}
       >
         <MDXRemote source={content} components={componentsV3} />
       </CaseStudyLayoutV3>

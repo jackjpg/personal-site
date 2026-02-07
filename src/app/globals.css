@@ -2885,5 +2885,41 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
   }
 }
 
+/* More Seenit Section */
+.more-seenit-section {
+  margin-top: 80px;
+  padding-bottom: 80px;
+  width: 100%;
+  max-width: var(--v3-image-max-width);
+}
 
+.more-seenit-section .homepage-grid {
+  background: transparent;
+  padding: 0;
+}
+
+.more-seenit-title {
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #250E00;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .more-seenit-section {
+    margin-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .more-seenit-title {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .more-seenit-section .homepage-grid {
+    grid-template-columns: 1fr;
+  }
+}
 

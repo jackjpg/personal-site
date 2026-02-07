@@ -11,11 +11,11 @@ export default function ProjectNavV3({ title, date }: ProjectNavV3Props) {
   return (
     <nav className="case-study-v3-nav">
       <Link href="/" className="case-study-v3-nav__back">
-        <svg 
-          width="56" 
-          height="56" 
-          viewBox="0 0 56 56" 
-          fill="none" 
+        <svg
+          width="56"
+          height="56"
+          viewBox="0 0 56 56"
+          fill="none"
           xmlns="http://www.w3.org/2000/svg"
           style={{ display: 'block' }}
           aria-label="Back to home"
