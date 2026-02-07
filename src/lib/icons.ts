@@ -28,13 +28,13 @@ const iconsBase: Omit<Icon, 'previewImage'>[] = [
     year: "2025"
   },
   {
-    id: "reactions",
+    id: "post-sale",
     label: "VIEW",
     kind: "route",
-    href: "/case/reactions",
+    href: "/case/post-sale",
     ratio: "portrait",
-    img: "/Icons/Reactions_thumb.png",
-    text: "Lowering the cost of replying",
+    text: "Building trust after the sale",
+    bgColor: "#A8E6CF",
     showLabel: true,
     year: "2025"
   },
@@ -50,13 +50,13 @@ const iconsBase: Omit<Icon, 'previewImage'>[] = [
     year: "2025"
   },
   {
-    id: "post-sale",
+    id: "reactions",
     label: "VIEW",
     kind: "route",
-    href: "/case/post-sale",
+    href: "/case/reactions",
     ratio: "portrait",
-    text: "Building trust after the sale",
-    bgColor: "#A8E6CF",
+    img: "/Icons/Reactions_thumb.png",
+    text: "Lowering the cost of replying",
     showLabel: true,
     year: "2025"
   },
