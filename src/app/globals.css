@@ -51,7 +51,8 @@ body {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background-color: #F1F0F8;
 }
 
 .homepage-grid-item-media video,
@@ -446,7 +447,7 @@ body {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #F5F4F1;
+  background: #F1F0F8;
   border: none;
   padding: 0;
   margin-left: 8px;
@@ -456,7 +457,7 @@ body {
 }
 
 .siteHeader__arrow:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: #D9D8DF;
 }
 
 .siteHeader__linkedin {
@@ -2896,6 +2897,10 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
 .more-seenit-section .homepage-grid {
   background: transparent;
   padding: 0;
+}
+
+.more-seenit-section .homepage-grid-item-media {
+  background: transparent;
 }
 
 .more-seenit-title {

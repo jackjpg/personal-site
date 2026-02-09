@@ -79,7 +79,7 @@ const previewMediaMap: Record<string, string> = {
   'seenit-identity': '/Project_seenit-identity/Seenit-identity-transparent.mov',
   'reactions': '/Project_reactions/Seenit-reactions-transparent.mov',
   'pov': '/Project_pov/Seenit-remix-transparent.mov',
-  'post-sale': '/Project_post-sale/motorway-post-sale-1.png',
+  'post-sale': '/Icons/Motorway-Postsale-Tile.png',
   'verification': '/Project_verification/verification-hero.png'
 };
 
