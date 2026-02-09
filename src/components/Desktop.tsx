@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { icons } from "@/lib/icons";
 
@@ -32,13 +31,9 @@ export default function Desktop() {
                     preload="metadata"
                   />
                 ) : previewMedia ? (
-                  <Image
+                  <img
                     src={previewMedia}
                     alt={project.text || project.label}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    unoptimized
-                    style={{ objectFit: "cover" }}
                   />
                 ) : (
                   <div
