@@ -76,9 +76,9 @@ const iconsBase: Omit<Icon, 'previewImage'>[] = [
 // Preview media extracted from case studies (hardcoded for client/server compatibility)
 // Uses first media (image or video) from each case study
 const previewMediaMap: Record<string, string> = {
-  'seenit-identity': '/Project_seenit-identity/Seenit-identity-transparent.mov',
-  'reactions': '/Project_reactions/Seenit-reactions-transparent.mov',
-  'pov': '/Project_pov/Seenit-remix-transparent.mov',
+  'seenit-identity': '/Project_seenit-identity/Seenit-identity-transparent.webm',
+  'reactions': '/Project_reactions/Seenit-reactions-transparent.webm',
+  'pov': '/Project_pov/Seenit-remix-transparent.webm',
   'post-sale': '/Icons/Motorway-Postsale-Tile.png',
   'verification': '/Project_verification/verification-hero.png'
 };
