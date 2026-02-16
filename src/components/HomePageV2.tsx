@@ -9,15 +9,16 @@ const projects = [
     title: "Seenit identity",
     description: "AI-generated identity system",
     href: "/case/seenit-identity",
-    media: "/Project_seenit-identity/Seenit-identity-transparent.webm",
-    isVideo: true,
+    media: ["/Icons/Seenitidentity1.png", "/Icons/Seenitidentity2.png"],
+    isVideo: false,
+    isMultiple: true,
   },
   {
     title: "Seenit POVs",
     description: "Turning screenshots into statuses",
     href: "/case/pov",
-    media: "/Project_pov/Seenit-remix-transparent.webm",
-    isVideo: true,
+    media: "/Icons/SeenitPOV.png",
+    isVideo: false,
   },
   {
     title: "Motorway last mile",
@@ -30,8 +31,9 @@ const projects = [
     title: "Seenit Reactions",
     description: "Lowering the cost of replying",
     href: "/case/reactions",
-    media: "/Project_reactions/Seenit-reactions-transparent.webm",
-    isVideo: true,
+    media: ["/Icons/Seenreactions1.png", "/Icons/Seenreactions2.png"],
+    isVideo: false,
+    isMultiple: true,
   },
   {
     title: "Motorway verification",
@@ -44,14 +46,11 @@ const projects = [
 
 // Lessons data
 const lessons = [
-  "Start from emotional intent, not task intent",
+  "Start from emotional intent",
   "Design the rubric it scores itself against",
-  "Show it what great looks like",
   "Tone is the interface",
   "Specificity beats blandness",
-  "Cultural fluency beats cleverness",
   "Prompt structure is a design system",
-  "Designing with LLMs is vibe engineering",
 ];
 
 function LeftArrow() {
@@ -132,7 +131,7 @@ export default function HomePageV2() {
       <nav className="homepage-v2-nav">
         <div className="homepage-v2-nav-left">
           <h1>Jack Parrish</h1>
-          <p>Product designer</p>
+          <p>Product Designer – Consumer AI & Marketplaces</p>
         </div>
       </nav>
 
@@ -141,19 +140,31 @@ export default function HomePageV2() {
         <div className="homepage-v2-carousel">
           <div className={`homepage-v2-carousel-content ${isTransitioning ? 'transitioning' : ''}`}>
           <div className="homepage-v2-carousel-image">
-            {project.isVideo ? (
-              <video
-                key={project.media}
-                autoPlay
-                loop
-                muted
-                playsInline
+            {projects.map((p, index) => (
+              <div
+                key={p.title}
+                className={`homepage-v2-carousel-media ${index === currentProject ? 'active' : ''}`}
               >
-                <source src={project.media} type="video/webm" />
-              </video>
-            ) : (
-              <img src={project.media} alt={project.title} />
-            )}
+                {p.isVideo ? (
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  >
+                    <source src={p.media as string} type="video/webm" />
+                  </video>
+                ) : p.isMultiple ? (
+                  <div className="homepage-v2-carousel-multiple">
+                    {(p.media as string[]).map((src, i) => (
+                      <img key={i} src={src} alt={`${p.title} ${i + 1}`} />
+                    ))}
+                  </div>
+                ) : (
+                  <img src={p.media as string} alt={p.title} />
+                )}
+              </div>
+            ))}
             <div className="homepage-v2-carousel-nav">
               <button
                 className="homepage-v2-carousel-nav-left"
@@ -209,29 +220,29 @@ export default function HomePageV2() {
         <div className="homepage-v2-experience">
           <div className="homepage-v2-experience-item">
             <div className="homepage-v2-experience-left">
-              <span className="homepage-v2-experience-company">Seenit</span>
               <span className="homepage-v2-experience-role">Founding Product Designer</span>
+              <span className="homepage-v2-experience-company">Seenit</span>
             </div>
             <span className="homepage-v2-experience-date">Aug 2025 - Present</span>
           </div>
           <div className="homepage-v2-experience-item">
             <div className="homepage-v2-experience-left">
-              <span className="homepage-v2-experience-company">Motorway</span>
               <span className="homepage-v2-experience-role">Lead Product Designer</span>
+              <span className="homepage-v2-experience-company">Motorway</span>
             </div>
             <span className="homepage-v2-experience-date">Dec 2024 - Jul 2025</span>
           </div>
           <div className="homepage-v2-experience-item">
             <div className="homepage-v2-experience-left">
-              <span className="homepage-v2-experience-company">Motorway</span>
               <span className="homepage-v2-experience-role">Senior Product Designer</span>
+              <span className="homepage-v2-experience-company">Motorway</span>
             </div>
             <span className="homepage-v2-experience-date">Jul 2021 - Dec 2024</span>
           </div>
           <div className="homepage-v2-experience-item">
             <div className="homepage-v2-experience-left">
-              <span className="homepage-v2-experience-company">Festicket (Acq)</span>
               <span className="homepage-v2-experience-role">Product Designer</span>
+              <span className="homepage-v2-experience-company">Festicket (Acq)</span>
             </div>
             <span className="homepage-v2-experience-date">May 2018 - Sep 2020</span>
           </div>

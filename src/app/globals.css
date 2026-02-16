@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Nostra';
+  src: url('/Fonts/NostraTest-Sett.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -34,11 +42,23 @@ body {
 }
 
 .homepage-v2-nav-left h1 {
-  font-size: 17px;
-  line-height: 22px;
+  font-family: 'Nostra', sans-serif;
+  font-size: 40px;
+  line-height: 46px;
   font-weight: 400;
+  letter-spacing: 0.04em;
   margin: 0;
-  color: #F2ECE8;
+  background: linear-gradient(180deg, #FEFDB3 0%, #FF6E58 50%, #FF26B0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .homepage-v2-nav-left h1 {
+    font-size: 32px;
+    line-height: 38px;
+  }
 }
 
 .homepage-v2-nav-left p {
@@ -81,10 +101,10 @@ body {
 .homepage-v2-section-title {
   font-size: 17px;
   line-height: 22px;
-  font-weight: 400;
+  font-weight: 700;
   margin: 0;
   padding-bottom: 8px;
-  border-bottom: 1px solid rgba(242, 236, 232, 0.2);
+  border-bottom: 1px solid rgba(242, 236, 232, 0.1);
   color: #F2ECE8;
 }
 
@@ -113,17 +133,51 @@ body {
   background: rgba(242, 236, 232, 0.05);
 }
 
-.homepage-v2-carousel-image video {
+.homepage-v2-carousel-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.homepage-v2-carousel-media.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.homepage-v2-carousel-media video {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.homepage-v2-carousel-image img {
+.homepage-v2-carousel-media img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   padding: 16px 0;
+}
+
+.homepage-v2-carousel-multiple {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  height: 100%;
+  padding: 16px 0;
+  box-sizing: border-box;
+}
+
+.homepage-v2-carousel-multiple img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  padding: 0;
 }
 
 .homepage-v2-carousel-nav {
@@ -191,10 +245,10 @@ body {
 }
 
 .homepage-v2-carousel-text h3 {
-  font-size: 17px;
+  font-size: 22px;
   line-height: 22px;
-  font-weight: 400;
-  margin: 0;
+  font-weight: 700;
+  margin: 0 0 4px 0;
   color: #F2ECE8;
 }
 
@@ -208,12 +262,12 @@ body {
 
 .homepage-v2-btn {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 22px;
   color: rgba(242, 236, 232, 0.8);
   text-decoration: none;
   padding: 0 12px;
-  height: 32px;
+  height: 36px;
   display: inline-flex;
   align-items: center;
   border: none;
@@ -295,12 +349,12 @@ body {
 }
 
 .homepage-v2-experience-company {
-  color: #F2ECE8;
+  color: #C8BCC3;
+  opacity: 0.7;
 }
 
 .homepage-v2-experience-role {
-  color: #C8BCC3;
-  opacity: 0.7;
+  color: #F2ECE8;
 }
 
 .homepage-v2-experience-date {
@@ -314,6 +368,11 @@ body {
   .homepage-v2-experience-left {
     flex-direction: column;
     gap: 0;
+  }
+
+  .homepage-v2-experience-company {
+    font-size: 14px;
+    line-height: 18px;
   }
 }
 
@@ -357,8 +416,6 @@ body:has(.homepage-v2) .siteHeader {
     line-height: 22px;
   }
 
-  .homepage-v2-nav-left h1,
-  .homepage-v2-carousel-text h3,
   .homepage-v2-section-title,
   .homepage-v2-lessons-text,
   .homepage-v2-contact a {
