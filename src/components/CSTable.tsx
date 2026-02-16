@@ -1,9 +1,13 @@
 interface CSTableProps {
-  headers: string[];
-  rows: string[][];
+  headers?: string[];
+  rows?: string[][];
 }
 
-export default function CSTable({ headers, rows }: CSTableProps) {
+export default function CSTable({ headers = [], rows = [] }: CSTableProps) {
+  if (!headers.length || !rows.length) {
+    return null;
+  }
+
   return (
     <div className="cs-table-wrapper">
       <table className="cs-table">
