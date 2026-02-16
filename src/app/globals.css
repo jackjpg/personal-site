@@ -309,6 +309,23 @@ body {
   white-space: nowrap;
 }
 
+/* Experience mobile: stack company and role */
+@media (max-width: 768px) {
+  .homepage-v2-experience-item {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .homepage-v2-experience-left {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .homepage-v2-experience-date {
+    margin-top: 2px;
+  }
+}
+
 /* Contact Links */
 .homepage-v2-contact {
   margin-top: 16px;
