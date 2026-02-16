@@ -45,8 +45,8 @@ body {
   font-size: 14px;
   line-height: 18px;
   margin: 0;
-  color: #F2ECE8;
-  opacity: 0.6;
+  color: #C8BCC3;
+  opacity: 0.7;
 }
 
 .homepage-v2-nav-right a {
@@ -202,8 +202,8 @@ body {
   font-size: 14px;
   line-height: 18px;
   margin: 0;
-  color: #F2ECE8;
-  opacity: 0.6;
+  color: #C8BCC3;
+  opacity: 0.7;
 }
 
 .homepage-v2-btn {
@@ -265,8 +265,8 @@ body {
 }
 
 .homepage-v2-lessons-number {
-  color: #F2ECE8;
-  opacity: 0.4;
+  color: #C8BCC3;
+  opacity: 0.7;
   font-variant-numeric: tabular-nums;
   min-width: 24px;
 }
@@ -299,30 +299,21 @@ body {
 }
 
 .homepage-v2-experience-role {
-  color: #F2ECE8;
-  opacity: 0.6;
+  color: #C8BCC3;
+  opacity: 0.7;
 }
 
 .homepage-v2-experience-date {
-  color: #F2ECE8;
-  opacity: 0.4;
+  color: #C8BCC3;
+  opacity: 0.7;
   white-space: nowrap;
 }
 
-/* Experience mobile: stack company and role */
+/* Experience mobile: stack role under company, date stays on right */
 @media (max-width: 768px) {
-  .homepage-v2-experience-item {
-    flex-direction: column;
-    gap: 0;
-  }
-
   .homepage-v2-experience-left {
     flex-direction: column;
     gap: 0;
-  }
-
-  .homepage-v2-experience-date {
-    margin-top: 2px;
   }
 }
 
@@ -347,7 +338,7 @@ body {
 
 .homepage-v2-contact-arrow {
   flex-shrink: 0;
-  opacity: 0.4;
+  opacity: 0.7;
 }
 
 .homepage-v2-contact a:hover {
