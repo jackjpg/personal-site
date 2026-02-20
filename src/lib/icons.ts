@@ -22,7 +22,7 @@ const iconsBase: Omit<Icon, 'previewImage'>[] = [
     kind: "route",
     href: "/case/pov",
     ratio: "portrait",
-    text: "Turning screenshots into statuses",
+    text: "Generative statuses from screenshots",
     bgColor: "#87CEEB",
     showLabel: true,
     year: "2025"

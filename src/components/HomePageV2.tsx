@@ -15,7 +15,7 @@ const projects = [
   },
   {
     title: "Seenit POVs",
-    description: "Turning screenshots into statuses",
+    description: "Generative statuses from screenshots",
     href: "/case/pov",
     media: "/Icons/SeenitPOV.png",
     isVideo: false,

@@ -12,7 +12,7 @@ interface SeenitProject {
 const seenitProjects: SeenitProject[] = [
   {
     id: 'pov',
-    title: 'Turning screenshots into statuses',
+    title: 'Generative statuses from screenshots',
     href: '/case/pov',
     video: '/Project_pov/Seenit-remix-transparent.mov'
   },
