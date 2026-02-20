@@ -31,7 +31,7 @@ const projects = [
     title: "Seenit Reactions",
     description: "Lowering the cost of replying",
     href: "/case/reactions",
-    media: ["/Icons/Seenreactions1.png", "/Icons/Seenreactions2.png"],
+    media: ["/Icons/Seenreactions1.png", "/Icons/Reaction_2.png"],
     isVideo: false,
     isMultiple: true,
   },
