@@ -246,6 +246,15 @@ export default function HomePageV2() {
             </div>
             <span className="homepage-v2-experience-date">May 2018 - Sep 2020</span>
           </div>
+          <a
+            href="/Icons/jackparrish-resume-2026.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="homepage-v2-contact-link-inline"
+          >
+            <ContactArrow />
+            View resume
+          </a>
         </div>
       </section>
 
@@ -258,7 +267,7 @@ export default function HomePageV2() {
             Email
           </a>
           <a
-            href="https://linkedin.com/in/jackparrish"
+            href="https://www.linkedin.com/in/jjackparrish"
             target="_blank"
             rel="noopener noreferrer"
           >

@@ -44,7 +44,7 @@ const iconsBase: Omit<Icon, 'previewImage'>[] = [
     kind: "route",
     href: "/case/seenit-identity",
     ratio: "portrait",
-    text: "Onboarding into a single tap",
+    text: "AI-generated identity system",
     bgColor: "#D4A5FF",
     showLabel: true,
     year: "2025"
@@ -66,7 +66,7 @@ const iconsBase: Omit<Icon, 'previewImage'>[] = [
     kind: "route",
     href: "/case/verification",
     ratio: "portrait",
-    text: "Reducing verification failures",
+    text: "Improving first-time document approval",
     bgColor: "#FFF5A6",
     showLabel: true,
     year: "2024"
@@ -76,9 +76,9 @@ const iconsBase: Omit<Icon, 'previewImage'>[] = [
 // Preview media extracted from case studies (hardcoded for client/server compatibility)
 // Uses first media (image or video) from each case study
 const previewMediaMap: Record<string, string> = {
-  'seenit-identity': '/Project_seenit-identity/Seenit-identity-transparent.webm',
-  'reactions': '/Project_reactions/Seenit-reactions-transparent.webm',
-  'pov': '/Project_pov/Seenit-remix-transparent.webm',
+  'seenit-identity': '/Project_seenit-identity/Seenit_identity.mov',
+  'reactions': '/Project_reactions/Seenit-reactions.mov',
+  'pov': '/Project_pov/remix_ 2.mov',
   'post-sale': '/Icons/Motorway-Postsale-Tile.png',
   'verification': '/Project_verification/verification-hero.png'
 };

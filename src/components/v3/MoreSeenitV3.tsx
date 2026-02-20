@@ -14,19 +14,19 @@ const seenitProjects: SeenitProject[] = [
     id: 'pov',
     title: 'Generative statuses from screenshots',
     href: '/case/pov',
-    video: '/Project_pov/Seenit-remix-transparent.mov'
+    video: '/Project_pov/remix_ 2.mov'
   },
   {
     id: 'seenit-identity',
-    title: 'Onboarding into a single tap',
+    title: 'AI-generated identity system',
     href: '/case/seenit-identity',
-    video: '/Project_seenit-identity/Seenit-identity-transparent.mov'
+    video: '/Project_seenit-identity/Seenit_identity.mov'
   },
   {
     id: 'reactions',
     title: 'Lowering the cost of replying',
     href: '/case/reactions',
-    video: '/Project_reactions/Seenit-reactions-transparent.mov'
+    video: '/Project_reactions/Seenit-reactions.mov'
   }
 ];
 
