@@ -6,19 +6,19 @@ import Link from "next/link";
 // Project data
 const projects = [
   {
+    title: "Seenit POVs",
+    description: "Generative statuses from screenshots",
+    href: "/case/pov",
+    media: "/Icons/SeenitPOV.png",
+    isVideo: false,
+  },
+  {
     title: "Seenit identity",
     description: "AI-generated identity system",
     href: "/case/seenit-identity",
     media: ["/Icons/Seenitidentity1.png", "/Icons/Seenitidentity2.png"],
     isVideo: false,
     isMultiple: true,
-  },
-  {
-    title: "Seenit POVs",
-    description: "Generative statuses from screenshots",
-    href: "/case/pov",
-    media: "/Icons/SeenitPOV.png",
-    isVideo: false,
   },
   {
     title: "Motorway last mile",

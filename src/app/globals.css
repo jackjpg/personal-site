@@ -2354,8 +2354,8 @@ body:has(.case-study-v3-wrapper) footer.siteHeader {
   --v3-gutter: 40px;
   
   /* Typography */
-  --v3-section-header-size: 24px;
-  --v3-section-header-line: 32px;
+  --v3-section-header-size: 20px;
+  --v3-section-header-line: 28px;
   --v3-body-size: 20px;
   --v3-body-line: 28px;
   --v3-content-margin: 20px;
@@ -2535,31 +2535,45 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
   list-style-position: outside;
 }
 
+/* ol — homepage-style numbered list */
 .case-study-v3-body ol {
-  list-style-type: decimal;
+  list-style: none;
+  padding-left: 40px;
+  counter-reset: v3-list-counter;
 }
 
+.case-study-v3-body ol li {
+  position: relative;
+  padding: 4px 0;
+  margin-bottom: 0;
+  counter-increment: v3-list-counter;
+  font-weight: 400;
+}
+
+.case-study-v3-body ol li::before {
+  content: counter(v3-list-counter, decimal-leading-zero);
+  position: absolute;
+  left: -40px;
+  width: 28px;
+  color: rgba(37, 14, 0, 0.3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ul — disc bullets */
 .case-study-v3-body ul {
   list-style-type: disc;
 }
 
-.case-study-v3-body li {
+.case-study-v3-body ul li {
   margin-bottom: var(--v3-content-margin);
   display: list-item;
+  font-weight: 400;
 }
 
-.case-study-v3-body ol li::marker,
 .case-study-v3-body ul li::marker {
   color: #250E00;
 }
 
-/* Make text before colon in list items bold */
-.case-study-v3-body ol li,
-.case-study-v3-body ul li {
-  font-weight: 400;
-}
-
-.case-study-v3-body ol li strong:first-child,
 .case-study-v3-body ul li strong:first-child {
   font-weight: 700;
 }
@@ -2567,6 +2581,167 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
 .case-study-v3-body ol:last-child,
 .case-study-v3-body ul:last-child {
   margin-bottom: 0;
+}
+
+/* POV Scoring Rubric Toggle */
+.pov-rubric-wrapper {
+  width: 100%;
+  max-width: var(--v3-content-max-width);
+  margin-top: 0;
+  margin-bottom: 60px;
+}
+
+.pov-rubric-clip {
+  max-height: 160px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.pov-rubric-clip--open {
+  max-height: none;
+}
+
+.pov-rubric-fade {
+  position: relative;
+  margin-top: -80px;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, #E1E3FF);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 0;
+}
+
+.pov-rubric-fade--open {
+  margin-top: 16px;
+  height: auto;
+  background: none;
+}
+
+.pov-rubric-toggle {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  color: #000000;
+  padding: 0 12px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  border-radius: 100px;
+  background: #ffffff;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+}
+
+.pov-rubric-toggle:hover {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* POV Scoring Rubric Card */
+.pov-rubric {
+  position: relative;
+  border: 1px solid rgba(37, 14, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  width: 100%;
+}
+
+.pov-rubric::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 216px;
+  width: 1px;
+  background: rgba(37, 14, 0, 0.1);
+  pointer-events: none;
+}
+
+.pov-rubric-header,
+.pov-rubric-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  column-gap: 16px;
+  padding: 20px 16px;
+}
+
+.pov-rubric-header {
+  border-bottom: 1px solid rgba(37, 14, 0, 0.1);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.pov-rubric-col-head {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #250E00;
+}
+
+
+.pov-rubric-row {
+  align-items: start;
+  border-bottom: 1px solid rgba(37, 14, 0, 0.1);
+}
+
+.pov-rubric-row:last-child {
+  border-bottom: none;
+}
+
+.pov-rubric-row:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.pov-rubric-dimension {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #250E00;
+}
+
+.pov-rubric-num {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: rgba(37, 14, 0, 0.3);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.pov-rubric-goal {
+  font-size: 16px;
+  line-height: 24px;
+  color: #250E00;
+}
+
+.pov-rubric-metric {
+  font-size: 16px;
+  line-height: 24px;
+  color: #250E00;
+}
+
+.pov-rubric-metric--fail {
+  color: #250E00;
+}
+
+/* V3 Section Label (h3 inside body) */
+.case-study-v3-body h3 {
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 700;
+  color: #250E00;
+  margin: 32px 0 16px;
+}
+
+.case-study-v3-body h3:first-child {
+  margin-top: 0;
 }
 
 /* V3 Image Block - full 1024px width section */
@@ -2897,8 +3072,8 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
   
   /* Mobile typography - smaller sizes */
   .case-study-v3-section-header {
-    font-size: 24px;
-    line-height: 32px;
+    font-size: 16px;
+    line-height: 22px;
   }
   
   .case-study-v3-body {
@@ -2973,9 +3148,14 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
   .case-study-v3-section {
     margin-bottom: 40px;
   }
-  
+
   .case-study-v3-section:last-of-type {
     margin-bottom: 0;
+  }
+
+  .pov-rubric-wrapper {
+    margin-top: 0;
+    margin-bottom: 40px;
   }
   
   .case-study-v3-footer {

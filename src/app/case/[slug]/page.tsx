@@ -18,6 +18,8 @@ import ImageBlockV3Wrapper from '@/components/v3/ImageBlockV3Wrapper';
 import BodyTextV3 from '@/components/v3/BodyTextV3';
 import SectionWithMediaV3 from '@/components/v3/SectionWithMediaV3';
 import MoreSeenitV3 from '@/components/v3/MoreSeenitV3';
+import ScoringRubricV3 from '@/components/v3/ScoringRubricV3';
+import NumberedListV3 from '@/components/v3/NumberedListV3';
 
 const components = {
   CSImage,
@@ -44,6 +46,8 @@ const componentsV3 = {
   CSCarousel,
   CSChip,
   MoreSeenit: MoreSeenitV3,
+  ScoringRubric: ScoringRubricV3,
+  NumberedList: NumberedListV3,
 };
 
 export async function generateStaticParams() {
