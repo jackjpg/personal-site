@@ -114,7 +114,6 @@ export default function HomePageV2() {
   const [currentProject, setCurrentProject] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [hoverSide, setHoverSide] = useState<'left' | 'right' | null>(null);
-
   const changeProject = (newIndex: number) => {
     if (isTransitioning) return;
     setIsTransitioning(true);
