@@ -113,6 +113,7 @@ function ContactArrow() {
 export default function HomePageV2() {
   const [currentProject, setCurrentProject] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [hoverSide, setHoverSide] = useState<'left' | 'right' | null>(null);
 
   const changeProject = (newIndex: number) => {
     if (isTransitioning) return;
@@ -138,6 +139,13 @@ export default function HomePageV2() {
     changeProject(newIndex);
   };
 
+  const handleImageMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setHoverSide(e.clientX - rect.left < rect.width / 2 ? 'left' : 'right');
+  };
+
+  const handleImageMouseLeave = () => setHoverSide(null);
+
   const project = projects[currentProject];
 
   return (
@@ -154,7 +162,11 @@ export default function HomePageV2() {
       <section className="homepage-v2-section">
         <div className="homepage-v2-carousel">
           <div className={`homepage-v2-carousel-content ${isTransitioning ? 'transitioning' : ''}`}>
-          <div className="homepage-v2-carousel-image">
+          <div
+            className="homepage-v2-carousel-image"
+            onMouseMove={handleImageMouseMove}
+            onMouseLeave={handleImageMouseLeave}
+          >
             {projects.map((p, index) => (
               <div
                 key={p.title}
@@ -186,7 +198,10 @@ export default function HomePageV2() {
                 onClick={goToPrevious}
                 aria-label="Previous project"
               >
-                <span className="homepage-v2-carousel-arrow">
+                <span
+                  className="homepage-v2-carousel-arrow"
+                  style={{ color: hoverSide === 'left' ? 'rgba(242, 236, 232, 0.8)' : 'rgba(242, 236, 232, 0.4)' }}
+                >
                   <LeftArrow />
                 </span>
               </button>
@@ -195,7 +210,10 @@ export default function HomePageV2() {
                 onClick={goToNext}
                 aria-label="Next project"
               >
-                <span className="homepage-v2-carousel-arrow">
+                <span
+                  className="homepage-v2-carousel-arrow"
+                  style={{ color: hoverSide === 'right' ? 'rgba(242, 236, 232, 0.8)' : 'rgba(242, 236, 232, 0.4)' }}
+                >
                   <RightArrow />
                 </span>
               </button>
