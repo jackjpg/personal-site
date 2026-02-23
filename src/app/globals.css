@@ -388,11 +388,6 @@ body {
     font-size: 14px;
     line-height: 18px;
   }
-
-  .homepage-v2-lessons-desc {
-    font-size: 14px;
-    line-height: 18px;
-  }
 }
 
 /* Contact Links */
@@ -437,7 +432,6 @@ body:has(.homepage-v2) .siteHeader {
 
   .homepage-v2-section-title,
   .homepage-v2-lessons-title,
-  .homepage-v2-lessons-desc,
   .homepage-v2-contact a {
     font-size: 17px;
     line-height: 22px;
@@ -446,6 +440,13 @@ body:has(.homepage-v2) .siteHeader {
 
 body:has(.homepage-v2) footer.siteHeader {
   display: none;
+}
+
+@media (max-width: 768px) {
+  .homepage-v2-lessons-desc {
+    font-size: 14px;
+    line-height: 18px;
+  }
 }
 
 /* Homepage Grid Layout */
