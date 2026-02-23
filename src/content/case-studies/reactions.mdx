@@ -8,7 +8,9 @@ layout: "v3"
 
 <Section>
 
-Seenit had no messaging system and no social graph. I designed a reactions system that enabled response without building either - contextually relevant stickers generated from the POV text and handed off to the native share sheet.
+Staying close increasingly requires speaking up or performing presence, and when no one does, friendships go quiet even when nothing is wrong.
+
+Seenit had no messaging system and no social graph. I designed a reactions system that enabled response without building either — contextually relevant stickers generated from the POV text and handed off to the native share sheet.
 
 </Section>
 
@@ -22,9 +24,19 @@ Seenit had no messaging system and no social graph. I designed a reactions syste
   gradient="linear-gradient(to bottom, #3C2A97, #DAA588)"
 />
 
-<Section>
+<Section title="Constraints">
 
-Reactions are generated and rendered as personalised stickers, then handed off to the native share sheet. This decision was informed by beta data: 20-30% of POVs were shared, almost always inside small WhatsApp groups.
+1. No messaging infrastructure
+1. Had to feel contextually relevant
+1. Needed to lower the bar enough that a throwaway reply could open a real conversation
+
+</Section>
+
+<Section title="Lowering the cost of responding">
+
+The beta was built around broadcasting to Instagram, however we learned almost all sharing happened in WhatsApp groups of 3–7 people, where cards consistently sparked follow-up questions and group discussion. Reactions needed to work inside those conversations.
+
+By handing off to the native share sheet, reactions live in the same conversation where the POV is already being discussed. This let me enable reciprocity and response without building a separate messaging surface or notification layer — and test whether AI-generated reactions could meaningfully invite replies before committing to owning that infrastructure.
 
 </Section>
 
@@ -33,11 +45,5 @@ Reactions are generated and rendered as personalised stickers, then handed off t
   <img src="/Project_reactions/Reaction_2.png" alt="Reaction sticker 2" />
   <img src="/Project_reactions/Reaction_4.png" alt="Reaction sticker 4" />
 </div>
-
-<Section>
-
-By leaning on existing social graphs, reactions live in the same conversations where the POV is already being discussed. This allowed me to enable reciprocity and response without building messaging or notifications prematurely, while testing whether AI-generated reactions could meaningfully invite replies before investing in owning social infrastructure.
-
-</Section>
 
 <MoreSeenit current="reactions" />
