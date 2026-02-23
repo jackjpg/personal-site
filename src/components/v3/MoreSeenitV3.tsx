@@ -14,13 +14,13 @@ const seenitProjects: SeenitProject[] = [
     id: 'pov',
     title: 'Generative statuses from screenshots',
     href: '/case/pov',
-    video: '/Project_pov/remix_ 2.mov'
+    video: '/Project_pov/seenit-remix.mov'
   },
   {
     id: 'seenit-identity',
     title: 'AI-generated identity system',
     href: '/case/seenit-identity',
-    video: '/Project_seenit-identity/Seenit_identity.mov'
+    video: '/Project_seenit-identity/seenit-identity.mov'
   },
   {
     id: 'reactions',

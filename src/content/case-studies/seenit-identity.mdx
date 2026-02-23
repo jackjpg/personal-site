@@ -13,7 +13,7 @@ Seenit is a group-based social app where identity is foundational to context and
 </Section>
 
 <V3Image
-  src="/Project_seenit-identity/Seenit_identity.mov"
+  src="/Project_seenit-identity/seenit-identity.mov"
   alt="Seenit identity onboarding flow"
   aspectRatio="16:9"
   autoPlay
@@ -22,11 +22,31 @@ Seenit is a group-based social app where identity is foundational to context and
   gradient="linear-gradient(to bottom, #799EFB, #F0F2FF)"
 />
 
+<Section title="Constraints">
+
+1. Manual uploads introduces friction and requires too many steps
+1. A mix of low-quality selfies and empty states made the group-based UI feel cluttered and disconnected
+1. Account management and moderation added ongoing engineering and maintenance overhead
+
+</Section>
+
+<Section title="Solution">
+
+I designed an automated identity pipeline using TikTok Login Kit to retrieve authenticated metadata. That metadata is transformed through a generative model into a stylised avatar native to the Seenit universe.
+
+Because AI-generated identity carries risk of misrepresentation, users receive four variations and can regenerate entirely. This preserved user agency while maintaining automation.
+
+</Section>
+
+<div className="cs-image-row">
+  <img src="/Project_seenit-identity/Onboarding_1.png" alt="Onboarding step 1" />
+  <img src="/Project_seenit-identity/Onboarding_2.png" alt="Onboarding step 2" />
+  <img src="/Project_seenit-identity/Onboarding_3.png" alt="Onboarding step 3" />
+</div>
+
 <Section>
 
-I leveraged the TikTok Login Kit to fetch the user's display name and profile image, then the system passes these through a model to generate a stylised identity native to the Seenit universe. I wanted the magic of the product to be the very first thing people saw. This bypassed the usual setup hurdles, so users were looking at their first POV in seconds.
-
-Because AI-generated identity carries a high risk of misinterpretation, I designed the UI to surface multiple generated options rather than a single correct one. To further safeguard user agency, I included a refresh trigger: allowing users to scrap the initial results and generate an entirely new set of identities. This ensured no user felt trapped by the AI interpretation, and gave a sense of ownership over how they show up in the app.
+The same generated identity persists across all surfaces of the app, from widgets and invites to reactions, without requiring profile editing or setup.
 
 </Section>
 
@@ -35,11 +55,11 @@ Because AI-generated identity carries a high risk of misinterpretation, I design
   <img src="/Icons/Seenitidentity3.png" alt="Squad avatars example" />
 </div>
 
-<Section>
+<Section title="Outcome and impact">
 
-The same generated identity persists across all surfaces of the app, from widgets and invites to reactions, without requiring profile editing or setup.
-
-This approach reduced backend complexity while ensuring identity was immediately recognisable and portable across the product. Users entered the product with a coherent identity already in place, without configuration or effort.
+1. Reduced the time-to-first-POV from minutes to 10 seconds by removing all profile setup hurdles
+1. Eliminated need for manual moderation and profile infrastructure
+1. Created a reusable identity layer deployed across widgets, reactions, and invites
 
 </Section>
 

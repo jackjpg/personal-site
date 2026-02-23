@@ -2579,7 +2579,8 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
 }
 
 .case-study-v3-body ol:last-child,
-.case-study-v3-body ul:last-child {
+.case-study-v3-body ul:last-child,
+.case-study-v3-body > *:last-child {
   margin-bottom: 0;
 }
 
@@ -2655,7 +2656,7 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: calc(40% + 8px);
+  left: 40%;
   width: 1px;
   background: rgba(37, 14, 0, 0.1);
   pointer-events: none;
@@ -2665,8 +2666,6 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
 .pov-rubric-row {
   display: grid;
   grid-template-columns: 40% 60%;
-  column-gap: 16px;
-  padding: 20px 16px;
 }
 
 .pov-rubric-header {
@@ -2679,6 +2678,7 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
   font-weight: 700;
   line-height: 24px;
   color: #250E00;
+  padding: 20px;
 }
 
 
@@ -2718,12 +2718,14 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
   font-size: 16px;
   line-height: 24px;
   color: #250E00;
+  padding: 20px;
 }
 
 .pov-rubric-metric {
   font-size: 16px;
   line-height: 24px;
   color: #250E00;
+  padding: 20px;
 }
 
 .pov-rubric-metric--fail {
@@ -3035,39 +3037,35 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
 
 /* Responsive Rules for V3 */
 @media (max-width: 768px) {
-  .case-study-v3-container {
-    padding: 0 var(--v3-outer-margin);
-  }
-  
   .case-study-v3-content-section {
     max-width: 100%;
   }
-  
-  /* Images break out of wrapper and container padding on mobile - 100% width, 0 horizontal margin */
+
+  /* Images break out of wrapper padding on mobile - 100% width, 0 horizontal margin */
   .case-study-v3-image-block {
     max-width: 100vw;
     width: 100vw;
-    margin-left: calc(-1 * var(--v3-outer-margin) * 2);
-    margin-right: calc(-1 * var(--v3-outer-margin) * 2);
+    margin-left: calc(-1 * var(--v3-outer-margin));
+    margin-right: calc(-1 * var(--v3-outer-margin));
   }
-  
+
   /* Captions keep horizontal margin on mobile */
   .case-study-v3-image-caption {
-    padding-left: calc(var(--v3-outer-margin) * 2);
-    padding-right: calc(var(--v3-outer-margin) * 2);
+    padding-left: var(--v3-outer-margin);
+    padding-right: var(--v3-outer-margin);
   }
-  
+
   .case-study-v3-container .cs-carousel {
     max-width: 100vw;
     width: 100vw;
-    margin-left: calc(-1 * var(--v3-outer-margin) * 2);
-    margin-right: calc(-1 * var(--v3-outer-margin) * 2);
+    margin-left: calc(-1 * var(--v3-outer-margin));
+    margin-right: calc(-1 * var(--v3-outer-margin));
   }
-  
+
   /* Carousel captions keep horizontal margin on mobile */
   .case-study-v3-container .cs-carousel-caption {
-    padding-left: calc(var(--v3-outer-margin) * 2);
-    padding-right: calc(var(--v3-outer-margin) * 2);
+    padding-left: var(--v3-outer-margin);
+    padding-right: var(--v3-outer-margin);
   }
   
   /* Mobile typography - smaller sizes */
@@ -3165,11 +3163,6 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  .case-study-v3-container {
-    padding: 0 var(--v3-outer-margin);
-  }
-}
 
 /* V3 Footer */
 .case-study-v3-footer {

@@ -9,34 +9,34 @@ const projects = [
     title: "Seenit POVs",
     description: "Generative statuses from screenshots",
     href: "/case/pov",
-    media: "/Icons/SeenitPOV.png",
+    media: "/Project_pov/POV_1.png",
     isVideo: false,
   },
   {
-    title: "Seenit identity",
-    description: "AI-generated identity system",
-    href: "/case/seenit-identity",
-    media: ["/Icons/Seenitidentity1.png", "/Icons/Seenitidentity2.png"],
-    isVideo: false,
-    isMultiple: true,
-  },
-  {
-    title: "Motorway last mile",
+    title: "Motorway Last Mile",
     description: "Building trust after the sale",
     href: "/case/post-sale",
     media: "/Icons/MW_postsale_thumb@3x.png",
     isVideo: false,
   },
   {
-    title: "Seenit Reactions",
-    description: "Lowering the cost of replying",
-    href: "/case/reactions",
-    media: ["/Icons/Seenreactions1.png", "/Icons/Reaction_2.png"],
+    title: "Seenit Identity",
+    description: "AI-generated identity system",
+    href: "/case/seenit-identity",
+    media: ["/Project_seenit-identity/Onboarding_3.png", "/Icons/Seenitidentity2.png"],
     isVideo: false,
     isMultiple: true,
   },
   {
-    title: "Motorway verification",
+    title: "Seenit Reactions",
+    description: "Lowering the cost of replying",
+    href: "/case/reactions",
+    media: ["/Project_reactions/Reaction_1.png", "/Project_reactions/Reaction_2.png"],
+    isVideo: false,
+    isMultiple: true,
+  },
+  {
+    title: "Motorway Verification",
     description: "Improving first-time approval",
     href: "/case/verification",
     media: "/Icons/verifiction_hero.png",
@@ -246,15 +246,6 @@ export default function HomePageV2() {
             </div>
             <span className="homepage-v2-experience-date">May 2018 - Sep 2020</span>
           </div>
-          <a
-            href="/Icons/jackparrish-resume-2026.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="homepage-v2-contact-link-inline"
-          >
-            <ContactArrow />
-            View resume
-          </a>
         </div>
       </section>
 

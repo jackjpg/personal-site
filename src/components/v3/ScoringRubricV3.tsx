@@ -1,29 +1,27 @@
 const rows = [
   {
-    goal: 'Accuracy',
-    metric: 'No fabricated or inferred detail beyond what\'s visible — references specific things',
-    autofail: true,
+    goal: 'Specificity',
+    metric: 'References concrete, observable signals from the screenshot (brands, prices, timestamps, names)',
   },
   {
-    goal: 'Relevancy',
-    metric: 'No retrospective or summary framing',
+    goal: 'Liveness',
+    metric: 'Captures the moment as it unfolds',
   },
   {
     goal: 'Resonance',
-    metric: 'Surfaces the primary emotional tension in the screenshot',
+    metric: 'Identifies the dominant contradiction or energy mismatch in the moment',
   },
   {
-    goal: 'Language',
+    goal: 'Cultural Fluency',
     metric: 'Uses casual, internet-native language',
-    autofail: true,
   },
   {
     goal: 'State',
-    metric: 'Classifies as first-person capture or third-party content; single label matching current context or intent',
+    metric: 'Single label matching current context or intent',
   },
   {
-    goal: 'Brevity',
-    metric: 'One screenshotable line; fails if it needs more than one clause',
+    goal: 'Compression',
+    metric: 'Delivers maximum signal in a single, screenshotable line',
   },
 ];
 
