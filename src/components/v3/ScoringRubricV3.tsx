@@ -1,7 +1,3 @@
-'use client';
-
-import { useState } from 'react';
-
 const rows = [
   {
     goal: 'Accuracy',
@@ -32,30 +28,21 @@ const rows = [
 ];
 
 export default function ScoringRubricV3() {
-  const [open, setOpen] = useState(false);
-
   return (
     <div className="pov-rubric-wrapper">
-      <div className={`pov-rubric-clip${open ? ' pov-rubric-clip--open' : ''}`}>
-        <div className="pov-rubric">
-          <div className="pov-rubric-header">
-            <span className="pov-rubric-col-head">Goal</span>
-            <span className="pov-rubric-col-head">Success metric</span>
-          </div>
-          {rows.map((row) => (
-            <div key={row.goal} className="pov-rubric-row">
-              <span className="pov-rubric-goal">{row.goal}</span>
-              <span className={`pov-rubric-metric${row.autofail ? ' pov-rubric-metric--fail' : ''}`}>
-                {row.metric}
-              </span>
-            </div>
-          ))}
+      <div className="pov-rubric">
+        <div className="pov-rubric-header">
+          <span className="pov-rubric-col-head">Goal</span>
+          <span className="pov-rubric-col-head">Success metric</span>
         </div>
-      </div>
-      <div className={`pov-rubric-fade${open ? ' pov-rubric-fade--open' : ''}`}>
-        <button className="pov-rubric-toggle" onClick={() => setOpen((o) => !o)}>
-          {open ? 'Hide scoring rubric' : 'View scoring rubric'}
-        </button>
+        {rows.map((row) => (
+          <div key={row.goal} className="pov-rubric-row">
+            <span className="pov-rubric-goal">{row.goal}</span>
+            <span className={`pov-rubric-metric${row.autofail ? ' pov-rubric-metric--fail' : ''}`}>
+              {row.metric}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );
