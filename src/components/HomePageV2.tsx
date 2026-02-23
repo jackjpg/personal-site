@@ -46,11 +46,26 @@ const projects = [
 
 // Lessons data
 const lessons = [
-  "Start from emotional intent",
-  "Design the rubric it scores itself against",
-  "Tone is the interface",
-  "Specificity beats blandness",
-  "Prompt structure is a design system",
+  {
+    title: "Start from emotional intent",
+    description: "LLM outputs for social products need to say what the user was already feeling, in a way they'd want to share",
+  },
+  {
+    title: "Design the rubric it scores itself against",
+    description: "Build a scoring system to turn vibes into something the model can reason about",
+  },
+  {
+    title: "Tone is the interface",
+    description: "Users judge by whether it feels like them, not accuracy or coherence",
+  },
+  {
+    title: "Specificity beats blandness",
+    description: "Hyper-specific cues make outputs feel personal",
+  },
+  {
+    title: "Prompt structure is a design system",
+    description: "Each prompt should have structure, logic, and reusable rules",
+  },
 ];
 
 function LeftArrow() {
@@ -208,7 +223,10 @@ export default function HomePageV2() {
               <span className="homepage-v2-lessons-number">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <span className="homepage-v2-lessons-text">{lesson}</span>
+              <span className="homepage-v2-lessons-content">
+                <span className="homepage-v2-lessons-title">{lesson.title}</span>
+                <span className="homepage-v2-lessons-desc">{lesson.description}</span>
+              </span>
             </li>
           ))}
         </ol>

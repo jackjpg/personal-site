@@ -313,7 +313,7 @@ body {
 }
 
 .homepage-v2-lessons li {
-  padding: 4px 0;
+  padding: 8px 0;
   display: flex;
   gap: 12px;
 }
@@ -325,8 +325,19 @@ body {
   min-width: 24px;
 }
 
-.homepage-v2-lessons-text {
+.homepage-v2-lessons-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.homepage-v2-lessons-title {
   color: #F2ECE8;
+}
+
+.homepage-v2-lessons-desc {
+  color: #C8BCC3;
+  opacity: 0.8;
 }
 
 /* Experience Section */
@@ -432,7 +443,8 @@ body:has(.homepage-v2) .siteHeader {
   }
 
   .homepage-v2-section-title,
-  .homepage-v2-lessons-text,
+  .homepage-v2-lessons-title,
+  .homepage-v2-lessons-desc,
   .homepage-v2-contact a {
     font-size: 17px;
     line-height: 22px;
