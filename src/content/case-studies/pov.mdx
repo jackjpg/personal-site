@@ -21,9 +21,7 @@ Seenit turns phone screenshots into short, AI-generated status updates for close
   controls={false}
 />
 
-<Section>
-
-### Lowering the cost of sharing
+<Section title="Lowering the cost of sharing">
 
 Screenshotting is already instinctive; you do it for yourself, not for others. The product needed to preserve that quality while reminding users they had something worth sharing. I designed a push notification and live activity flow so users could share without opening the app or composing anything. The live activity means users aren't stranded on a loading screen while they wait.
 
@@ -38,9 +36,7 @@ Screenshotting is already instinctive; you do it for yourself, not for others. T
   controls={false}
 />
 
-<Section>
-
-### Quality gate
+<Section title="Quality gate">
 
 V1 hit a 20–30% share rate, the cards that got shared were specific, present-tense, and short enough to forward in a group chat. I used those as a proxy for whether a user would put their name to it, and built a scoring rubric to make that repeatable. Sensitive content filtered through on-device OCR before interpretation, anything below 24 points was auto-rejected and retried.
 
@@ -48,9 +44,7 @@ V1 hit a 20–30% share rate, the cards that got shared were specific, present-t
 
 <ScoringRubric />
 
-<Section>
-
-### Regeneration
+<Section title="Regeneration">
 
 I replaced traditional editing with a regenerate control. One tap asks the model for a different interpretation: a silent escape hatch for hallucinations. Users aren't locked into what the system initially inferred, so sharing requires no second-guessing.
 
@@ -62,9 +56,7 @@ I replaced traditional editing with a regenerate control. One tap asks the model
   <img src="/Project_pov/POV_3.png" alt="POV regeneration example 3" />
 </div>
 
-<Section>
-
-### Outcome and learnings
+<Section title="Outcome and learnings">
 
 1. The beta achieved a 20–30% share rate in trusted WhatsApp groups
 1. Regeneration as a first-class control is essential when AI interprets private content, not an afterthought

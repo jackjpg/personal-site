@@ -2407,6 +2407,11 @@ body:has(.case-study-v3-container[data-case-slug="seenit-identity"]) {
   background-color: #E1E3FF !important;
 }
 
+/* Post-sale (Last Mile) case study background */
+body:has(.case-study-v3-container[data-case-slug="post-sale"]) {
+  background-color: #F3F3F3 !important;
+}
+
 /* V3 Desktop Footer Preview */
 .case-study-v3-footer-preview-shell {
   position: relative;
