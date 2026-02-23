@@ -187,12 +187,6 @@ body {
   right: 0;
   bottom: 0;
   display: flex;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.homepage-v2-carousel-image:hover .homepage-v2-carousel-nav {
-  opacity: 1;
 }
 
 .homepage-v2-carousel-nav-left,
@@ -229,12 +223,6 @@ body {
   height: 40px;
 }
 
-/* Always show carousel nav on tablet and mobile */
-@media (max-width: 1024px) {
-  .homepage-v2-carousel-nav {
-    opacity: 1;
-  }
-}
 
 .homepage-v2-carousel-info {
   display: flex;
