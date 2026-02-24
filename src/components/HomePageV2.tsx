@@ -153,7 +153,7 @@ export default function HomePageV2() {
       <nav className="homepage-v2-nav">
         <div className="homepage-v2-nav-left">
           <h1>Jack Parrish</h1>
-          <p>Designing consumer AI and marketplaces</p>
+          <p>Designing identity, trust and AI-native products</p>
         </div>
       </nav>
 
