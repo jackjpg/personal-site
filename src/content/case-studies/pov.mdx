@@ -21,6 +21,21 @@ Seenit turns phone screenshots into short, AI-generated status updates for close
   controls={false}
 />
 
+<Section title="Making sharing repeatable">
+
+After identifying the attributes that drove a 30% share rate in beta, I built a sandbox to isolate and refine those variables into a repeatable prompt logic. I then implemented this as a quality gate that scored outputs against a 24-point rubric, triggering silent retries to ensure every card matched the formula that drove sharing.
+
+</Section>
+
+<V3Image
+  src="/Project_reactions/Seenit-sandbox.mov"
+  alt="Quality gate scoring rubric"
+  aspectRatio="16:9"
+  autoPlay
+  loop
+  controls={false}
+/>
+
 <Section title="Lowering the cost of sharing">
 
 Screenshotting is already instinctive; you do it for yourself, not for others. The product needed to preserve that quality while reminding users they had something worth sharing. I designed a push notification and live activity flow so users could share without opening the app or composing anything. The live activity means users aren't stranded on a loading screen while they wait.
@@ -35,14 +50,6 @@ Screenshotting is already instinctive; you do it for yourself, not for others. T
   loop
   controls={false}
 />
-
-<Section title="Quality gate">
-
-V1 hit a 20–30% share rate, the cards that got shared were specific, present-tense, and short enough to forward in a group chat. I used those as a proxy for whether a user would put their name to it, and built a scoring rubric to make that repeatable. Sensitive content filtered through on-device OCR before interpretation, anything below 24 points was auto-rejected and retried.
-
-</Section>
-
-<ScoringRubric />
 
 <Section title="Regeneration">
 

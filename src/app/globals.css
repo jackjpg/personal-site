@@ -2378,6 +2378,10 @@ body:has(.case-study-v3-wrapper) footer.siteHeader {
   padding: 0 var(--v3-outer-margin);
 }
 
+body:has([data-case-slug="verification"]) {
+  background: #ffffff;
+}
+
 .case-study-v3-container {
   max-width: var(--v3-page-max-width);
   margin: 0 auto;
