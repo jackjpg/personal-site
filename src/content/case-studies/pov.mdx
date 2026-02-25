@@ -23,7 +23,7 @@ Seenit turns phone screenshots into short, AI-generated status updates for close
 
 <Section title="Making sharing repeatable">
 
-After identifying the attributes that drove a 30% share rate in beta, I built a sandbox to isolate and refine those variables into a repeatable prompt logic. I then implemented this as a quality gate that scored outputs against a 24-point rubric, triggering silent retries to ensure every card matched the formula that drove sharing.
+In beta, only 30% of cards were being shared. I identified recurring patterns in the cards that were, and built a testing sandbox to manipulate those attributes and refine the model's voice — enabling rapid iteration on a new system prompt layer. To ensure every card met this standard, I built a 24-point scoring rubric as a quality gate; if an output fell below the threshold, the system triggered a silent retry, ensuring every card consistently matched the high-performing beta cards.
 
 </Section>
 
