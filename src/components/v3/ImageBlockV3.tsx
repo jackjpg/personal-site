@@ -10,6 +10,7 @@ interface ImageBlockV3Props {
   loop?: boolean;
   controls?: boolean;
   border?: boolean;
+  borderRadius?: string;
   gradient?: string; // CSS gradient string, e.g. "linear-gradient(to bottom, #3C2A97, #DAA588)"
 }
 
@@ -31,6 +32,7 @@ export default function ImageBlockV3({
   loop = true,
   controls = true,
   border = false,
+  borderRadius,
   gradient
 }: ImageBlockV3Props) {
   const isVideo = src.match(/\.(mp4|webm|ogg|mov)$/i);
@@ -74,7 +76,8 @@ export default function ImageBlockV3({
                 width: '100%',
                 height: '100%',
                 objectFit: 'contain',
-                objectPosition: 'center'
+                objectPosition: 'center',
+                ...(borderRadius ? { borderRadius } : {})
               }}
             >
               <source src={src} type="video/mp4" />
