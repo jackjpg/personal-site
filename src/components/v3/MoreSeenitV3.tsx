@@ -22,16 +22,10 @@ const seenitProjects: SeenitProject[] = [
     href: '/case/seenit-identity',
     video: '/Project_seenit-identity/seenit-identity.mov'
   },
-  {
-    id: 'reactions',
-    title: 'Lowering the cost of replying',
-    href: '/case/reactions',
-    video: '/Project_reactions/Seenit-reactions.mov'
-  }
 ];
 
 interface MoreSeenitV3Props {
-  current: 'pov' | 'seenit-identity' | 'reactions';
+  current: 'pov' | 'seenit-identity';
 }
 
 export default function MoreSeenitV3({ current }: MoreSeenitV3Props) {

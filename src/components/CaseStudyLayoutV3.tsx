@@ -2,6 +2,7 @@
 
 import React from 'react';
 import ProjectNavV3 from './v3/ProjectNavV3';
+import MoreWorkV3 from './v3/MoreWorkV3';
 
 interface CaseStudyLayoutV3Props {
   children: React.ReactNode;
@@ -21,6 +22,7 @@ export default function CaseStudyLayoutV3({
       <div className="case-study-v3-container" data-case-slug={slug}>
         <ProjectNavV3 title={title} date={date} />
         {children}
+        {slug && <MoreWorkV3 current={slug} />}
       </div>
     </div>
   );

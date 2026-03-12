@@ -8,12 +8,12 @@ layout: "v3"
 
 <Section>
 
-Seenit turns phone screenshots into short, AI-generated status updates for close friends. V1 was a weekly Sunday card summarising your screenshots. But 70% of users had already moved on from the moments it described. I redesigned the system to reach users in the moment, not after the week had passed.
+Screenshots are awesome. They capture everything we actually do online: what we want, where we've been, what made us laugh. At Seenit, I designed and built a system that turned those screenshots into AI-generated statuses for friends. In a 10-day beta, 22 users generated 705 POVs.
 
 </Section>
 
 <V3Image
-  src="/Project_pov/seenit-remix.mov"
+  src="/Project_reactions/Seenit_pov_distribution.mov"
   alt="Seenit POV flow"
   aspectRatio="16:9"
   autoPlay
@@ -23,7 +23,9 @@ Seenit turns phone screenshots into short, AI-generated status updates for close
 
 <Section title="Making sharing repeatable">
 
-In beta, only 30% of cards were being shared. I identified recurring patterns of these cards, and built a testing sandbox to isolate and manipulate 8 core model attributes, which allowed for rapid iteration of a new system prompt layer. This helped ensure that every output consistently matched the high performing beta cards.
+In beta, only 30% of cards were being shared. I identified recurring patterns of these cards, and built a testing sandbox to isolate and manipulate 8 core model attributes, which allowed for rapid iteration of a new system prompt layer.
+
+I designed a rubric scoring gate, but found that a model scoring its own outputs is inherently biased. I introduced an independent judge model to evaluate candidates comparatively rather than in isolation. The model's second attempt consistently outperformed the first.
 
 </Section>
 
@@ -36,14 +38,29 @@ In beta, only 30% of cards were being shared. I identified recurring patterns of
   controls={false}
 />
 
-<Section title="Lowering the cost of sharing">
+<Section title="Designing around the miss">
 
-Screenshotting is already instinctive; you do it for yourself, not for others. The product needed to preserve that quality while reminding users they had something worth sharing. I designed a push notification and live activity flow so users could share without opening the app or composing anything. The live activity means users aren't stranded on a loading screen while they wait.
+When the AI gets it wrong, it breaks trust. A single tap lets users ask the model for a different interpretation rather than editing or dismissing. This kept misses low-stakes, and turns a bad AI hallucination into a fun interaction rather than a product failure.
 
 </Section>
 
 <V3Image
-  src="/Project_pov/POV-activity.mov"
+  src="/Project_reactions/Seenit_pov_regen.mov"
+  alt="POV regeneration flow"
+  aspectRatio="16:9"
+  autoPlay
+  loop
+  controls={false}
+/>
+
+<Section title="Designing around the wait">
+
+I opted for a pipeline that prioritised output quality and cost over speed, which meant building around the constraint. In addition to a processing experience in-app, I built a push notification and live activity flow so users could share without opening the app or composing anything.
+
+</Section>
+
+<V3Image
+  src="/Project_reactions/Seenit_pov_activity.mov"
   alt="Seenit Live Activity"
   aspectRatio="16:9"
   autoPlay
@@ -51,25 +68,12 @@ Screenshotting is already instinctive; you do it for yourself, not for others. T
   controls={false}
 />
 
-<Section title="Regeneration">
-
-I replaced traditional editing with a regenerate control. One tap asks the model for a different interpretation: a silent escape hatch for hallucinations. Users aren't locked into what the system initially inferred, so sharing requires no second-guessing.
-
-</Section>
-
-<div className="cs-image-row">
-  <img src="/Project_pov/POV_1.png" alt="POV regeneration example 1" />
-  <img src="/Project_pov/POV_2.png" alt="POV regeneration example 2" />
-  <img src="/Project_pov/POV_3.png" alt="POV regeneration example 3" />
-</div>
-
 <Section title="Outcome and learnings">
 
-1. The beta achieved a 20–30% share rate in trusted WhatsApp groups
-1. The model's second attempt consistently outperformed the first: validating auto-reject and retry as the right architecture for the scoring rubric
+1. In a 10-day beta, 22 users generated 705 POVs. This meant the habit was forming before distribution was solved
+1. A model scoring its own outputs is inherently biased, it rates what it generated highly because it generated it.
 1. Presence > identity. Friends care more about what you're in the middle of than how you present yourself
 
 </Section>
 
-<MoreSeenit current="pov" />
 

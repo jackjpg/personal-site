@@ -2409,7 +2409,7 @@ body:has(.case-study-v3-container[data-case-slug="reactions"]) {
 
 /* POV case study background */
 body:has(.case-study-v3-container[data-case-slug="pov"]) {
-  background-color: #E1E3FF !important;
+  background-color: #F3E2F0 !important;
 }
 
 /* Seenit Identity case study background */

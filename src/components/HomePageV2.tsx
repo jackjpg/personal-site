@@ -9,7 +9,7 @@ const projects = [
     title: "Seenit POVs",
     description: "Generative statuses from screenshots",
     href: "/case/pov",
-    media: "/Project_pov/POV_1.png",
+    media: "/Project_pov/Seenit_Cover.png",
     isVideo: false,
   },
   {
@@ -24,14 +24,6 @@ const projects = [
     description: "AI-generated identity system",
     href: "/case/seenit-identity",
     media: ["/Project_seenit-identity/Onboarding_3.png", "/Icons/Seenitidentity2.png"],
-    isVideo: false,
-    isMultiple: true,
-  },
-  {
-    title: "Seenit Reactions",
-    description: "Lowering the cost of replying",
-    href: "/case/reactions",
-    media: ["/Project_reactions/Reaction_1.png", "/Project_reactions/Reaction_2.png"],
     isVideo: false,
     isMultiple: true,
   },
