@@ -7,6 +7,7 @@ interface Project {
   title: string;
   href: string;
   media: string;
+  isVideo?: boolean;
 }
 
 const projects: Project[] = [
@@ -14,25 +15,27 @@ const projects: Project[] = [
     slug: 'pov',
     title: 'Generative statuses from screenshots',
     href: '/case/pov',
-    media: '/Project_pov/Seenit_Cover.png',
+    media: '/Project_reactions/Seenit_pov_distribution.mov',
+    isVideo: true,
   },
   {
     slug: 'post-sale',
     title: 'Building trust after the sale',
     href: '/case/post-sale',
-    media: '/Icons/MW_postsale_thumb@3x.png',
+    media: '/Project_post-sale/hero_bmwpostsale.png',
   },
   {
     slug: 'seenit-identity',
     title: 'AI-generated identity system',
     href: '/case/seenit-identity',
-    media: '/Project_seenit-identity/Onboarding_3.png',
+    media: '/Project_seenit-identity/seenit-identity.mov',
+    isVideo: true,
   },
   {
     slug: 'verification',
     title: 'Improving first-time approval',
     href: '/case/verification',
-    media: '/Icons/verifiction_hero.png',
+    media: '/Project_verification/verification-hero.png',
   },
 ];
 
@@ -59,11 +62,23 @@ export default function MoreWorkV3({ current }: MoreWorkV3Props) {
             className="homepage-grid-item"
           >
             <div className="homepage-grid-item-media">
-              <img
-                src={project.media}
-                alt={project.title}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
+              {project.isVideo ? (
+                <video
+                  src={project.media}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              ) : (
+                <img
+                  src={project.media}
+                  alt={project.title}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              )}
               <div className="homepage-grid-item-overlay">
                 <span className="homepage-grid-item-overlay-title">{project.title}</span>
               </div>
